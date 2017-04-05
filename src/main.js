@@ -9,10 +9,10 @@ requirejs.config({
     baseUrl: 'components',
     paths: {
         app: '../app',
-        libs: '../libs'
+        libs: '../libs',
     }
 });
 
 // Start loading the main app file. Put all of
 // your application logic in there.
-requirejs(['app']);
+requirejs(['../dist/build']);

@@ -1,5 +1,6 @@
 
 import Vue from 'vue'
+import jQuery from 'jquery'
 import Layout from './components/layout.vue'
 
 new Vue({
@@ -8,3 +9,4 @@ new Vue({
         return createElement(Layout)
     }
 })
+

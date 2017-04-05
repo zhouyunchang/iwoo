@@ -152,22 +152,26 @@
 </template>
 
 <script>
+
+import $ from 'jquery'
+
 export default {
     data: function() {
         return {}
     },
     methods: {
-          sidebarToggle: function(event) {
-                console.log(event.target);
-                setTimeout(function() {
-                // all IE friendly dispatchEvent
-                var evt = document.createEvent('UIEvents');
-                evt.initUIEvent('resize', true, false, window, 0);
-                window.dispatchEvent(evt);
-                // modern dispatchEvent way
-                // window.dispatchEvent(new Event('resize'));
-            }, 300);
-          }
+      sidebarToggle: function(event) {
+            var element = $(event.target);
+            var value = element.data('triggerResize')
+            setTimeout(function() {
+                  // all IE friendly dispatchEvent
+                  var evt = document.createEvent('UIEvents');
+                  evt.initUIEvent('resize', true, false, window, 0);
+                  window.dispatchEvent(evt);
+                  // modern dispatchEvent way
+                  // window.dispatchEvent(new Event('resize'));
+            }, value || 300);
+      }
     }
 }
 </script>

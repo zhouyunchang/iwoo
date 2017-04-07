@@ -1,3 +1,10 @@
+# ignore visual studio directory
+.vs/
+packages/
+obj/
+bin/
+
+
 # ignore webpack build dist directory
 src/dist/
 

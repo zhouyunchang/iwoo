@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuthAuthorizationServer", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CocoBen.Core", "CocoBen.Core\CocoBen.Core.csproj", "{B0BEBC6E-CDC1-4757-842E-E1E8D6C34A04}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CocoBen.WebApi", "CocoBen.WebApi\CocoBen.WebApi.csproj", "{A3597E5A-7C7B-4DCE-8A75-D8F0DEC434D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CocoBen.WebApi.Tests", "CocoBen.WebApi.Tests\CocoBen.WebApi.Tests.csproj", "{C7193B84-931A-462C-8B75-62C7CC1A9CE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuthClientDemo", "WebApplication1\OAuthClientDemo.csproj", "{61319D23-9964-4DAC-B711-1488390DB7E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,11 +29,24 @@ Global
 		{B0BEBC6E-CDC1-4757-842E-E1E8D6C34A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0BEBC6E-CDC1-4757-842E-E1E8D6C34A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0BEBC6E-CDC1-4757-842E-E1E8D6C34A04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3597E5A-7C7B-4DCE-8A75-D8F0DEC434D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3597E5A-7C7B-4DCE-8A75-D8F0DEC434D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3597E5A-7C7B-4DCE-8A75-D8F0DEC434D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3597E5A-7C7B-4DCE-8A75-D8F0DEC434D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7193B84-931A-462C-8B75-62C7CC1A9CE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7193B84-931A-462C-8B75-62C7CC1A9CE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7193B84-931A-462C-8B75-62C7CC1A9CE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7193B84-931A-462C-8B75-62C7CC1A9CE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61319D23-9964-4DAC-B711-1488390DB7E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61319D23-9964-4DAC-B711-1488390DB7E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61319D23-9964-4DAC-B711-1488390DB7E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61319D23-9964-4DAC-B711-1488390DB7E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0844034E-63AD-4501-AB88-E2525B68DE68} = {A9E23E70-3012-4E72-92FD-6220BBB84826}
+		{61319D23-9964-4DAC-B711-1488390DB7E8} = {A9E23E70-3012-4E72-92FD-6220BBB84826}
 	EndGlobalSection
 EndGlobal

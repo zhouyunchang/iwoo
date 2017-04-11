@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace CocoBen.WebApi
+namespace Cben.WebApi
 {
     public class FilterConfig
     {

@@ -41,13 +41,13 @@
                 dc.Database.Create();
 
                 // Add the necessary row for the sample client.
-                dc.Clients.Add(new CocoBen.Authorization.Client
+                dc.Clients.Add(new Cben.Authorization.Client
                 {
                     ClientIdentifier = "sampleconsumer",
                     ClientSecret = "samplesecret",
                     Name = "Some sample client",
                 });
-                dc.Clients.Add(new CocoBen.Authorization.Client
+                dc.Clients.Add(new Cben.Authorization.Client
                 {
                     ClientIdentifier = "sampleImplicitConsumer",
                     Name = "Some sample client used for implicit grants (no secret)",

@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace CocoBen.WebApi.Areas.HelpPage
+namespace Cben.WebApi.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {

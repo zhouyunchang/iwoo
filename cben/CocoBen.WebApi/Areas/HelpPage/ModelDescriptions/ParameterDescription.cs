@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace CocoBen.WebApi.Areas.HelpPage.ModelDescriptions
+namespace Cben.WebApi.Areas.HelpPage.ModelDescriptions
 {
     public class ParameterDescription
     {

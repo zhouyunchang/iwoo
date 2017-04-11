@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace CocoBen.WebApi
+namespace Cben.WebApi
 {
     public class BundleConfig
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CocoBen.Authorization
+namespace Cben.Authorization
 {
     public class SymmetricCryptoKey
     {

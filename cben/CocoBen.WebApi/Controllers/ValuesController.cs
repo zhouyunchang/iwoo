@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace CocoBen.WebApi.Controllers
+namespace Cben.WebApi.Controllers
 {
     public class ValuesController : ApiController
     {

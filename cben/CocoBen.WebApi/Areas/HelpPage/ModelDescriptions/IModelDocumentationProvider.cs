@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace CocoBen.WebApi.Areas.HelpPage.ModelDescriptions
+namespace Cben.WebApi.Areas.HelpPage.ModelDescriptions
 {
     public interface IModelDocumentationProvider
     {

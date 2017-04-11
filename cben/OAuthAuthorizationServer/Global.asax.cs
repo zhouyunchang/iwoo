@@ -34,7 +34,7 @@ namespace OAuthAuthorizationServer
             }
         }
 
-        public static CocoBen.Authorization.User LoggedInUser
+        public static Cben.Authorization.User LoggedInUser
         {
             get { return DataContext.Users.SingleOrDefault(user => user.OpenIDClaimedIdentifier == HttpContext.Current.User.Identity.Name); }
         }

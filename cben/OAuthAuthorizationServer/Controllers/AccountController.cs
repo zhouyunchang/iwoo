@@ -63,7 +63,7 @@
                         string identifier = response.ClaimedIdentifier; 
                         if (MvcApplication.DataContext.Users.FirstOrDefault(u => u.OpenIDClaimedIdentifier == identifier) == null)
                         {
-                            MvcApplication.DataContext.Users.Add(new CocoBen.Authorization.User
+                            MvcApplication.DataContext.Users.Add(new Cben.Authorization.User
                             {
                                 OpenIDFriendlyIdentifier = response.FriendlyIdentifierForDisplay,
                                 OpenIDClaimedIdentifier = response.ClaimedIdentifier,

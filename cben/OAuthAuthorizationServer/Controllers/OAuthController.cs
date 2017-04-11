@@ -74,7 +74,7 @@ namespace OAuthAuthorizationServer.Controllers {
 				// property in the below created ClientAuthorization.
 				var client = MvcApplication.DataContext.Clients.First(c => c.ClientIdentifier == pendingRequest.ClientIdentifier);
 				MvcApplication.DataContext.ClientAuthorizations.Add(
-					new CocoBen.Authorization.ClientAuthorization
+					new Cben.Authorization.ClientAuthorization
                     {
 						Scope = OAuthUtilities.JoinScopes(pendingRequest.Scope),
 						UserId = MvcApplication.LoggedInUser.UserId,

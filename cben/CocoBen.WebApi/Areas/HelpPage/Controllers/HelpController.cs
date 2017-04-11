@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using CocoBen.WebApi.Areas.HelpPage.ModelDescriptions;
-using CocoBen.WebApi.Areas.HelpPage.Models;
+using Cben.WebApi.Areas.HelpPage.ModelDescriptions;
+using Cben.WebApi.Areas.HelpPage.Models;
 
-namespace CocoBen.WebApi.Areas.HelpPage.Controllers
+namespace Cben.WebApi.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

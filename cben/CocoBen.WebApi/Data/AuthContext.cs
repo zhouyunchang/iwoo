@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace CocoBen.WebApi
+namespace Cben.WebApi
 {
     public class AuthContext : IdentityDbContext<IdentityUser>
     {

@@ -1,4 +1,4 @@
-﻿using CocoBen.Authorization;
+﻿using Cben.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +21,7 @@ namespace OAuthAuthorizationServer.Code
                 .Where(i => i.ClientId == client.ClientId).ToList();
         }
 
-        public static Client GetClient(this CocoBen.Authorization.Client client)
+        public static Client GetClient(this Cben.Authorization.Client client)
         {
 
             return new Client()

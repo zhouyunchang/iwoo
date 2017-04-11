@@ -1,6 +1,6 @@
 using System;
 
-namespace CocoBen.WebApi.Areas.HelpPage.ModelDescriptions
+namespace Cben.WebApi.Areas.HelpPage.ModelDescriptions
 {
     public class ParameterAnnotation
     {

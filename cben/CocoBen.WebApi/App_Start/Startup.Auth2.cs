@@ -13,7 +13,7 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace CocoBen.WebApi
+namespace Cben.WebApi
 {
 
     public static class Paths

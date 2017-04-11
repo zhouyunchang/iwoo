@@ -1,4 +1,4 @@
-﻿using CocoBen.WebApi.Models;
+﻿using Cben.WebApi.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace CocoBen.WebApi.Controllers
+namespace Cben.WebApi.Controllers
 {
     [RoutePrefix("api/Identity")]
     public class IdentityController : ApiController

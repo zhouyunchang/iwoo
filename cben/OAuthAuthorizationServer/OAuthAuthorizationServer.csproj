@@ -261,9 +261,9 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CocoBen.Core\CocoBen.Core.csproj">
+    <ProjectReference Include="..\CocoBen.Core\Cben.Core.csproj">
       <Project>{b0bebc6e-cdc1-4757-842e-e1e8d6c34a04}</Project>
-      <Name>CocoBen.Core</Name>
+      <Name>Cben.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

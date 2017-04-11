@@ -11,10 +11,10 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using CocoBen.WebApi.Areas.HelpPage.ModelDescriptions;
-using CocoBen.WebApi.Areas.HelpPage.Models;
+using Cben.WebApi.Areas.HelpPage.ModelDescriptions;
+using Cben.WebApi.Areas.HelpPage.Models;
 
-namespace CocoBen.WebApi.Areas.HelpPage
+namespace Cben.WebApi.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

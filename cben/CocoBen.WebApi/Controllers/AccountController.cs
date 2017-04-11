@@ -6,7 +6,7 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 
-namespace CocoBen.WebApi.Controllers
+namespace Cben.WebApi.Controllers
 {
     [Authorize]
     public class AccountController : Controller

@@ -45,7 +45,7 @@
         /// </remarks>
         public bool StoreNonce(string context, string nonce, DateTime timestampUtc)
         {
-            MvcApplication.DataContext.Nonces.Add(new CocoBen.Authorization.Nonce
+            MvcApplication.DataContext.Nonces.Add(new Cben.Authorization.Nonce
             {
                 Context = context,
                 Code = nonce,
@@ -86,7 +86,7 @@
 
         public void StoreKey(string bucket, string handle, CryptoKey key)
         {
-            var keyRow = new CocoBen.Authorization.SymmetricCryptoKey()
+            var keyRow = new Cben.Authorization.SymmetricCryptoKey()
             {
                 Bucket = bucket,
                 Handle = handle,

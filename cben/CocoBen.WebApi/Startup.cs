@@ -5,8 +5,8 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-[assembly: OwinStartup(typeof(CocoBen.WebApi.Startup))]
-namespace CocoBen.WebApi
+[assembly: OwinStartup(typeof(Cben.WebApi.Startup))]
+namespace Cben.WebApi
 {
     public partial class Startup
     {

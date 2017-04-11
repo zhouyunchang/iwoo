@@ -7,7 +7,7 @@
 	/// <summary>
 	/// An OAuth 2.0 Client that has registered with this Authorization Server.
 	/// </summary>
-	public class Client : CocoBen.Authorization.Client, IClientDescription {
+	public class Client : Cben.Authorization.Client, IClientDescription {
 		#region IConsumerDescription Members
 
 		/// <summary>

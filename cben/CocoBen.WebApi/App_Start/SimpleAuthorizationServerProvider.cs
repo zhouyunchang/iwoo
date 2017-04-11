@@ -3,7 +3,7 @@ using Microsoft.Owin.Security.OAuth;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace CocoBen.WebApi
+namespace Cben.WebApi
 {
     internal class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {

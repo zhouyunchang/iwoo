@@ -19,7 +19,7 @@ namespace Cben.WebApi.Controllers
             var authentication = HttpContext.GetOwinContext().Authentication;
             if (Request.HttpMethod == "POST")
             {
-                
+
                 var isPersistent = !string.IsNullOrEmpty(Request.Form.Get("RememberMe"));
                 // 作为示例程序， 这里没有对用户进行验证， 直接登录用户输入的账户。
                 if (!string.IsNullOrEmpty(Request.Form.Get("submit.Signin")))
@@ -30,6 +30,8 @@ namespace Cben.WebApi.Controllers
                             new[] { new Claim(ClaimsIdentity.DefaultNameClaimType, Request.Form["UserSuppliedIdentifier"]) },
                             Startup.AuthenticationType)
                     );
+                    string retUrl = Request.QueryString["ReturnUrl"];
+                    return Redirect(retUrl);
                 }
             }
             return View();

@@ -42,10 +42,6 @@ namespace WebApplication1.Controllers
                 };
                 var webServerClient = new WebServerClient(authServer, "123456", "abcdef");
 
-                var userAuthorization = webServerClient.PrepareRequestUserAuthorization(new[] { "bio", "notes" });
-                userAuthorization.Send(HttpContext);
-                Response.End();
-
                 // get access token from request (redirect from oauth server)
                 var authorizationState = webServerClient.ProcessUserAuthorization(Request);
                 if (authorizationState != null)
@@ -53,6 +49,12 @@ namespace WebApplication1.Controllers
                     ViewBag.AccessToken = authorizationState.AccessToken;
                     ViewBag.RefreshToken = authorizationState.RefreshToken;
                     ViewBag.Action = Request.Path;
+                }
+                else
+                {
+                    var userAuthorization = webServerClient.PrepareRequestUserAuthorization(new[] { "bio", "notes" });
+                    userAuthorization.Send(HttpContext);
+                    Response.End();
                 }
 
                 //refresh token

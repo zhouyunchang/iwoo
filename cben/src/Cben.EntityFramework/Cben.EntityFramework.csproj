@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{199CB870-3644-461F-80D5-2FD6EED93111}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cben.EntityFramework</RootNamespace>
+    <AssemblyName>Cben.EntityFramework</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET452</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=3.4.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.3.4.0\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.DynamicFilters, Version=2.6.0.0, Culture=neutral, PublicKeyToken=146423a1b8d60775, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.DynamicFilters.2.6.0\lib\net40\EntityFramework.DynamicFilters.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.3.1\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\AutoRepositoryTypesAttribute.cs" />
+    <Compile Include="Common\DbContextTypeMatcher.cs" />
+    <Compile Include="Common\DefaultDbContextAttribute.cs" />
+    <Compile Include="Common\EntityTypeInfo.cs" />
+    <Compile Include="Common\IDbContextTypeMatcher.cs" />
+    <Compile Include="EntityFramework\CbenDbContext.cs" />
+    <Compile Include="EntityFramework\CbenEntityFrameworkModule.cs" />
+    <Compile Include="EntityFramework\DbContextHelper.cs" />
+    <Compile Include="EntityFramework\DbContextTypeMatcher.cs" />
+    <Compile Include="EntityFramework\DefaultDbContextResolver.cs" />
+    <Compile Include="EntityFramework\Extensions\QueryableExtensions.cs" />
+    <Compile Include="EntityFramework\IDbContextProvider.cs" />
+    <Compile Include="EntityFramework\IDbContextResolver.cs" />
+    <Compile Include="EntityFramework\Interceptors\WithNolockInterceptor.cs" />
+    <Compile Include="EntityFramework\Linq\EfAsyncQueryableExecuter.cs" />
+    <Compile Include="EntityFramework\Repositories\EfAutoRepositoryTypes.cs" />
+    <Compile Include="EntityFramework\Repositories\EfRepositoryBaseOfTEntity.cs" />
+    <Compile Include="EntityFramework\Repositories\EfRepositoryBaseOfTEntityAndTPrimaryKey.cs" />
+    <Compile Include="EntityFramework\Repositories\EfRepositoryExtensions.cs" />
+    <Compile Include="EntityFramework\Repositories\EntityFrameworkGenericRepositoryRegistrar.cs" />
+    <Compile Include="EntityFramework\Repositories\IEntityFrameworkGenericRepositoryRegistrar.cs" />
+    <Compile Include="EntityFramework\Repositories\IRepositoryWithDbContext.cs" />
+    <Compile Include="EntityFramework\SimpleDbContextProvider.cs" />
+    <Compile Include="EntityFramework\Uow\ActiveDbContextInfo.cs" />
+    <Compile Include="EntityFramework\Uow\ActiveTransactionInfo.cs" />
+    <Compile Include="EntityFramework\Uow\DbContextEfTransactionStrategy.cs" />
+    <Compile Include="EntityFramework\Uow\EfDynamicFiltersUnitOfWorkFilterExecuter.cs" />
+    <Compile Include="EntityFramework\Uow\EfUnitOfWork.cs" />
+    <Compile Include="EntityFramework\Uow\IEfTransactionStrategy.cs" />
+    <Compile Include="EntityFramework\Uow\IEfUnitOfWorkFilterExecuter.cs" />
+    <Compile Include="EntityFramework\Uow\TransactionScopeEfTransactionStrategy.cs" />
+    <Compile Include="EntityFramework\Uow\UnitOfWorkDbContextProvider.cs" />
+    <Compile Include="EntityFramework\Uow\UnitOfWorkExtensions.cs" />
+    <Compile Include="EntityFramework\Utils\DateTimePropertyInfoHelper.cs" />
+    <Compile Include="EntityFramework\Utils\EntityDateTimePropertiesInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cben\Cben.csproj">
+      <Project>{d73fa2e0-0305-46e0-a59c-1b7a7cbd69dc}</Project>
+      <Name>Cben</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

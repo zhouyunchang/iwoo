@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,12 +43,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authorization\Client.cs" />
-    <Compile Include="Authorization\ClientAuthorization.cs" />
-    <Compile Include="Authorization\Nonce.cs" />
-    <Compile Include="Authorization\SymmetricCryptoKey.cs" />
-    <Compile Include="Authorization\User.cs" />
+    <Compile Include="Authorization\CbenAuthorizationProvider.cs" />
+    <Compile Include="Authorization\LoginManager.cs" />
+    <Compile Include="Authorization\PermissionChecker.cs" />
+    <Compile Include="Authorization\PermissionNames.cs" />
+    <Compile Include="Authorization\Roles\AppRoleConfig.cs" />
+    <Compile Include="Authorization\Roles\Role.cs" />
+    <Compile Include="Authorization\Roles\RoleManager.cs" />
+    <Compile Include="Authorization\Roles\RoleStore.cs" />
+    <Compile Include="Authorization\Roles\StaticRoleNames.cs" />
+    <Compile Include="CbenCoreModule.cs" />
+    <Compile Include="Editions\EditionManager.cs" />
+    <Compile Include="Features\FeatureValueStore.cs" />
+    <Compile Include="MultiTenancy\Tenant.cs" />
+    <Compile Include="MultiTenancy\TenantManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Users\User.cs" />
+    <Compile Include="Users\UserManager.cs" />
+    <Compile Include="Users\UserStore.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cben.Zero\Cben.Zero.csproj">
+      <Project>{2C568897-2A57-4BD6-8ECE-EDB39CEAED70}</Project>
+      <Name>Cben.Zero</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cben\Cben.csproj">
+      <Project>{D73FA2E0-0305-46E0-A59C-1B7A7CBD69DC}</Project>
+      <Name>Cben</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Localization\Source\Cben-es.xml" />
+    <Content Include="Localization\Source\Cben-fr.xml" />
+    <Content Include="Localization\Source\Cben-it.xml" />
+    <Content Include="Localization\Source\Cben-ja.xml" />
+    <Content Include="Localization\Source\Cben-pt-BR.xml" />
+    <Content Include="Localization\Source\Cben-tr.xml" />
+    <Content Include="Localization\Source\Cben-zh-CN.xml" />
+    <Content Include="Localization\Source\Cben.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

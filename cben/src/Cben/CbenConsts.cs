@@ -6,7 +6,7 @@ namespace Cben
     public static class CbenConsts
     {
         /// <summary>
-        /// Localization source name of ASP.NET Boilerplate framework.
+        /// Localization source name of Cben framework.
         /// </summary>
         public const string LocalizationSourceName = "Cben";
     }

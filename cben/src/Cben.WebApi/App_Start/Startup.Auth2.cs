@@ -118,6 +118,7 @@ namespace Cben.WebApi
                 context.Scope.Select(x => new Claim("urn:oauth:scope", x))
             );
             context.Validated(identity);
+
             return Task.FromResult(0);
         }
 

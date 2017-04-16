@@ -136,7 +136,7 @@ namespace Cben.Authorization.Users
         public virtual bool IsPhoneNumberConfirmed { get; set; }
 
         /// <summary>
-        /// Gets or sets the security stamp.
+        /// Gets or sets the security stamp.  防伪印章
         /// </summary>
         public virtual string SecurityStamp { get; set; }
 

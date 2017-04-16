@@ -15,9 +15,9 @@ namespace Cben.Runtime.Caching.Configuration
         }
         private readonly List<ICacheConfigurator> _configurators;
 
-        public CachingConfiguration(ICbenStartupConfiguration CbenConfiguration)
+        public CachingConfiguration(ICbenStartupConfiguration cbenConfiguration)
         {
-            CbenConfiguration = CbenConfiguration;
+            CbenConfiguration = cbenConfiguration;
 
             _configurators = new List<ICacheConfigurator>();
         }

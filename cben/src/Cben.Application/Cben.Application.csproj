@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B0BEBC6E-CDC1-4757-842E-E1E8D6C34A04}</ProjectGuid>
+    <ProjectGuid>{4B8862D1-0569-4CCE-A6B9-4C4EE722A522}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cben.Core</RootNamespace>
-    <AssemblyName>Cben.Core</AssemblyName>
+    <RootNamespace>Cben.Application</RootNamespace>
+    <AssemblyName>Cben.Application</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,10 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,48 +47,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authorization\CbenAuthorizationProvider.cs" />
-    <Compile Include="Authorization\LoginManager.cs" />
-    <Compile Include="Authorization\PermissionChecker.cs" />
-    <Compile Include="Authorization\PermissionNames.cs" />
-    <Compile Include="Authorization\Roles\AppRoleConfig.cs" />
-    <Compile Include="Authorization\Roles\Role.cs" />
-    <Compile Include="Authorization\Roles\RoleManager.cs" />
-    <Compile Include="Authorization\Roles\RoleStore.cs" />
-    <Compile Include="Authorization\Roles\StaticRoleNames.cs" />
-    <Compile Include="CbenCoreConsts.cs" />
-    <Compile Include="CbenCoreModule.cs" />
-    <Compile Include="Editions\EditionManager.cs" />
-    <Compile Include="Features\FeatureValueStore.cs" />
-    <Compile Include="MultiTenancy\Tenant.cs" />
-    <Compile Include="MultiTenancy\TenantManager.cs" />
+    <Compile Include="CbenApplicationModule.cs" />
+    <Compile Include="CbenAppServiceBase.cs" />
+    <Compile Include="MultiTenancy\Dto\CreateTenantInput.cs" />
+    <Compile Include="MultiTenancy\Dto\TenantListDto.cs" />
+    <Compile Include="MultiTenancy\ITenantAppService.cs" />
+    <Compile Include="MultiTenancy\TenantAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Users\User.cs" />
-    <Compile Include="Users\UserManager.cs" />
-    <Compile Include="Users\UserStore.cs" />
+    <Compile Include="Roles\Dto\UpdateRolePermissionsInput.cs" />
+    <Compile Include="Roles\IRoleAppService.cs" />
+    <Compile Include="Roles\RoleAppService.cs" />
+    <Compile Include="Sessions\Dto\GetCurrentLoginInformationsOutput.cs" />
+    <Compile Include="Sessions\Dto\TenantLoginInfoDto.cs" />
+    <Compile Include="Sessions\Dto\UserLoginInfoDto.cs" />
+    <Compile Include="Sessions\ISessionAppService.cs" />
+    <Compile Include="Sessions\SessionAppService.cs" />
+    <Compile Include="Users\Dto\CreateUserInput.cs" />
+    <Compile Include="Users\Dto\ProhibitPermissionInput.cs" />
+    <Compile Include="Users\Dto\UserListDto.cs" />
+    <Compile Include="Users\IUserAppService.cs" />
+    <Compile Include="Users\UserAppService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cben.AutoMapper\Cben.AutoMapper.csproj">
+      <Project>{e68f0628-3d40-4ccb-bea6-233ac5fce0f9}</Project>
+      <Name>Cben.AutoMapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cben.Core\Cben.Core.csproj">
+      <Project>{b0bebc6e-cdc1-4757-842e-e1e8d6c34a04}</Project>
+      <Name>Cben.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cben.Zero\Cben.Zero.csproj">
-      <Project>{2C568897-2A57-4BD6-8ECE-EDB39CEAED70}</Project>
+      <Project>{2c568897-2a57-4bd6-8ece-edb39ceaed70}</Project>
       <Name>Cben.Zero</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cben\Cben.csproj">
-      <Project>{D73FA2E0-0305-46E0-A59C-1B7A7CBD69DC}</Project>
+      <Project>{d73fa2e0-0305-46e0-a59c-1b7a7cbd69dc}</Project>
       <Name>Cben</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Localization\Source\Cben-es.xml" />
-    <Content Include="Localization\Source\Cben-fr.xml" />
-    <Content Include="Localization\Source\Cben-it.xml" />
-    <Content Include="Localization\Source\Cben-ja.xml" />
-    <Content Include="Localization\Source\Cben-pt-BR.xml" />
-    <Content Include="Localization\Source\Cben-tr.xml" />
-    <Content Include="Localization\Source\Cben-zh-CN.xml" />
-    <Content Include="Localization\Source\Cben.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

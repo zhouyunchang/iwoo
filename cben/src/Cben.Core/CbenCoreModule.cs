@@ -29,7 +29,7 @@ namespace Cben.Core
 
             Configuration.Localization.Sources.Add(
                 new DictionaryBasedLocalizationSource(
-                    CbenConsts.LocalizationSourceName,
+                    CbenCoreConsts.LocalizationSourceName,
                     new XmlEmbeddedFileLocalizationDictionaryProvider(
                         Assembly.GetExecutingAssembly(),
                         "Cben.Localization.Source"

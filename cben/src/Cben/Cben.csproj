@@ -261,8 +261,10 @@
     <Compile Include="Dependency\IocManager.cs" />
     <Compile Include="Dependency\IocRegistrarExtensions.cs" />
     <Compile Include="Dependency\IocResolverExtensions.cs" />
+    <Compile Include="Dependency\IScopedIocResolver.cs" />
     <Compile Include="Dependency\ISingletonDependency.cs" />
     <Compile Include="Dependency\ITransientDependency.cs" />
+    <Compile Include="Dependency\ScopedIocResolver.cs" />
     <Compile Include="Dependency\SingletonDependency.cs" />
     <Compile Include="DisposeAction.cs" />
     <Compile Include="Domain\Entities\AggregateRoot.cs" />

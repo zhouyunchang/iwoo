@@ -4,9 +4,9 @@
     {
         public ICbenStartupConfiguration CbenConfiguration { get; private set; }
 
-        public ModuleConfigurations(ICbenStartupConfiguration CbenConfiguration)
+        public ModuleConfigurations(ICbenStartupConfiguration cbenConfiguration)
         {
-            CbenConfiguration = CbenConfiguration;
+            CbenConfiguration = cbenConfiguration;
         }
     }
 }

@@ -26,6 +26,9 @@ using Cben.Threading;
 using Cben.Threading.BackgroundWorkers;
 using Cben.Timing;
 using Castle.MicroKernel.Registration;
+using Cben.Runtime;
+using Cben.Runtime.Remoting;
+using Cben.MultiTenancy;
 
 namespace Cben
 {
@@ -39,33 +42,15 @@ namespace Cben
         {
             IocManager.AddConventionalRegistrar(new BasicConventionalRegistrar());
 
-            ValidationInterceptorRegistrar.Initialize(IocManager);
-            AuditingInterceptorRegistrar.Initialize(IocManager);
-            UnitOfWorkRegistrar.Initialize(IocManager);
-            AuthorizationInterceptorRegistrar.Initialize(IocManager);
+            IocManager.Register<IScopedIocResolver, ScopedIocResolver>(DependencyLifeStyle.Transient);
+            IocManager.Register(typeof(IAmbientScopeProvider<>), typeof(DataContextAmbientScopeProvider<>), DependencyLifeStyle.Transient);
 
-            Configuration.Auditing.Selectors.Add(
-                new NamedTypeSelector(
-                    "Cben.ApplicationServices",
-                    type => typeof(IApplicationService).IsAssignableFrom(type)
-                    )
-                );
+            InitializeInterceptors();
 
-            Configuration.Localization.Sources.Add(
-                new DictionaryBasedLocalizationSource(
-                    CbenConsts.LocalizationSourceName,
-                    new XmlEmbeddedFileLocalizationDictionaryProvider(
-                        Assembly.GetExecutingAssembly(), "Cben.Localization.Sources.CbenXmlSource"
-                        )));
-
-            Configuration.Settings.Providers.Add<LocalizationSettingProvider>();
-            Configuration.Settings.Providers.Add<EmailSettingProvider>();
-            Configuration.Settings.Providers.Add<NotificationSettingProvider>();
-            Configuration.Settings.Providers.Add<TimingSettingProvider>();
-
-            Configuration.UnitOfWork.RegisterFilter(CbenDataFilters.SoftDelete, true);
-            Configuration.UnitOfWork.RegisterFilter(CbenDataFilters.MustHaveTenant, true);
-            Configuration.UnitOfWork.RegisterFilter(CbenDataFilters.MayHaveTenant, true);
+            AddAuditingSelectors();
+            AddLocalizationSources();
+            AddSettingProviders();
+            AddUnitOfWorkFilters();
 
             ConfigureCaches();
             AddIgnoredTypes();
@@ -112,6 +97,49 @@ namespace Cben
             {
                 IocManager.Resolve<IBackgroundWorkerManager>().StopAndWaitToStop();
             }
+        }
+
+        private void InitializeInterceptors()
+        {
+            ValidationInterceptorRegistrar.Initialize(IocManager);
+            AuditingInterceptorRegistrar.Initialize(IocManager);
+            UnitOfWorkRegistrar.Initialize(IocManager);
+            AuthorizationInterceptorRegistrar.Initialize(IocManager);
+        }
+
+        private void AddUnitOfWorkFilters()
+        {
+            Configuration.UnitOfWork.RegisterFilter(CbenDataFilters.SoftDelete, true);
+            Configuration.UnitOfWork.RegisterFilter(CbenDataFilters.MustHaveTenant, true);
+            Configuration.UnitOfWork.RegisterFilter(CbenDataFilters.MayHaveTenant, true);
+        }
+
+        private void AddSettingProviders()
+        {
+            Configuration.Settings.Providers.Add<LocalizationSettingProvider>();
+            Configuration.Settings.Providers.Add<EmailSettingProvider>();
+            Configuration.Settings.Providers.Add<NotificationSettingProvider>();
+            Configuration.Settings.Providers.Add<TimingSettingProvider>();
+        }
+
+        private void AddAuditingSelectors()
+        {
+            Configuration.Auditing.Selectors.Add(
+                new NamedTypeSelector(
+                    "Cben.ApplicationServices",
+                    type => typeof(IApplicationService).IsAssignableFrom(type)
+                )
+            );
+        }
+
+        private void AddLocalizationSources()
+        {
+            Configuration.Localization.Sources.Add(
+                new DictionaryBasedLocalizationSource(
+                    CbenConsts.LocalizationSourceName,
+                    new XmlEmbeddedFileLocalizationDictionaryProvider(
+                        Assembly.GetExecutingAssembly(), "Cben.Localization.Sources.CbenXmlSource"
+                    )));
         }
 
         private void ConfigureCaches()
@@ -167,6 +195,8 @@ namespace Cben
             IocManager.RegisterIfNot<INotificationStore, NullNotificationStore>(DependencyLifeStyle.Singleton);
             IocManager.RegisterIfNot<IUnitOfWorkFilterExecuter, NullUnitOfWorkFilterExecuter>(DependencyLifeStyle.Singleton);
             IocManager.RegisterIfNot<IClientInfoProvider, NullClientInfoProvider>(DependencyLifeStyle.Singleton);
+            IocManager.RegisterIfNot<ITenantStore, NullTenantStore>(DependencyLifeStyle.Singleton);
+            IocManager.RegisterIfNot<ITenantResolverCache, NullTenantResolverCache>(DependencyLifeStyle.Singleton);
 
             if (Configuration.BackgroundJobs.IsJobExecutionEnabled)
             {

@@ -1,5 +1,4 @@
 ﻿using Cben;
-using Cben.Dependency;
 using Cben.Modules;
 using Cben.Threading;
 using System;
@@ -8,10 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cben.EntityFramework.Tests
+namespace Cben.Application.Tests
 {
-    public class TestApplication<TStartupModule> 
-        where TStartupModule : CbenModule
+    public class TestApplication<TStartupModule> where TStartupModule : CbenModule
     {
 
         public static CbenBootstrapper CbenBootstrapper => CbenBootstrapper.Create<TStartupModule>();

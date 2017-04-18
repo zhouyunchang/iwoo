@@ -10,6 +10,7 @@ using Cben.BackgroundJobs;
 using Cben.EntityFramework.Extensions;
 using Cben.MultiTenancy;
 using Cben.Notifications;
+using Cben.Zero.OAuth2;
 
 namespace Cben.Zero.EntityFramework
 {
@@ -56,6 +57,10 @@ namespace Cben.Zero.EntityFramework
         /// User accounts
         /// </summary>
         public virtual IDbSet<UserAccount> UserAccounts { get; set; }
+
+        public virtual IDbSet<Client> Clients { get; set; }
+
+        public virtual IDbSet<ClientAuthorization> ClientAuthroization { get; set; }
 
         protected CbenZeroDbContext()
         {

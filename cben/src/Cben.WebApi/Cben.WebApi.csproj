@@ -45,6 +45,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Windsor, Version=3.4.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc" />
     <Reference Include="EntityFramework">
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -234,6 +235,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Module\ApiAuthorizeAttribute.cs" />
+    <Compile Include="Module\ApiControllerConventionalRegistrar.cs" />
+    <Compile Include="Module\CbenApiDateTimeBinder.cs" />
+    <Compile Include="Module\HttpContextPrincipalAccessor.cs" />
+    <Compile Include="Module\WebApiModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -346,6 +352,36 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cben.Application\Cben.Application.csproj">
+      <Project>{4B8862D1-0569-4CCE-A6B9-4C4EE722A522}</Project>
+      <Name>Cben.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cben.Core.EntityFramework\Cben.Core.EntityFramework.csproj">
+      <Project>{1541D33D-B53D-4C52-A2A0-6299DE32350B}</Project>
+      <Name>Cben.Core.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cben.Core\Cben.Core.csproj">
+      <Project>{b0bebc6e-cdc1-4757-842e-e1e8d6c34a04}</Project>
+      <Name>Cben.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cben.EntityFramework\Cben.EntityFramework.csproj">
+      <Project>{199cb870-3644-461f-80d5-2fd6eed93111}</Project>
+      <Name>Cben.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cben.Zero.EntityFramework\Cben.Zero.EntityFramework.csproj">
+      <Project>{d1672611-638e-42cd-b8e2-67a4fccdb194}</Project>
+      <Name>Cben.Zero.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cben.Zero\Cben.Zero.csproj">
+      <Project>{2c568897-2a57-4bd6-8ece-edb39ceaed70}</Project>
+      <Name>Cben.Zero</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cben\Cben.csproj">
+      <Project>{D73FA2E0-0305-46E0-A59C-1B7A7CBD69DC}</Project>
+      <Name>Cben</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

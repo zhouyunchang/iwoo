@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Cben.Threading;
+using Cben.WebApi.Module;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,13 +13,18 @@ namespace Cben.WebApi
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
-        protected void Application_Start()
+
+        public static CbenBootstrapper CbenBootstrapper => CbenBootstrapper.Create<WebApiModule>();
+
+        protected virtual void Application_Start()
         {
-            //AreaRegistration.RegisterAllAreas();
-            //GlobalConfiguration.Configure(WebApiConfig.Register);
-            //FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            //RouteConfig.RegisterRoutes(RouteTable.Routes);
-            //BundleConfig.RegisterBundles(BundleTable.Bundles);
+            ThreadCultureSanitizer.Sanitize();
+            CbenBootstrapper.Initialize();
+        }
+
+        protected virtual void Application_End()
+        {
+            CbenBootstrapper.Dispose();
         }
     }
 }

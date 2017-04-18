@@ -96,14 +96,15 @@ namespace Cben.Runtime.Session
             }
         }
 
-        public IPrincipalAccessor PrincipalAccessor { get; set; } //TODO: Convert to constructor-injection
+        protected readonly IPrincipalAccessor PrincipalAccessor;
 
         protected readonly IMultiTenancyConfig MultiTenancy;
 
-        public ClaimsCbenSession(IMultiTenancyConfig multiTenancy)
+        public ClaimsCbenSession(IMultiTenancyConfig multiTenancy, IPrincipalAccessor principalAccessor)
         {
             MultiTenancy = multiTenancy;
-            PrincipalAccessor = DefaultPrincipalAccessor.Instance;
+            PrincipalAccessor = principalAccessor;
+            //PrincipalAccessor = DefaultPrincipalAccessor.Instance;
         }
     }
 }

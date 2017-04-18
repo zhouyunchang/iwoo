@@ -33,10 +33,7 @@ namespace Cben.Application.Tests
         [TestMethod]
         public void GetUserTest()
         {
-
-            var t = UserService.GetUsers();
-            t.Wait();
-            var users = t.Result;
+            var users = AsyncHelper.RunSync(() => UserService.GetUsers());
 
             Assert.AreNotSame(users.Items.Count, 0);
         }

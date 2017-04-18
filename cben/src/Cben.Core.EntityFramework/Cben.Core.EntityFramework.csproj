@@ -60,6 +60,10 @@
     <Compile Include="Migrations\201704161737247_Cben_Initial.Designer.cs">
       <DependentUpon>201704161737247_Cben_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704181711512_Cben_OAuth2_Update.cs" />
+    <Compile Include="Migrations\201704181711512_Cben_OAuth2_Update.Designer.cs">
+      <DependentUpon>201704181711512_Cben_OAuth2_Update.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\CbenZeroDbMigration.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\SeedData\DefaultEditionsCreator.cs" />
@@ -74,6 +78,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201704161737247_Cben_Initial.resx">
       <DependentUpon>201704161737247_Cben_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704181711512_Cben_OAuth2_Update.resx">
+      <DependentUpon>201704181711512_Cben_OAuth2_Update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

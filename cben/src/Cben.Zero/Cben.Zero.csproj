@@ -140,6 +140,8 @@
     <Compile Include="MultiTenancy\TenantFeatureSetting.cs" />
     <Compile Include="MultiTenancy\TenantStore.cs" />
     <Compile Include="Notifications\NotificationStore.cs" />
+    <Compile Include="OAuth2\Client.cs" />
+    <Compile Include="OAuth2\ClientAuthorization.cs" />
     <Compile Include="Organizations\IMayHaveOrganizationUnit.cs" />
     <Compile Include="Organizations\IMustHaveOrganizationUnit.cs" />
     <Compile Include="Organizations\IOrganizationUnitSettings.cs" />

@@ -230,7 +230,7 @@ namespace Cben.MultiTenancy
                 return CbenIdentityResult.Failed(L("InvalidTenancyName"));
             }
 
-            return IdentityResult.Success;
+            return await Task.FromResult(IdentityResult.Success);
         }
 
         private string L(string name)

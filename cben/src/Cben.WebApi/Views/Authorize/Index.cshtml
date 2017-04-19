@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Authorize Confirm";
     var authentication = Context.GetOwinContext().Authentication;
-    var ticket = authentication.AuthenticateAsync(Startup.AuthenticationType).Result;
+    var ticket = authentication.AuthenticateAsync(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie).Result;
     var identity = ticket != null ? ticket.Identity : null;
     var scopes = (Request.QueryString.Get("scope") ?? "").Split(' ');
 }

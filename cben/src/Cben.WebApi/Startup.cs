@@ -6,6 +6,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 
 [assembly: OwinStartup(typeof(Cben.WebApi.Startup))]
+
 namespace Cben.WebApi
 {
     public partial class Startup
@@ -14,7 +15,7 @@ namespace Cben.WebApi
         {
             HttpConfiguration config = new HttpConfiguration();
 
-            ConfigureAuth2(app);
+            ConfigureAuth(app);
 
             WebApiConfig.Register(config);
 

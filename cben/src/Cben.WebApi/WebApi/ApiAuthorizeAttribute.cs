@@ -13,7 +13,7 @@ namespace Cben.WebApi
     /// to make that method usable only by authorized users.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public class AbpApiAuthorizeAttribute : AuthorizeAttribute, ICbenAuthorizeAttribute
+    public class CbenApiAuthorizeAttribute : AuthorizeAttribute, ICbenAuthorizeAttribute
     {
         /// <inheritdoc/>
         public string[] Permissions { get; set; }
@@ -22,10 +22,10 @@ namespace Cben.WebApi
         public bool RequireAllPermissions { get; set; }
 
         /// <summary>
-        /// Creates a new instance of <see cref="AbpApiAuthorizeAttribute"/> class.
+        /// Creates a new instance of <see cref="CbenApiAuthorizeAttribute"/> class.
         /// </summary>
         /// <param name="permissions">A list of permissions to authorize</param>
-        public AbpApiAuthorizeAttribute(params string[] permissions)
+        public CbenApiAuthorizeAttribute(params string[] permissions)
         {
             Permissions = permissions;
         }

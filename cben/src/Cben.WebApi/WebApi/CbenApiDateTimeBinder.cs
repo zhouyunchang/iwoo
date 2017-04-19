@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Http.Controllers;
 using System.Web.Http.ModelBinding;
 
-namespace Cben.WebApi.Module
+namespace Cben.WebApi
 {
     /// <summary>
     /// Binds datetime values from api requests to model

@@ -21,14 +21,14 @@ namespace Cben.Zero.OAuth2
         public virtual int ClientId { get; set; }
 
         [Required]
-        public virtual int UserId { get; set; }
+        public virtual long UserId { get; set; }
 
         public virtual string Scope { get; set; }
 
         public virtual DateTime? ExpirationDateUtc { get; set; }
 
         public virtual Client Client { get; set; }
-        
+
 
     }
 }

@@ -1,5 +1,6 @@
-﻿using Cben.Threading;
-using Cben.WebApi.Module;
+﻿using Cben.Dependency;
+using Cben.Threading;
+using Cben.WebApi.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,19 @@ namespace Cben.WebApi
         protected virtual void Application_End()
         {
             CbenBootstrapper.Dispose();
+        }
+
+        /// <summary>
+        /// This method is called by ASP.NET system when a request starts.
+        /// </summary>
+        protected virtual void Application_BeginRequest(object sender, EventArgs e)
+        {
+            SetCurrentCulture();
+        }
+
+        protected virtual void SetCurrentCulture()
+        {
+            CbenBootstrapper.IocManager.Using<ICurrentCultureSetter>(cultureSetter => cultureSetter.SetCurrentCulture(Context));
         }
     }
 }

@@ -40,7 +40,7 @@ namespace WebApplication1.Controllers
                     AuthorizationEndpoint = new Uri("http://localhost:56923/authorize"),
                     TokenEndpoint = new Uri("http://localhost:56923/token")
                 };
-                var webServerClient = new WebServerClient(authServer, "123456", "abcdef");
+                var webServerClient = new WebServerClient(authServer, "CbenWeb", "CbenWeb");
 
                 // get access token from request (redirect from oauth server)
                 var authorizationState = webServerClient.ProcessUserAuthorization(Request);

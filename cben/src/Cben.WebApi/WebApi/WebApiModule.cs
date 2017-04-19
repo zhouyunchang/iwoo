@@ -17,8 +17,13 @@ using System.Net.Http.Formatting;
 using System.Web.Http.ModelBinding;
 using Newtonsoft.Json.Serialization;
 using Cben.Json;
+using Cben.WebApi.Configuration;
+using System.Web.Mvc;
+using System.Web.Http.Dispatcher;
+using Cben.WebApi.Session;
+using Cben.WebApi.MultiTenancy;
 
-namespace Cben.WebApi.Module
+namespace Cben.WebApi
 {
 
     [DependsOn(
@@ -32,10 +37,16 @@ namespace Cben.WebApi.Module
             IocManager.AddConventionalRegistrar(new ApiControllerConventionalRegistrar());
             IocManager.AddConventionalRegistrar(new MvcControllerConventionalRegistrar());
 
+            IocManager.Register<ICbenMvcConfiguration, CbenMvcConfiguration>();
+
             // database based localization
             Configuration.Modules.Zero().LanguageManagement.EnableDbLocalization();
 
-            Configuration.ReplaceService<IPrincipalAccessor, HttpContextPrincipalAccessor>(DependencyLifeStyle.Singleton);
+            Configuration.ReplaceService<IPrincipalAccessor, HttpContextPrincipalAccessor>(DependencyLifeStyle.Transient);
+
+            Configuration.MultiTenancy.Resolvers.Add<DomainTenantResolveContributor>();
+            Configuration.MultiTenancy.Resolvers.Add<HttpHeaderTenantResolveContributor>();
+            Configuration.MultiTenancy.Resolvers.Add<HttpCookieTenantResolveContributor>();
 
             AddIgnoredTypes();
         }
@@ -43,6 +54,12 @@ namespace Cben.WebApi.Module
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
+
+            // For Mvc
+            ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(IocManager));
+            // For WebApi
+            GlobalConfiguration.Configuration.Services.Replace(typeof(IHttpControllerActivator),
+                new WindsorControllerFactory(IocManager));
         }
 
         public override void PostInitialize()

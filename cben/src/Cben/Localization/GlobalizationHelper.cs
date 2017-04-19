@@ -3,7 +3,7 @@ using Cben.Extensions;
 
 namespace Cben.Localization
 {
-    internal static class GlobalizationHelper
+    public static class GlobalizationHelper
     {
         public static bool IsValidCultureCode(string cultureCode)
         {

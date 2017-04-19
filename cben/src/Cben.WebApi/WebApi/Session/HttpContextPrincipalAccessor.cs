@@ -1,16 +1,11 @@
-﻿using Cben.Runtime.Session;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Security.Claims;
 using System.Web;
-using System.Security.Claims;
+using Cben.Runtime.Session;
 
-namespace Cben.WebApi.Module
+namespace Cben.WebApi.Session
 {
     public class HttpContextPrincipalAccessor : DefaultPrincipalAccessor
     {
-
         public override ClaimsPrincipal Principal => HttpContext.Current?.User as ClaimsPrincipal ?? base.Principal;
-
     }
 }

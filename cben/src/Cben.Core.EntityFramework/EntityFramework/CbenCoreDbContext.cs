@@ -13,11 +13,20 @@ namespace Cben.Core.EntityFramework
 {
     public class CbenCoreDbContext : CbenZeroDbContext<Tenant, Role, User>
     {
+
+#if !SQLEXPRESS
+        public CbenCoreDbContext()
+            : base("Default")
+        {
+
+        }
+#else
         public CbenCoreDbContext()
             : base("SQLExpress")
         {
 
         }
+#endif
 
         public CbenCoreDbContext(string nameOrConnectionString)
             : base(nameOrConnectionString)

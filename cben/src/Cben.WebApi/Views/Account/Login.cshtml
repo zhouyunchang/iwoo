@@ -33,8 +33,7 @@
                 </div>
                 <div class="panel-body">
                     <p class="text-center pv">SIGN IN TO CONTINUE.</p>
-                    <form role="form" method="post" action="@Url.Action("Login", "Account")"
-                          data-parsley-validate="" novalidate="" class="mb-lg">
+                    <form role="form" method="post" action="" data-parsley-validate="" novalidate="" class="mb-lg">
                         @Html.AntiForgeryToken()
                         <div class="form-group has-feedback">
                             <input id="exampleInputEmail1" name="UserSuppliedIdentifier" type="text" placeholder="Enter email" autocomplete="off" required="required" class="form-control" />
@@ -55,6 +54,7 @@
                                 <a href="@Url.Action("Recover", "Pages")" class="text-muted">Forgot your password?</a>
                             </div>
                         </div>
+                        <input type="hidden" name="ReturnUrl" class="" />
                         <input type="submit" class="btn btn-block btn-primary mt-lg" name="submit.Signin" value="Login" />
                     </form>
                     <p class="pt-lg text-center">Need to Signup?</p><a href="@Url.Action("Register", "Pages")" class="btn btn-block btn-default">Register Now</a>

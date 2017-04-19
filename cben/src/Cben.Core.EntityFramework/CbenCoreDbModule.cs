@@ -1,13 +1,10 @@
 ﻿using Cben.Core.EntityFramework;
+using Cben.Core.EntityFramework.Repositories;
 using Cben.Modules;
 using Cben.Zero.EntityFramework;
-using System;
-using System.Collections.Generic;
+using Cben.Dependency;
 using System.Data.Entity;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cben.Core
 {
@@ -26,6 +23,8 @@ namespace Cben.Core
 #else
             Configuration.DefaultNameOrConnectionString = "SQLExpress";
 #endif
+
+            IocManager.Register<IClientRepository, ClientRepository>(DependencyLifeStyle.Transient);
         }
 
         public override void Initialize()

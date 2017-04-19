@@ -54,6 +54,34 @@ namespace Cben.Core.Migrations
                 .Index(t => new { t.IsAbandoned, t.NextTryTime });
             
             CreateTable(
+                "dbo.ClientAuthorizations",
+                c => new
+                    {
+                        AuthorizationId = c.Int(nullable: false, identity: true),
+                        CreatedOnUtc = c.DateTime(nullable: false),
+                        ClientId = c.Int(nullable: false),
+                        UserId = c.Int(nullable: false),
+                        Scope = c.String(),
+                        ExpirationDateUtc = c.DateTime(),
+                    })
+                .PrimaryKey(t => t.AuthorizationId)
+                .ForeignKey("dbo.Clients", t => t.ClientId, cascadeDelete: true)
+                .Index(t => t.ClientId);
+            
+            CreateTable(
+                "dbo.Clients",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        ClientIdentifier = c.String(nullable: false, maxLength: 50),
+                        ClientSecret = c.String(maxLength: 50),
+                        Callback = c.String(),
+                        Name = c.String(),
+                        ClientType = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.CbenFeatures",
                 c => new
                     {
@@ -547,6 +575,7 @@ namespace Cben.Core.Migrations
             DropForeignKey("dbo.CbenUserClaims", "UserId", "dbo.CbenUsers");
             DropForeignKey("dbo.CbenOrganizationUnits", "ParentId", "dbo.CbenOrganizationUnits");
             DropForeignKey("dbo.CbenFeatures", "EditionId", "dbo.CbenEditions");
+            DropForeignKey("dbo.ClientAuthorizations", "ClientId", "dbo.Clients");
             DropIndex("dbo.CbenUserNotifications", new[] { "UserId", "State", "CreationTime" });
             DropIndex("dbo.CbenUserLoginAttempts", new[] { "TenancyName", "UserNameOrEmailAddress", "Result" });
             DropIndex("dbo.CbenUserLoginAttempts", new[] { "UserId", "TenantId" });
@@ -569,6 +598,7 @@ namespace Cben.Core.Migrations
             DropIndex("dbo.CbenOrganizationUnits", new[] { "ParentId" });
             DropIndex("dbo.CbenNotificationSubscriptions", new[] { "NotificationName", "EntityTypeName", "EntityId", "UserId" });
             DropIndex("dbo.CbenFeatures", new[] { "EditionId" });
+            DropIndex("dbo.ClientAuthorizations", new[] { "ClientId" });
             DropIndex("dbo.CbenBackgroundJobs", new[] { "IsAbandoned", "NextTryTime" });
             DropTable("dbo.CbenUserOrganizationUnits",
                 removedAnnotations: new Dictionary<string, object>
@@ -672,6 +702,8 @@ namespace Cben.Core.Migrations
                 {
                     { "DynamicFilter_TenantFeatureSetting_MustHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
                 });
+            DropTable("dbo.Clients");
+            DropTable("dbo.ClientAuthorizations");
             DropTable("dbo.CbenBackgroundJobs");
             DropTable("dbo.CbenAuditLogs",
                 removedAnnotations: new Dictionary<string, object>

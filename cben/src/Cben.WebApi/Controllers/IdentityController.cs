@@ -1,11 +1,18 @@
-﻿using Cben.WebApi.Models;
+﻿using Cben.Configuration.Startup;
+using Cben.Core.Authorization;
+using Cben.Core.MultiTenancy;
+using Cben.Core.Users;
+using Cben.Domain.Uow;
+using Cben.WebApi.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 
 namespace Cben.WebApi.Controllers
@@ -13,11 +20,33 @@ namespace Cben.WebApi.Controllers
     [RoutePrefix("api/Identity")]
     public class IdentityController : ApiController
     {
-        private AuthRepository _repo = null;
+        private readonly TenantManager _tenantManager;
+        private readonly UserManager _userManager;
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
+        private readonly IMultiTenancyConfig _multiTenancyConfig;
+        private readonly LogInManager _logInManager;
 
-        public IdentityController()
+        private IAuthenticationManager AuthenticationManager
         {
-            _repo = new AuthRepository();
+            get
+            {
+                return HttpContext.Current.GetOwinContext().Authentication;
+            }
+        }
+
+        public IdentityController(
+            TenantManager tenantManager,
+            UserManager userManager,
+            IUnitOfWorkManager unitOfWorkManager,
+            IMultiTenancyConfig multiTenancyConfig,
+            LogInManager loginManager
+            )
+        {
+            _tenantManager = tenantManager;
+            _userManager = userManager;
+            _unitOfWorkManager = unitOfWorkManager;
+            _multiTenancyConfig = multiTenancyConfig;
+            _logInManager = loginManager;
         }
 
         // POST api/Account/Register
@@ -30,7 +59,15 @@ namespace Cben.WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await _repo.RegisterUser(userModel);
+            IdentityResult result = await _userManager.CreateAsync(new User
+            {
+                TenantId = null,
+                UserName = userModel.UserName,
+                Name = userModel.UserName,
+                Surname = "",
+                EmailAddress = "",
+                Password = new PasswordHasher().HashPassword(userModel.Password)
+            });
 
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -42,15 +79,6 @@ namespace Cben.WebApi.Controllers
             return Ok();
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _repo.Dispose();
-            }
-
-            base.Dispose(disposing);
-        }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {

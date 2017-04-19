@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;SQLExpress</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -56,16 +56,14 @@
     <Compile Include="CbenCoreDbModule.cs" />
     <Compile Include="EntityFramework\CbenCoreDbContext.cs" />
     <Compile Include="EntityFramework\Repositories\CbenCoreRepositoryBase.cs" />
-    <Compile Include="Migrations\201704161737247_Cben_Initial.cs" />
-    <Compile Include="Migrations\201704161737247_Cben_Initial.Designer.cs">
-      <DependentUpon>201704161737247_Cben_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704181711512_Cben_OAuth2_Update.cs" />
-    <Compile Include="Migrations\201704181711512_Cben_OAuth2_Update.Designer.cs">
-      <DependentUpon>201704181711512_Cben_OAuth2_Update.cs</DependentUpon>
+    <Compile Include="EntityFramework\Repositories\ClientRepository.cs" />
+    <Compile Include="Migrations\201704190816398_Cben_Initial.cs" />
+    <Compile Include="Migrations\201704190816398_Cben_Initial.Designer.cs">
+      <DependentUpon>201704190816398_Cben_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\CbenZeroDbMigration.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\SeedData\DefaultClientCreator.cs" />
     <Compile Include="Migrations\SeedData\DefaultEditionsCreator.cs" />
     <Compile Include="Migrations\SeedData\DefaultLanguagesCreator.cs" />
     <Compile Include="Migrations\SeedData\DefaultSettingsCreator.cs" />
@@ -74,14 +72,6 @@
     <Compile Include="Migrations\SeedData\InitialHostDbBuilder.cs" />
     <Compile Include="Migrations\SeedData\TenantRoleAndUserBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704161737247_Cben_Initial.resx">
-      <DependentUpon>201704161737247_Cben_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704181711512_Cben_OAuth2_Update.resx">
-      <DependentUpon>201704181711512_Cben_OAuth2_Update.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -108,6 +98,11 @@
       <Project>{D73FA2E0-0305-46E0-A59C-1B7A7CBD69DC}</Project>
       <Name>Cben</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201704190816398_Cben_Initial.resx">
+      <DependentUpon>201704190816398_Cben_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

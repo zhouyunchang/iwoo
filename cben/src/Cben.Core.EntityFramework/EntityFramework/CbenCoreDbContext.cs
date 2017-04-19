@@ -14,7 +14,7 @@ namespace Cben.Core.EntityFramework
     public class CbenCoreDbContext : CbenZeroDbContext<Tenant, Role, User>
     {
         public CbenCoreDbContext()
-            : base("Default")
+            : base("SQLExpress")
         {
 
         }

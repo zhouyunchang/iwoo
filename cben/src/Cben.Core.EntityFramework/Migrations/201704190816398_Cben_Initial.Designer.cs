@@ -7,13 +7,13 @@ namespace Cben.Core.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Cben_OAuth2_Update : IMigrationMetadata
+    public sealed partial class Cben_Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Cben_OAuth2_Update));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Cben_Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201704181711512_Cben_OAuth2_Update"; }
+            get { return "201704190816398_Cben_Initial"; }
         }
         
         string IMigrationMetadata.Source

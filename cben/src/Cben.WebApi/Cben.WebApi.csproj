@@ -227,10 +227,8 @@
     <Compile Include="Controllers\IdentityController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Data\AuthContext.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Data\AuthRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -239,6 +237,7 @@
     <Compile Include="Module\ApiControllerConventionalRegistrar.cs" />
     <Compile Include="Module\CbenApiDateTimeBinder.cs" />
     <Compile Include="Module\HttpContextPrincipalAccessor.cs" />
+    <Compile Include="Module\MvcControllerConventionalRegistrar.cs" />
     <Compile Include="Module\WebApiModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

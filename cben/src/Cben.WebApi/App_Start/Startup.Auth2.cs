@@ -1,4 +1,9 @@
-﻿using Microsoft.Owin;
+﻿using Cben.Core.EntityFramework.Repositories;
+using Cben.Dependency;
+using Cben.Domain.Repositories;
+using Cben.EntityFramework;
+using Cben.Zero.OAuth2;
+using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Infrastructure;
@@ -42,6 +47,8 @@ namespace Cben.WebApi
         public const string AuthenticationType = "OAuth2";
 
         private readonly ConcurrentDictionary<string, string> authenticationCodes = new ConcurrentDictionary<string, string>(StringComparer.Ordinal);
+
+        private static IRepository<Client, int> ClientRepository => IocManager.Instance.Resolve<IRepository<Client, int>>();
 
         private void ConfigureAuth2(IAppBuilder app)
         {
@@ -142,11 +149,11 @@ namespace Cben.WebApi
                 context.TryGetFormCredentials(out clientId, out clientSecret))
             {
                 // 验证客户端标识与安全码
-                if (clientId == Clients.Client1.Id && clientSecret == Clients.Client1.Secret)
-                {
-                    context.Validated();
-                }
-                else if (clientId == Clients.Client2.Id && clientSecret == Clients.Client2.Secret)
+                var client = ClientRepository.GetAll()
+                    .Where(i => i.ClientIdentifier == clientId && i.ClientSecret == clientSecret)
+                    .FirstOrDefault();
+
+                if (client != null)
                 {
                     context.Validated();
                 }
@@ -156,50 +163,22 @@ namespace Cben.WebApi
 
         private Task ValidateClientRedirectUri(OAuthValidateClientRedirectUriContext context)
         {
-            // 验证客户端标识与重定向地址
-            if (context.ClientId == Clients.Client1.Id)
+            string clientId = context.ClientId;
+            // 验证客户端标识与安全码
+            var client = ClientRepository.GetAll()
+                .Where(i => i.ClientIdentifier == clientId)
+                .FirstOrDefault();
+
+            if (client != null)
             {
-                context.Validated("http://localhost:61357/home/CallApi");
+                // 验证客户端标识与重定向地址
+                context.Validated(client.Callback);
             }
-            else if (context.ClientId == Clients.Client2.Id)
-            {
-                context.Validated("http://localhost:61357/home/CallApi");
-            }
+
             return Task.FromResult(0);
         }
 
     }
 
-
-    #region Clients
-
-    public static class Clients
-    {
-
-        public readonly static Client Client1 = new Client
-        {
-            Id = "123456",
-            Secret = "abcdef",
-            RedirectUrl = Paths.AuthorizeCodeCallBackPath
-        };
-
-        public readonly static Client Client2 = new Client
-        {
-            Id = "7890ab",
-            Secret = "7890ab",
-            RedirectUrl = Paths.ImplicitGrantCallBackPath
-        };
-    }
-
-    public class Client
-    {
-
-        public string Id { get; set; }
-
-        public string Secret { get; set; }
-
-        public string RedirectUrl { get; set; }
-    }
-
-    #endregion
+    
 }

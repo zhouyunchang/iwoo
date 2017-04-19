@@ -30,6 +30,7 @@ namespace Cben.WebApi.Module
         public override void PreInitialize()
         {
             IocManager.AddConventionalRegistrar(new ApiControllerConventionalRegistrar());
+            IocManager.AddConventionalRegistrar(new MvcControllerConventionalRegistrar());
 
             // database based localization
             Configuration.Modules.Zero().LanguageManagement.EnableDbLocalization();

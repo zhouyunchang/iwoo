@@ -20,6 +20,8 @@ namespace Cben.Core.Migrations.SeedData
             new DefaultLanguagesCreator(_context).Create();
             new HostRoleAndUserCreator(_context).Create();
             new DefaultSettingsCreator(_context).Create();
+
+            new DefaultClientCreator(_context).Create();
         }
     }
 }

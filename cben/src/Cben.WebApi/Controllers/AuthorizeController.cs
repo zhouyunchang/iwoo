@@ -27,11 +27,11 @@ namespace Cben.WebApi.Controllers
 
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
-        public static OAuthBearerAuthenticationOptions OAuthBearerOptions { get; private set; }
+        //public static OAuthBearerAuthenticationOptions OAuthBearerOptions { get; private set; }
 
         static AuthorizeController()
         {
-            OAuthBearerOptions = new OAuthBearerAuthenticationOptions();
+            //OAuthBearerOptions = new OAuthBearerAuthenticationOptions();
         }
 
         public AuthorizeController(

@@ -45,7 +45,7 @@ namespace Cben.WebApi
             IocManager.AddConventionalRegistrar(new ApiControllerConventionalRegistrar());
             IocManager.AddConventionalRegistrar(new MvcControllerConventionalRegistrar());
 
-            IocManager.Register<ICbenWebApiConfiguration, CbenWebApiConfiguration>();
+            IocManager.Register<ICbenWebApiConfiguration, CbenWebApiConfiguration>(DependencyLifeStyle.Transient);
 
             // database based localization
             Configuration.Modules.Zero().LanguageManagement.EnableDbLocalization();

@@ -234,7 +234,7 @@
     <Compile Include="Models\Account\RegisterViewModel.cs" />
     <Compile Include="Models\Account\TenantSelectionViewModel.cs" />
     <Compile Include="WebApi\Auditing\CbenApiAuditFilter.cs" />
-    <Compile Include="WebApi\Authorization\ApiAuthorizeFilter.cs" />
+    <Compile Include="WebApi\Authorization\CbenApiAuthorizeFilter.cs" />
     <Compile Include="WebApi\CbenApiControllerActivator.cs" />
     <Compile Include="WebApi\CbenWebConsts.cs" />
     <Compile Include="WebApi\Configuration\CbenWebApiConfiguration.cs" />

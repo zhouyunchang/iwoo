@@ -48,9 +48,11 @@ namespace Cben.WebApi
 
         private readonly ConcurrentDictionary<string, string> authenticationCodes = new ConcurrentDictionary<string, string>(StringComparer.Ordinal);
 
+        private readonly static OAuthBearerAuthenticationOptions OAuthBearerOptions = new OAuthBearerAuthenticationOptions();
+
         private void ConfigureAuth(IAppBuilder app)
         {
-            app.UseOAuthBearerAuthentication(AuthorizeController.OAuthBearerOptions);
+            app.UseOAuthBearerAuthentication(OAuthBearerOptions);
 
             //app.UseCookieAuthentication(new CookieAuthenticationOptions
             //{

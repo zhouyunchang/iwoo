@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Cben.Runtime.Session
+﻿namespace Cben.Runtime.Session
 {
     /// <summary>
     /// Extension methods for <see cref="ICbenSession"/>.

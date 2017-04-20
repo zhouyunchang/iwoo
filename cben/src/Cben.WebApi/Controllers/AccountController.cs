@@ -17,6 +17,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Owin.Security.OAuth;
 
 namespace Cben.WebApi.Controllers
 {
@@ -31,6 +32,7 @@ namespace Cben.WebApi.Controllers
         private readonly IMultiTenancyConfig _multiTenancyConfig;
 
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
+
 
         public AccountController(
             IUnitOfWorkManager unitOfWorkManager,

@@ -558,12 +558,14 @@
     <Compile Include="Runtime\Security\ClaimsIdentityExtensions.cs" />
     <Compile Include="Runtime\Security\SimpleStringCipher.cs" />
     <Compile Include="Runtime\Serialization\BinarySerializationHelper.cs" />
+    <Compile Include="Runtime\Session\CbenSessionBase.cs" />
     <Compile Include="Runtime\Session\CbenSessionExtensions.cs" />
     <Compile Include="Runtime\Session\ClaimsCbenSession.cs" />
     <Compile Include="Runtime\Session\DefaultPrincipalAccessor.cs" />
     <Compile Include="Runtime\Session\ICbenSession.cs" />
     <Compile Include="Runtime\Session\IPrincipalAccessor.cs" />
     <Compile Include="Runtime\Session\NullCbenSession.cs" />
+    <Compile Include="Runtime\Session\SessionOverride.cs" />
     <Compile Include="Runtime\Validation\CbenValidationException.cs" />
     <Compile Include="Runtime\Validation\AlwaysValidValueValidator.cs" />
     <Compile Include="Runtime\Validation\BooleanValueValidator.cs" />

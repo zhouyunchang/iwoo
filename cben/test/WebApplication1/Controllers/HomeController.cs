@@ -33,15 +33,16 @@ namespace WebApplication1.Controllers
 
         public ActionResult CallApi()
         {
-            if (!string.IsNullOrEmpty(Request.Form.Get("submit.callapi")))
-            {
-                var authServer = new AuthorizationServerDescription
-                {
-                    AuthorizationEndpoint = new Uri("http://localhost:56923/authorize"),
-                    TokenEndpoint = new Uri("http://localhost:56923/token")
-                };
-                var webServerClient = new WebServerClient(authServer, "CbenWeb", "CbenWeb");
 
+            var authServer = new AuthorizationServerDescription
+            {
+                AuthorizationEndpoint = new Uri("http://localhost:56923/authorize"),
+                TokenEndpoint = new Uri("http://localhost:56923/token")
+            };
+            var webServerClient = new WebServerClient(authServer, "CbenWeb", "CbenWeb");
+
+            if (!string.IsNullOrEmpty(Request.Form.Get("submit.getToken")))
+            {
                 // get access token from request (redirect from oauth server)
                 var authorizationState = webServerClient.ProcessUserAuthorization(Request);
                 if (authorizationState != null)
@@ -56,7 +57,9 @@ namespace WebApplication1.Controllers
                     userAuthorization.Send(HttpContext);
                     Response.End();
                 }
-
+            }
+            if (!string.IsNullOrEmpty(Request.Form.Get("submit.refreshToken")))
+            {
                 //refresh token
                 var state = new AuthorizationState
                 {

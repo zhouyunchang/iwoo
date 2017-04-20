@@ -1,6 +1,7 @@
 ﻿using Cben.Dependency;
 using Cben.Domain.Repositories;
 using Cben.Domain.Uow;
+using Cben.WebApi.Controllers;
 using Cben.Zero.OAuth2;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
@@ -49,12 +50,12 @@ namespace Cben.WebApi
 
         private void ConfigureAuth(IAppBuilder app)
         {
+            //app.UseOAuthBearerAuthentication(AuthorizeController.OAuthBearerOptions);
+
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                AuthenticationMode = AuthenticationMode.Passive,
                 LoginPath = new PathString(Paths.LoginPath),
-                LogoutPath = new PathString(Paths.LogoutPath),
                 ReturnUrlParameter = "ReturnUrl"
             });
 
@@ -64,10 +65,12 @@ namespace Cben.WebApi
                 TokenEndpointPath = new PathString(Paths.TokenPath),
                 ApplicationCanDisplayErrors = true,
                 AllowInsecureHttp = true,
+
                 // Authorization server provider which controls the lifecycle of Authorization Server
                 Provider = new OAuthAuthorizationServerProvider
                 {
                     OnValidateClientRedirectUri = ValidateClientRedirectUri,
+                    OnValidateAuthorizeRequest = ValidateAuthorizeRequest,
                     OnValidateClientAuthentication = ValidateClientAuthentication,
                     OnGrantResourceOwnerCredentials = GrantResourceOwnerCredentials,
                     OnGrantClientCredentials = GrantClientCredetails
@@ -87,6 +90,44 @@ namespace Cben.WebApi
                     OnReceive = ReceiveRefreshToken,
                 }
             });
+        }
+
+        private Task ValidateClientRedirectUri(OAuthValidateClientRedirectUriContext context)
+        {
+            string clientId = context.ClientId;
+
+            using (var uow = UnitOfWorkManager.Begin())
+            {
+                // 验证客户端标识与安全码
+                var client = ClientRepository.GetAll()
+                    .Where(i => i.ClientIdentifier == clientId)
+                    .FirstOrDefault();
+
+                if (client != null)
+                {
+                    // 验证客户端标识与重定向地址
+                    if (context.RedirectUri != null &&
+                        context.RedirectUri.Equals(client.Callback, StringComparison.OrdinalIgnoreCase))
+                    {
+                        context.Validated();
+                    }
+                    else
+                    {
+                        context.Validated(client.Callback);
+                    }
+                }
+
+                uow.Complete();
+            }
+
+            return Task.FromResult(0);
+        }
+
+        private Task ValidateAuthorizeRequest(OAuthValidateAuthorizeRequestContext context)
+        {
+            context.Validated();
+
+            return Task.FromResult(0);
         }
 
         private void ReceiveRefreshToken(AuthenticationTokenReceiveContext context)
@@ -165,36 +206,7 @@ namespace Cben.WebApi
             return Task.FromResult(0);
         }
 
-        private Task ValidateClientRedirectUri(OAuthValidateClientRedirectUriContext context)
-        {
-            string clientId = context.ClientId;
-
-            using (var uow = UnitOfWorkManager.Begin())
-            {
-                // 验证客户端标识与安全码
-                var client = ClientRepository.GetAll()
-                    .Where(i => i.ClientIdentifier == clientId)
-                    .FirstOrDefault();
-
-                if (client != null)
-                {
-                    // 验证客户端标识与重定向地址
-                    if (context.RedirectUri != null &&
-                        context.RedirectUri.Equals(client.Callback, StringComparison.OrdinalIgnoreCase))
-                    {
-                        context.Validated();
-                    }
-                    else
-                    {
-                        context.Validated(client.Callback);
-                    }
-                }
-
-                uow.Complete();
-            }
-
-            return Task.FromResult(0);
-        }
+       
 
     }
 

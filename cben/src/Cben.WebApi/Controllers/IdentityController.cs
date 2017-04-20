@@ -18,7 +18,7 @@ using System.Web.Http;
 namespace Cben.WebApi.Controllers
 {
     [RoutePrefix("api/Identity")]
-    public class IdentityController : ApiController
+    public class IdentityController : ApiControllerBase
     {
         private readonly TenantManager _tenantManager;
         private readonly UserManager _userManager;

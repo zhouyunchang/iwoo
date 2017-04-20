@@ -1,31 +1,34 @@
-﻿using Cben.MultiTenancy;
+﻿using System;
+using Cben.Configuration.Startup;
+using Cben.MultiTenancy;
+using Cben.Runtime.Remoting;
 
 namespace Cben.Runtime.Session
 {
     /// <summary>
     /// Implements null object pattern for <see cref="ICbenSession"/>.
     /// </summary>
-    public class NullCbenSession : ICbenSession
+    public class NullCbenSession : CbenSessionBase
     {
         /// <summary>
         /// Singleton instance.
         /// </summary>
-        public static NullCbenSession Instance { get { return SingletonInstance; } }
-        private static readonly NullCbenSession SingletonInstance = new NullCbenSession();
+        public static NullCbenSession Instance { get; } = new NullCbenSession();
 
         /// <inheritdoc/>
-        public long? UserId { get { return null; } }
+        public override long? UserId => null;
 
         /// <inheritdoc/>
-        public int? TenantId { get { return null; } }
+        public override int? TenantId => null;
 
-        public MultiTenancySides MultiTenancySide { get { return MultiTenancySides.Tenant; } }
-        
-        public long? ImpersonatorUserId { get { return null; } }
-        
-        public int? ImpersonatorTenantId { get { return null; } }
+        public override MultiTenancySides MultiTenancySide => MultiTenancySides.Tenant;
 
-        private NullCbenSession()
+        public override long? ImpersonatorUserId => null;
+
+        public override int? ImpersonatorTenantId => null;
+
+        private NullCbenSession() 
+            : base(new MultiTenancyConfig(), new DataContextAmbientScopeProvider<SessionOverride>(new CallContextAmbientDataContext()))
         {
 
         }

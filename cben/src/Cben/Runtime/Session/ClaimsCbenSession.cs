@@ -12,12 +12,17 @@ namespace Cben.Runtime.Session
     /// <summary>
     /// Implements <see cref="ICbenSession"/> to get session properties from claims of <see cref="Thread.CurrentPrincipal"/>.
     /// </summary>
-    public class ClaimsCbenSession : ICbenSession, ISingletonDependency
+    public class ClaimsCbenSession : CbenSessionBase, ISingletonDependency
     {
-        public virtual long? UserId
+        public override long? UserId
         {
             get
             {
+                if (OverridedValue != null)
+                {
+                    return OverridedValue.UserId;
+                }
+
                 var userIdClaim = PrincipalAccessor.Principal?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
                 if (string.IsNullOrEmpty(userIdClaim?.Value))
                 {
@@ -34,7 +39,7 @@ namespace Cben.Runtime.Session
             }
         }
 
-        public virtual int? TenantId
+        public override int? TenantId
         {
             get
             {
@@ -43,17 +48,28 @@ namespace Cben.Runtime.Session
                     return MultiTenancyConsts.DefaultTenantId;
                 }
 
-                var tenantIdClaim = PrincipalAccessor.Principal?.Claims.FirstOrDefault(c => c.Type == CbenClaimTypes.TenantId);
-                if (string.IsNullOrEmpty(tenantIdClaim?.Value))
+                if (OverridedValue != null)
                 {
-                    return null;
+                    return OverridedValue.TenantId;
                 }
 
-                return Convert.ToInt32(tenantIdClaim.Value);
+                var tenantIdClaim = PrincipalAccessor.Principal?.Claims.FirstOrDefault(c => c.Type == CbenClaimTypes.TenantId);
+                if (!string.IsNullOrEmpty(tenantIdClaim?.Value))
+                {
+                    return Convert.ToInt32(tenantIdClaim.Value);
+                }
+
+                if (UserId == null)
+                {
+                    //Resolve tenant id from request only if user has not logged in!
+                    return TenantResolver.ResolveTenantId();
+                }
+                
+                return null;
             }
         }
 
-        public virtual long? ImpersonatorUserId
+        public override long? ImpersonatorUserId
         {
             get
             {
@@ -67,7 +83,7 @@ namespace Cben.Runtime.Session
             }
         }
 
-        public virtual int? ImpersonatorTenantId
+        public override int? ImpersonatorTenantId
         {
             get
             {
@@ -86,25 +102,20 @@ namespace Cben.Runtime.Session
             }
         }
 
-        public virtual MultiTenancySides MultiTenancySide
+        protected IPrincipalAccessor PrincipalAccessor { get; }
+        protected ITenantResolver TenantResolver { get; }
+
+        public ClaimsCbenSession(
+            IPrincipalAccessor principalAccessor,
+            IMultiTenancyConfig multiTenancy,
+            ITenantResolver tenantResolver,
+            IAmbientScopeProvider<SessionOverride> sessionOverrideScopeProvider)
+            : base(
+                  multiTenancy, 
+                  sessionOverrideScopeProvider)
         {
-            get
-            {
-                return MultiTenancy.IsEnabled && !TenantId.HasValue
-                    ? MultiTenancySides.Host
-                    : MultiTenancySides.Tenant;
-            }
-        }
-
-        protected readonly IPrincipalAccessor PrincipalAccessor;
-
-        protected readonly IMultiTenancyConfig MultiTenancy;
-
-        public ClaimsCbenSession(IMultiTenancyConfig multiTenancy, IPrincipalAccessor principalAccessor)
-        {
-            MultiTenancy = multiTenancy;
+            TenantResolver = tenantResolver;
             PrincipalAccessor = principalAccessor;
-            //PrincipalAccessor = DefaultPrincipalAccessor.Instance;
         }
     }
 }

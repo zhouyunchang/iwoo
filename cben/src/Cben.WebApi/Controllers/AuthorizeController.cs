@@ -1,9 +1,12 @@
 ﻿using Cben.Core.Users;
 using Cben.Domain.Repositories;
 using Cben.Domain.Uow;
+using Cben.WebApi.Models;
 using Cben.Zero.OAuth2;
 using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Infrastructure;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.OAuth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +26,13 @@ namespace Cben.WebApi.Controllers
         private readonly IRepository<Client, int> _clientRepository;
 
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
+
+        public static OAuthBearerAuthenticationOptions OAuthBearerOptions { get; private set; }
+
+        static AuthorizeController()
+        {
+            OAuthBearerOptions = new OAuthBearerAuthenticationOptions();
+        }
 
         public AuthorizeController(
             IUnitOfWorkManager unitOfWorkManager,
@@ -58,15 +68,16 @@ namespace Cben.WebApi.Controllers
             {
                 if (!string.IsNullOrEmpty(Request.Form.Get("submit.Grant")))
                 {
+                    identity = new ClaimsIdentity(identity.Claims, "Bearer", identity.NameClaimType, identity.RoleClaimType);
                     foreach (var scope in scopes)
                     {
                         identity.AddClaim(new Claim("urn:oauth:scope", scope));
                     }
+                    AuthenticationManager.SignIn(identity);
 
                     // save ClientAuthorization
                     await SaveClientAuthorization(clientId, scopes);
 
-                    return Redirect(redirectUrl);
                 }
                 if (!string.IsNullOrEmpty(Request.Form.Get("submit.Login")))
                 {

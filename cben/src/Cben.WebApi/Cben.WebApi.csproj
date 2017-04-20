@@ -227,11 +227,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\ApiControllerBase.cs" />
     <Compile Include="Models\Account\LoginFormViewModel.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Account\RegisterResultViewModel.cs" />
     <Compile Include="Models\Account\RegisterViewModel.cs" />
     <Compile Include="Models\Account\TenantSelectionViewModel.cs" />
+    <Compile Include="WebApi\CbenApiControllerActivator.cs" />
     <Compile Include="WebApi\Configuration\CbenMvcConfiguration.cs" />
     <Compile Include="WebApi\Configuration\CbenMvcConfigurationExtensions.cs" />
     <Compile Include="WebApi\Configuration\ICbenMvcConfiguration.cs" />
@@ -342,7 +344,9 @@
     <Content Include="Vendor\parsleyjs\dist\parsley.min.js" />
     <Content Include="Vendor\simple-line-icons\css\simple-line-icons.css" />
     <Content Include="Vendor\simple-line-icons\fonts\Simple-Line-Icons.svg" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

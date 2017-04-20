@@ -22,6 +22,7 @@ using System.Web.Mvc;
 using System.Web.Http.Dispatcher;
 using Cben.WebApi.Session;
 using Cben.WebApi.MultiTenancy;
+using Microsoft.AspNet.Identity;
 
 namespace Cben.WebApi
 {
@@ -34,6 +35,9 @@ namespace Cben.WebApi
 
         public override void PreInitialize()
         {
+
+            Configuration.DefaultNameOrConnectionString = "SQLExpress";
+
             IocManager.AddConventionalRegistrar(new ApiControllerConventionalRegistrar());
             IocManager.AddConventionalRegistrar(new MvcControllerConventionalRegistrar());
 
@@ -59,7 +63,10 @@ namespace Cben.WebApi
             ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(IocManager));
             // For WebApi
             GlobalConfiguration.Configuration.Services.Replace(typeof(IHttpControllerActivator),
-                new WindsorControllerFactory(IocManager));
+                new CbenApiControllerActivator(IocManager));
+
+            GlobalConfiguration.Configuration.Filters.Add(new HostAuthenticationFilter(
+                DefaultAuthenticationTypes.ApplicationCookie));
         }
 
         public override void PostInitialize()

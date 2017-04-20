@@ -6,14 +6,14 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 
-namespace Cben.Web
+namespace Cben.WebApi.Authorization
 {
     /// <summary>
     /// This attribute is used on a method of an <see cref="ApiController"/>
     /// to make that method usable only by authorized users.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public class CbenApiAuthorizeAttribute : AuthorizeAttribute, ICbenAuthorizeAttribute
+    public class ApiAuthorizeAttribute : AuthorizeAttribute, ICbenAuthorizeAttribute
     {
         /// <inheritdoc/>
         public string[] Permissions { get; set; }
@@ -22,12 +22,17 @@ namespace Cben.Web
         public bool RequireAllPermissions { get; set; }
 
         /// <summary>
-        /// Creates a new instance of <see cref="CbenApiAuthorizeAttribute"/> class.
+        /// Creates a new instance of <see cref="ApiAuthorizeAttribute"/> class.
         /// </summary>
         /// <param name="permissions">A list of permissions to authorize</param>
-        public CbenApiAuthorizeAttribute(params string[] permissions)
+        public ApiAuthorizeAttribute(params string[] permissions)
         {
             Permissions = permissions;
+        }
+
+        public override void OnAuthorization(HttpActionContext actionContext)
+        {
+            base.OnAuthorization(actionContext);
         }
 
         protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)
@@ -43,7 +48,7 @@ namespace Cben.Web
                                       ? (int)System.Net.HttpStatusCode.Unauthorized
                                       : (int)System.Net.HttpStatusCode.Forbidden;
 
-            httpContext.Response.SuppressFormsAuthenticationRedirect = true;
+            httpContext.Response.SuppressFormsAuthenticationRedirect = false;
             httpContext.Response.End();
         }
     }

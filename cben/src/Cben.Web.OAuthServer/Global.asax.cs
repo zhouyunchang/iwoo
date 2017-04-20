@@ -2,20 +2,13 @@
 using Cben.Threading;
 using Cben.Web.Localization;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
 
 namespace Cben.Web
 {
-    public class WebApiApplication : System.Web.HttpApplication
+    public class OAuthServerApplication : System.Web.HttpApplication
     {
 
-        public static CbenBootstrapper CbenBootstrapper => CbenBootstrapper.Create<WebApiModule>();
+        public static CbenBootstrapper CbenBootstrapper => CbenBootstrapper.Create<OAuthServerModule>();
 
         protected virtual void Application_Start()
         {

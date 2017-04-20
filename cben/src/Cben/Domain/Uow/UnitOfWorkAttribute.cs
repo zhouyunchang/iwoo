@@ -138,7 +138,7 @@ namespace Cben.Domain.Uow
         /// </summary>
         /// <param name="methodInfo">Method to get attribute</param>
         /// <returns>The UnitOfWorkAttribute object</returns>
-        internal static UnitOfWorkAttribute GetUnitOfWorkAttributeOrNull(MemberInfo methodInfo)
+        public static UnitOfWorkAttribute GetUnitOfWorkAttributeOrNull(MemberInfo methodInfo)
         {
             var attrs = methodInfo.GetCustomAttributes(typeof(UnitOfWorkAttribute), false);
             if (attrs.Length > 0)
@@ -154,7 +154,7 @@ namespace Cben.Domain.Uow
             return null;
         }
 
-        internal UnitOfWorkOptions CreateOptions()
+        public UnitOfWorkOptions CreateOptions()
         {
             return new UnitOfWorkOptions
             {

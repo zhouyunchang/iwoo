@@ -23,6 +23,13 @@ using System.Web.Http.Dispatcher;
 using Cben.WebApi.Session;
 using Cben.WebApi.MultiTenancy;
 using Microsoft.AspNet.Identity;
+using Cben.WebApi.Authorization;
+using Cben.WebApi.Auditing;
+using Cben.WebApi.Validation;
+using Cben.WebApi.Uow;
+using Cben.WebApi.ExceptionHandling;
+using Cben.WebApi.Controllers;
+using Microsoft.Owin.Security.OAuth;
 
 namespace Cben.WebApi
 {
@@ -35,13 +42,10 @@ namespace Cben.WebApi
 
         public override void PreInitialize()
         {
-
-            Configuration.DefaultNameOrConnectionString = "SQLExpress";
-
             IocManager.AddConventionalRegistrar(new ApiControllerConventionalRegistrar());
             IocManager.AddConventionalRegistrar(new MvcControllerConventionalRegistrar());
 
-            IocManager.Register<ICbenMvcConfiguration, CbenMvcConfiguration>();
+            IocManager.Register<ICbenWebApiConfiguration, CbenWebApiConfiguration>();
 
             // database based localization
             Configuration.Modules.Zero().LanguageManagement.EnableDbLocalization();
@@ -65,14 +69,14 @@ namespace Cben.WebApi
             GlobalConfiguration.Configuration.Services.Replace(typeof(IHttpControllerActivator),
                 new CbenApiControllerActivator(IocManager));
 
-            GlobalConfiguration.Configuration.Filters.Add(new HostAuthenticationFilter(
-                DefaultAuthenticationTypes.ApplicationCookie));
+            GlobalConfiguration.Configuration.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
         }
 
         public override void PostInitialize()
         {
             InitializeFormatters(GlobalConfiguration.Configuration);
             InitializeModelBinders(GlobalConfiguration.Configuration);
+            InitializeFilters(GlobalConfiguration.Configuration);
         }
 
         private void AddIgnoredTypes()
@@ -113,6 +117,17 @@ namespace Cben.WebApi
             var cbenApiDateTimeBinder = new CbenApiDateTimeBinder();
             httpConfiguration.BindParameter(typeof(DateTime), cbenApiDateTimeBinder);
             httpConfiguration.BindParameter(typeof(DateTime?), cbenApiDateTimeBinder);
+        }
+
+        private void InitializeFilters(HttpConfiguration httpConfiguration)
+        {
+            httpConfiguration.Filters.Add(IocManager.Resolve<CbenApiAuthorizeFilter>());
+            httpConfiguration.Filters.Add(IocManager.Resolve<CbenApiAuditFilter>());
+            httpConfiguration.Filters.Add(IocManager.Resolve<CbenApiValidationFilter>());
+            httpConfiguration.Filters.Add(IocManager.Resolve<CbenApiUowFilter>());
+            httpConfiguration.Filters.Add(IocManager.Resolve<CbenApiExceptionFilterAttribute>());
+
+            httpConfiguration.MessageHandlers.Add(IocManager.Resolve<ResultWrapperHandler>());
         }
     }
 }

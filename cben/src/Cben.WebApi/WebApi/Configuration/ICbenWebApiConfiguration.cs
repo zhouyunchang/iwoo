@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace Cben.WebApi.Configuration
 {
-    public interface ICbenMvcConfiguration
+    public interface ICbenWebApiConfiguration
     {
         /// <summary>
         /// Default UnitOfWorkAttribute for all actions.
@@ -19,6 +20,13 @@ namespace Cben.WebApi.Configuration
         /// Default WrapResultAttribute for all actions.
         /// </summary>
         WrapResultAttribute DefaultWrapResultAttribute { get; }
+
+
+        /// <summary>
+        /// List of URLs to ignore on result wrapping.
+        /// </summary>
+        List<string> ResultWrappingIgnoreUrls { get; }
+
 
         string DomainFormat { get; set; }
 
@@ -52,6 +60,11 @@ namespace Cben.WebApi.Configuration
         /// </summary>
         bool SendAllExceptionsToClients { get; set; }
 
+        /// <summary>
+        /// Default: true.
+        /// </summary>
+        bool SetNoCacheForAllResponses { get; set; }
 
+        HttpConfiguration HttpConfiguration { get; set; }
     }
 }

@@ -11,11 +11,11 @@ namespace Cben.WebApi.MultiTenancy
 {
     public class DomainTenantResolveContributor : ITenantResolveContributor, ITransientDependency
     {
-        private readonly ICbenMvcConfiguration _multiTenancyConfiguration;
+        private readonly ICbenWebApiConfiguration _multiTenancyConfiguration;
         private readonly ITenantStore _tenantStore;
 
         public DomainTenantResolveContributor(
-            ICbenMvcConfiguration multiTenancyConfiguration,
+            ICbenWebApiConfiguration multiTenancyConfiguration,
             ITenantStore tenantStore)
         {
             _multiTenancyConfiguration = multiTenancyConfiguration;

@@ -9,7 +9,6 @@ using Cben.Localization;
 using Cben.Runtime.Validation;
 using Cben.UI;
 using Cben.Web.Configuration;
-using Cben.Web.Models;
 
 namespace Cben.Web.Models
 {

@@ -136,7 +136,7 @@ namespace Cben.WebApi.Controllers
         /// </summary>
         protected IActiveUnitOfWork CurrentUnitOfWork { get { return UnitOfWorkManager.Current; } }
 
-        public ICbenMvcConfiguration CbenMvcConfiguration { get; set; }
+        public ICbenWebApiConfiguration CbenWebApiConfiguration { get; set; }
 
         /// <summary>
         /// MethodInfo for currently executing action.
@@ -264,7 +264,7 @@ namespace Cben.WebApi.Controllers
             _wrapResultAttribute =
                 ReflectionHelper.GetSingleAttributeOfMemberOrDeclaringTypeOrDefault(
                     _currentMethodInfo,
-                    CbenMvcConfiguration.DefaultWrapResultAttribute
+                    CbenWebApiConfiguration.DefaultWrapResultAttribute
                 );
         }
 

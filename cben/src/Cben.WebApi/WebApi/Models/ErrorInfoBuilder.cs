@@ -11,7 +11,7 @@ namespace Cben.WebApi.Models
         private IExceptionToErrorInfoConverter Converter { get; set; }
 
         /// <inheritdoc/>
-        public ErrorInfoBuilder(ICbenMvcConfiguration configuration, ILocalizationManager localizationManager)
+        public ErrorInfoBuilder(ICbenWebApiConfiguration configuration, ILocalizationManager localizationManager)
         {
             Converter = new DefaultErrorInfoConverter(configuration, localizationManager);
         }

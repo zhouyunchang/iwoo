@@ -1,4 +1,5 @@
 ﻿using Cben.Authorization;
+using Cben.WebApi.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Web.Http;
 namespace Cben.WebApi.Controllers
 {
 
-    [Authorize]
+    [ApiAuthorize]
     public class ValuesController : ApiControllerBase
     {
         // GET api/values

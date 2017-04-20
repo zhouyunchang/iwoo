@@ -50,46 +50,46 @@ namespace Cben.WebApi
 
         private void ConfigureAuth(IAppBuilder app)
         {
-            //app.UseOAuthBearerAuthentication(AuthorizeController.OAuthBearerOptions);
+            app.UseOAuthBearerAuthentication(AuthorizeController.OAuthBearerOptions);
 
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString(Paths.LoginPath),
-                ReturnUrlParameter = "ReturnUrl"
-            });
+            //app.UseCookieAuthentication(new CookieAuthenticationOptions
+            //{
+            //    AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+            //    LoginPath = new PathString(Paths.LoginPath),
+            //    ReturnUrlParameter = "ReturnUrl"
+            //});
 
-            app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions
-            {
-                AuthorizeEndpointPath = new PathString(Paths.AuthorizePath),
-                TokenEndpointPath = new PathString(Paths.TokenPath),
-                ApplicationCanDisplayErrors = true,
-                AllowInsecureHttp = true,
+            //app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions
+            //{
+            //    AuthorizeEndpointPath = new PathString(Paths.AuthorizePath),
+            //    TokenEndpointPath = new PathString(Paths.TokenPath),
+            //    ApplicationCanDisplayErrors = true,
+            //    AllowInsecureHttp = true,
 
-                // Authorization server provider which controls the lifecycle of Authorization Server
-                Provider = new OAuthAuthorizationServerProvider
-                {
-                    OnValidateClientRedirectUri = ValidateClientRedirectUri,
-                    OnValidateAuthorizeRequest = ValidateAuthorizeRequest,
-                    OnValidateClientAuthentication = ValidateClientAuthentication,
-                    OnGrantResourceOwnerCredentials = GrantResourceOwnerCredentials,
-                    OnGrantClientCredentials = GrantClientCredetails
-                },
+            //    // Authorization server provider which controls the lifecycle of Authorization Server
+            //    Provider = new OAuthAuthorizationServerProvider
+            //    {
+            //        OnValidateClientRedirectUri = ValidateClientRedirectUri,
+            //        OnValidateAuthorizeRequest = ValidateAuthorizeRequest,
+            //        OnValidateClientAuthentication = ValidateClientAuthentication,
+            //        OnGrantResourceOwnerCredentials = GrantResourceOwnerCredentials,
+            //        OnGrantClientCredentials = GrantClientCredetails
+            //    },
 
-                // Authorization code provider which creates and receives authorization code
-                AuthorizationCodeProvider = new AuthenticationTokenProvider
-                {
-                    OnCreate = CreateAuthenticationCode,
-                    OnReceive = ReceiveAuthenticationCode,
-                },
+            //    // Authorization code provider which creates and receives authorization code
+            //    AuthorizationCodeProvider = new AuthenticationTokenProvider
+            //    {
+            //        OnCreate = CreateAuthenticationCode,
+            //        OnReceive = ReceiveAuthenticationCode,
+            //    },
 
-                // Refresh token provider which creates and receives referesh token
-                RefreshTokenProvider = new AuthenticationTokenProvider
-                {
-                    OnCreate = CreateRefreshToken,
-                    OnReceive = ReceiveRefreshToken,
-                }
-            });
+            //    // Refresh token provider which creates and receives referesh token
+            //    RefreshTokenProvider = new AuthenticationTokenProvider
+            //    {
+            //        OnCreate = CreateRefreshToken,
+            //        OnReceive = ReceiveRefreshToken,
+            //    }
+            //});
         }
 
         private Task ValidateClientRedirectUri(OAuthValidateClientRedirectUriContext context)

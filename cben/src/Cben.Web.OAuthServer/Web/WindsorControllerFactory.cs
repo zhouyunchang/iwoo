@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Cben.Dependency;
-using System.Web.Http.Dispatcher;
-using System.Net.Http;
-using System.Web.Http.Controllers;
 
 namespace Cben.Web
 {
     /// <summary>
     /// This class is used to allow MVC to use dependency injection system while creating MVC controllers.
     /// </summary>
-    public class WindsorControllerFactory : DefaultControllerFactory, IHttpControllerActivator
+    public class WindsorControllerFactory : DefaultControllerFactory
     {
         /// <summary>
         /// Reference to DI kernel.
@@ -26,24 +22,6 @@ namespace Cben.Web
         public WindsorControllerFactory(IIocResolver iocManager)
         {
             _iocManager = iocManager;
-        }
-
-        /// <summary>
-        /// WebApi Controller
-        /// </summary>
-        /// <param name="request"></param>
-        /// <param name="controllerDescriptor"></param>
-        /// <param name="controllerType"></param>
-        /// <returns></returns>
-        public IHttpController Create(HttpRequestMessage request, HttpControllerDescriptor controllerDescriptor, Type controllerType)
-        {
-            var controller = (IHttpController)_iocManager.Resolve(controllerType);
-
-            request.RegisterForDispose(
-                new DisposeAction(
-                        () => _iocManager.Release(controller)));
-
-            return controller;
         }
 
         /// <summary>

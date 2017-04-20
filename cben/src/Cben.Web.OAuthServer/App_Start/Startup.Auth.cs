@@ -1,6 +1,8 @@
-﻿using Cben.Dependency;
+﻿using Cben.Core.Authorization;
+using Cben.Dependency;
 using Cben.Domain.Repositories;
 using Cben.Domain.Uow;
+using Cben.Threading;
 using Cben.Web.Controllers;
 using Cben.Zero.OAuth2;
 using Microsoft.AspNet.Identity;
@@ -22,15 +24,6 @@ namespace Cben.Web
 
     public static class Paths
     {
-
-        public const string ImplicitGrantCallBackPath = "http://localhost:8080/Owin04_OAuthClient/Implicit/Login";
-
-        public const string AuthorizeCodeCallBackPath = "http://localhost:8080/Owin04_OAuthClient/AuthCode";
-
-        public const string ResourceUserApiPath = "http://localhost:8080/Owin04_OAuthResource/api/user";
-
-        public const string AuthorizationServerBaseAddress = "http://localhost:8080/OWin04_OAuthServer";
-
         public const string LoginPath = "/Account/Login";
         public const string LogoutPath = "/Account/Logout";
 
@@ -42,10 +35,6 @@ namespace Cben.Web
     public partial class Startup
     {
 
-        private static IRepository<Client, int> ClientRepository = IocManager.Instance.Resolve<IRepository<Client, int>>();
-
-        private static IUnitOfWorkManager UnitOfWorkManager = IocManager.Instance.Resolve<IUnitOfWorkManager>();
-
         private readonly ConcurrentDictionary<string, string> authenticationCodes = new ConcurrentDictionary<string, string>(StringComparer.Ordinal);
 
         private void ConfigureAuth(IAppBuilder app)
@@ -56,6 +45,7 @@ namespace Cben.Web
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString(Paths.LoginPath),
+                LogoutPath = new PathString(Paths.LogoutPath),
                 ReturnUrlParameter = "ReturnUrl"
             });
 
@@ -96,10 +86,12 @@ namespace Cben.Web
         {
             string clientId = context.ClientId;
 
-            using (var uow = UnitOfWorkManager.Begin())
+            var unitOfWorkManager = IocManager.Instance.Resolve<IUnitOfWorkManager>();
+            var clientRepo = IocManager.Instance.Resolve<IRepository<Client, int>>();
+            using (var uow = unitOfWorkManager.Begin())
             {
                 // 验证客户端标识与安全码
-                var client = ClientRepository.GetAll()
+                var client = clientRepo.GetAll()
                     .Where(i => i.ClientIdentifier == clientId)
                     .FirstOrDefault();
 
@@ -119,6 +111,8 @@ namespace Cben.Web
 
                 uow.Complete();
             }
+            IocManager.Instance.Release(clientRepo);
+            IocManager.Instance.Release(unitOfWorkManager);
 
             return Task.FromResult(0);
         }
@@ -170,12 +164,33 @@ namespace Cben.Web
 
         private Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var identity = new ClaimsIdentity(
-                new GenericIdentity(context.UserName, OAuthDefaults.AuthenticationType),
-                context.Scope.Select(x => new Claim("urn:oauth:scope", x))
-            );
 
-            context.Validated(identity);
+            string userName = context.UserName;
+            string password = context.Password;
+
+            var unitOfWorkManager = IocManager.Instance.Resolve<IUnitOfWorkManager>();
+            var logInManager = IocManager.Instance.Resolve<LogInManager>();
+            using (var uow = unitOfWorkManager.Begin())
+            {
+                var loginResult = AsyncHelper.RunSync(() => logInManager.LoginAsync(userName, password));
+                if (loginResult != null && loginResult.Identity != null)
+                {
+                    var identity = loginResult.Identity;
+
+                    loginResult.Identity.AddClaims(context.Scope.Select(x => new Claim("urn:oauth:scope", x)));
+
+                    identity = new ClaimsIdentity(loginResult.Identity.Claims, OAuthDefaults.AuthenticationType);
+
+                    context.Validated(identity);
+
+                }
+                else
+                {
+                    context.Rejected();
+                }
+            }
+            IocManager.Instance.Release(logInManager);
+            IocManager.Instance.Release(unitOfWorkManager);
 
             return Task.FromResult(0);
         }
@@ -187,11 +202,13 @@ namespace Cben.Web
             if (context.TryGetBasicCredentials(out clientId, out clientSecret) ||
                 context.TryGetFormCredentials(out clientId, out clientSecret))
             {
-                using (var uow = UnitOfWorkManager.Begin())
+                var unitOfWorkManager = IocManager.Instance.Resolve<IUnitOfWorkManager>();
+                var clientRepo = IocManager.Instance.Resolve<IRepository<Client, int>>();
+                using (var uow = unitOfWorkManager.Begin())
                 {
 
                     // 验证客户端标识与安全码
-                    var client = ClientRepository.GetAll()
+                    var client = clientRepo.GetAll()
                                 .Where(i => i.ClientIdentifier == clientId && i.ClientSecret == clientSecret)
                                 .FirstOrDefault();
 
@@ -202,11 +219,13 @@ namespace Cben.Web
 
                     uow.Complete();
                 }
+                IocManager.Instance.Release(clientRepo);
+                IocManager.Instance.Release(unitOfWorkManager);
             }
             return Task.FromResult(0);
         }
 
-       
+
 
     }
 

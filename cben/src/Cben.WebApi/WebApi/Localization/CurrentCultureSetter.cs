@@ -16,10 +16,10 @@ namespace Cben.WebApi.Localization
 {
     public class CurrentCultureSetter : ICurrentCultureSetter, ITransientDependency
     {
-        private readonly ICbenMvcConfiguration _webLocalizationConfiguration;
+        private readonly ICbenWebApiConfiguration _webLocalizationConfiguration;
         private readonly ISettingManager _settingManager;
 
-        public CurrentCultureSetter(ICbenMvcConfiguration webLocalizationConfiguration, ISettingManager settingManager)
+        public CurrentCultureSetter(ICbenWebApiConfiguration webLocalizationConfiguration, ISettingManager settingManager)
         {
             _webLocalizationConfiguration = webLocalizationConfiguration;
             _settingManager = settingManager;

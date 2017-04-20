@@ -16,7 +16,7 @@ namespace Cben.WebApi.Models
     //TODO@Halil: I did not like constructing ErrorInfo this way. It works wlll but I think we should change it later...
     internal class DefaultErrorInfoConverter : IExceptionToErrorInfoConverter
     {
-        private readonly ICbenMvcConfiguration _configuration;
+        private readonly ICbenWebApiConfiguration _configuration;
         private readonly ILocalizationManager _localizationManager;
 
         public IExceptionToErrorInfoConverter Next { set; private get; }
@@ -30,7 +30,7 @@ namespace Cben.WebApi.Models
         }
 
         public DefaultErrorInfoConverter(
-            ICbenMvcConfiguration configuration, 
+            ICbenWebApiConfiguration configuration, 
             ILocalizationManager localizationManager)
         {
             _configuration = configuration;

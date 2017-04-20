@@ -128,7 +128,7 @@ namespace Cben.WebApi.Controllers
         /// </summary>
         protected IActiveUnitOfWork CurrentUnitOfWork { get { return UnitOfWorkManager.Current; } }
 
-        public ICbenMvcConfiguration CbenMvcConfiguration { get; set; }
+        public ICbenWebApiConfiguration CbenWebApiConfiguration { get; set; }
 
         /// <summary>
         /// MethodInfo for currently executing action.

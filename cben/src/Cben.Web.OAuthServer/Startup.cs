@@ -1,6 +1,5 @@
 ﻿using Microsoft.Owin;
 using Owin;
-using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -13,11 +12,7 @@ namespace Cben.Web
     {
         public void Configuration(IAppBuilder app)
         {
-            HttpConfiguration config = new HttpConfiguration();
-
             ConfigureAuth(app);
-
-            WebApiConfig.Register(config);
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -25,7 +20,6 @@ namespace Cben.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-            app.UseWebApi(config);
         }
 
     }

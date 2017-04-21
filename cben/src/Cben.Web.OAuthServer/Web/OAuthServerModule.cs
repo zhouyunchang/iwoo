@@ -25,9 +25,6 @@ namespace Cben.Web
 
         public override void PreInitialize()
         {
-
-            Configuration.DefaultNameOrConnectionString = "Default";
-            
             IocManager.AddConventionalRegistrar(new MvcControllerConventionalRegistrar());
 
             IocManager.Register<ICbenMvcConfiguration, CbenMvcConfiguration>();

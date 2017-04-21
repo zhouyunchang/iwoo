@@ -13,11 +13,10 @@ namespace Cben.WebApi
     {
         public void Configuration(IAppBuilder app)
         {
-            HttpConfiguration config = new HttpConfiguration();
+            HttpConfiguration config = GlobalConfiguration.Configuration;
+            WebApiConfig.Register(config);
 
             ConfigureAuth(app);
-
-            WebApiConfig.Register(config);
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -26,6 +25,8 @@ namespace Cben.WebApi
 
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
+
+            config.EnsureInitialized();
         }
 
     }

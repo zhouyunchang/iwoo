@@ -10,7 +10,7 @@ namespace Cben.WebApi.Configuration
         /// <summary>
         /// Used to configure Cben.Web.Api module.
         /// </summary>
-        public static ICbenWebApiConfiguration CbenMvc(this IModuleConfigurations configurations)
+        public static ICbenWebApiConfiguration WebApi(this IModuleConfigurations configurations)
         {
             return configurations.CbenConfiguration.Get<ICbenWebApiConfiguration>();
         }

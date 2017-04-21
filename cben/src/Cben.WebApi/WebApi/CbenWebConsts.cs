@@ -7,6 +7,6 @@ namespace Cben.WebApi
 {
     public static class CbenWebConsts
     {
-        public const string LocalizaionSourceName = "CbenWeb";
+        public const string LocalizationSourceName = "CbenWeb";
     }
 }

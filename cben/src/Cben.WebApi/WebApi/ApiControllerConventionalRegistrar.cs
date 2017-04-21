@@ -1,5 +1,6 @@
 ﻿using Castle.MicroKernel.Registration;
 using Cben.Dependency;
+using Cben.WebApi.Controllers;
 using System.Web.Http;
 
 namespace Cben.WebApi

@@ -18,11 +18,23 @@ namespace Cben.WebApi
             _iocResolver = iocResolver;
         }
 
+
+        /// <summary>
+        /// WebApi Controller
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="controllerDescriptor"></param>
+        /// <param name="controllerType"></param>
+        /// <returns></returns>
         public IHttpController Create(HttpRequestMessage request, HttpControllerDescriptor controllerDescriptor, Type controllerType)
         {
-            var controllerWrapper = _iocResolver.ResolveAsDisposable<IHttpController>(controllerType);
-            request.RegisterForDispose(controllerWrapper);
-            return controllerWrapper.Object;
+            var controller = (IHttpController)_iocResolver.Resolve(controllerType);
+
+            request.RegisterForDispose(
+                new DisposeAction(
+                        () => _iocResolver.Release(controller)));
+
+            return controller;
         }
     }
 }

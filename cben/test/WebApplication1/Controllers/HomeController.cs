@@ -36,8 +36,8 @@ namespace WebApplication1.Controllers
 
             var authServer = new AuthorizationServerDescription
             {
-                AuthorizationEndpoint = new Uri("http://localhost:56923/authorize"),
-                TokenEndpoint = new Uri("http://localhost:56923/token")
+                AuthorizationEndpoint = new Uri("http://localhost:54443/authorize"),
+                TokenEndpoint = new Uri("http://localhost:54443/token")
             };
             var webServerClient = new WebServerClient(authServer, "CbenWeb", "CbenWeb");
 

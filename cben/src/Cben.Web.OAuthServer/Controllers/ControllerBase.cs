@@ -23,6 +23,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Cben.Core;
 
 namespace Cben.Web.Controllers
 {
@@ -155,6 +156,8 @@ namespace Cben.Web.Controllers
             LocalizationManager = NullLocalizationManager.Instance;
             PermissionChecker = NullPermissionChecker.Instance;
             EventBus = NullEventBus.Instance;
+
+            LocalizationSourceName = CbenCoreConsts.LocalizationSourceName;
         }
 
         /// <summary>

@@ -108,14 +108,14 @@ namespace Cben.WebApi.Authorization
             if (statusCode == HttpStatusCode.Forbidden)
             {
                 return new ErrorInfo(
-                    _localizationManager.GetString(CbenWebConsts.LocalizaionSourceName, "DefaultError403"),
-                    _localizationManager.GetString(CbenWebConsts.LocalizaionSourceName, "DefaultErrorDetail403")
+                    _localizationManager.GetString(CbenWebConsts.LocalizationSourceName, "DefaultError403"),
+                    _localizationManager.GetString(CbenWebConsts.LocalizationSourceName, "DefaultErrorDetail403")
                 );
             }
 
             return new ErrorInfo(
-                _localizationManager.GetString(CbenWebConsts.LocalizaionSourceName, "DefaultError401"),
-                _localizationManager.GetString(CbenWebConsts.LocalizaionSourceName, "DefaultErrorDetail401")
+                _localizationManager.GetString(CbenWebConsts.LocalizationSourceName, "DefaultError401"),
+                _localizationManager.GetString(CbenWebConsts.LocalizationSourceName, "DefaultErrorDetail401")
             );
         }
 

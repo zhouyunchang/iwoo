@@ -150,6 +150,8 @@ namespace Cben.WebApi.Controllers
             LocalizationManager = NullLocalizationManager.Instance;
             PermissionChecker = NullPermissionChecker.Instance;
             EventBus = NullEventBus.Instance;
+
+            LocalizationSourceName = CbenWebConsts.LocalizationSourceName;
         }
 
         /// <summary>
@@ -235,7 +237,7 @@ namespace Cben.WebApi.Controllers
             return FeatureChecker.IsEnabled(featureName);
         }
 
-        
+
 
     }
 }

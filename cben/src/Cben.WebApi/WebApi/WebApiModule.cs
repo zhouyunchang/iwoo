@@ -30,6 +30,9 @@ using Cben.WebApi.Uow;
 using Cben.WebApi.ExceptionHandling;
 using Cben.WebApi.Controllers;
 using Microsoft.Owin.Security.OAuth;
+using Castle.MicroKernel.Registration;
+using Cben.Localization.Dictionaries;
+using Cben.Localization.Dictionaries.Xml;
 
 namespace Cben.WebApi
 {
@@ -43,7 +46,6 @@ namespace Cben.WebApi
         public override void PreInitialize()
         {
             IocManager.AddConventionalRegistrar(new ApiControllerConventionalRegistrar());
-            IocManager.AddConventionalRegistrar(new MvcControllerConventionalRegistrar());
 
             IocManager.Register<ICbenWebApiConfiguration, CbenWebApiConfiguration>(DependencyLifeStyle.Transient);
 
@@ -56,6 +58,16 @@ namespace Cben.WebApi
             Configuration.MultiTenancy.Resolvers.Add<HttpHeaderTenantResolveContributor>();
             Configuration.MultiTenancy.Resolvers.Add<HttpCookieTenantResolveContributor>();
 
+            Configuration.Localization.Sources.Add(
+                new DictionaryBasedLocalizationSource(
+                    CbenWebConsts.LocalizationSourceName,
+                    new XmlEmbeddedFileLocalizationDictionaryProvider(
+                        Assembly.GetExecutingAssembly(),
+                        "Cben.WebApi.Localization.Source"
+                        )
+                    )
+                );
+
             AddIgnoredTypes();
         }
 
@@ -63,20 +75,20 @@ namespace Cben.WebApi
         {
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
 
-            // For Mvc
-            ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(IocManager));
-            // For WebApi
-            GlobalConfiguration.Configuration.Services.Replace(typeof(IHttpControllerActivator),
-                new CbenApiControllerActivator(IocManager));
-
-            GlobalConfiguration.Configuration.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            var httpConfiguration = Configuration.Modules.WebApi().HttpConfiguration;
+            httpConfiguration.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
         }
 
         public override void PostInitialize()
         {
-            InitializeFormatters(GlobalConfiguration.Configuration);
-            InitializeModelBinders(GlobalConfiguration.Configuration);
-            InitializeFilters(GlobalConfiguration.Configuration);
+            HttpConfiguration httpConfiguration = IocManager.Resolve<ICbenWebApiConfiguration>().HttpConfiguration;
+
+            InitializeAspNetServices(httpConfiguration);
+            InitializeFormatters(httpConfiguration);
+            InitializeModelBinders(httpConfiguration);
+            InitializeFilters(httpConfiguration);
+
+            //Configuration.Modules.WebApi().HttpConfiguration.EnsureInitialized();
         }
 
         private void AddIgnoredTypes()
@@ -96,23 +108,29 @@ namespace Cben.WebApi
             }
         }
 
-        private static void InitializeFormatters(HttpConfiguration httpConfiguration)
+        private void InitializeAspNetServices(HttpConfiguration httpConfiguration)
+        {
+            httpConfiguration.Services.Replace(typeof(IHttpControllerActivator),
+                new CbenApiControllerActivator(IocManager));
+        }
+
+        private void InitializeFormatters(HttpConfiguration httpConfiguration)
         {
             //Remove formatters except JsonFormatter.
-            foreach (var currentFormatter in httpConfiguration.Formatters.ToList())
-            {
-                if (!(currentFormatter is JsonMediaTypeFormatter ||
-                    currentFormatter is JQueryMvcFormUrlEncodedFormatter))
-                {
-                    httpConfiguration.Formatters.Remove(currentFormatter);
-                }
-            }
+            //foreach (var currentFormatter in httpConfiguration.Formatters.ToList())
+            //{
+            //    if (!(currentFormatter is JsonMediaTypeFormatter ||
+            //        currentFormatter is JQueryMvcFormUrlEncodedFormatter))
+            //    {
+            //        httpConfiguration.Formatters.Remove(currentFormatter);
+            //    }
+            //}
 
             httpConfiguration.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             httpConfiguration.Formatters.JsonFormatter.SerializerSettings.Converters.Insert(0, new CbenDateTimeConverter());
         }
 
-        private static void InitializeModelBinders(HttpConfiguration httpConfiguration)
+        private void InitializeModelBinders(HttpConfiguration httpConfiguration)
         {
             var cbenApiDateTimeBinder = new CbenApiDateTimeBinder();
             httpConfiguration.BindParameter(typeof(DateTime), cbenApiDateTimeBinder);

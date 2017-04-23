@@ -55,6 +55,7 @@ namespace Cben.Web
                 TokenEndpointPath = new PathString(Paths.TokenPath),
                 ApplicationCanDisplayErrors = true,
                 AllowInsecureHttp = true,
+                AccessTokenExpireTimeSpan = TimeSpan.FromHours(3),
 
                 // Authorization server provider which controls the lifecycle of Authorization Server
                 Provider = new OAuthAuthorizationServerProvider

@@ -240,11 +240,7 @@
     <Compile Include="WebApi\Configuration\CbenWebApiConfiguration.cs" />
     <Compile Include="WebApi\Configuration\CbenWebApiConfigurationExtensions.cs" />
     <Compile Include="WebApi\Configuration\ICbenWebApiConfiguration.cs" />
-    <Compile Include="Controllers\AuthorizeController.cs" />
-    <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\IdentityController.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Results\CbenJsonResult.cs" />
     <Compile Include="Controllers\ValuesController.cs" />

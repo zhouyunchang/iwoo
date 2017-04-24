@@ -58,9 +58,15 @@ namespace Cben.Zero.EntityFramework
         /// </summary>
         public virtual IDbSet<UserAccount> UserAccounts { get; set; }
 
+        /// <summary>
+        /// OAuth2 Clients
+        /// </summary>
         public virtual IDbSet<Client> Clients { get; set; }
 
-        public virtual IDbSet<ClientAuthorization> ClientAuthroization { get; set; }
+        /// <summary>
+        /// OAuth2 ClientAuthorization
+        /// </summary>
+        public virtual IDbSet<ClientAuthorization> ClientAuthorizations { get; set; }
 
         protected CbenZeroDbContext()
         {

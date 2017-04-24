@@ -261,7 +261,7 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Cben.Core\Cben.Core.csproj">
+    <ProjectReference Include="..\src\Cben.Core\Cben.Core.csproj">
       <Project>{b0bebc6e-cdc1-4757-842e-e1e8d6c34a04}</Project>
       <Name>Cben.Core</Name>
     </ProjectReference>

@@ -98,6 +98,7 @@ namespace Cben.Web
 
                 if (client != null)
                 {
+#if !DEBUG
                     // 验证客户端标识与重定向地址
                     if (context.RedirectUri != null &&
                         context.RedirectUri.Equals(client.Callback, StringComparison.OrdinalIgnoreCase))
@@ -108,6 +109,9 @@ namespace Cben.Web
                     {
                         context.Validated(client.Callback);
                     }
+#else
+                    context.Validated(context.RedirectUri);
+#endif
                 }
 
                 uow.Complete();

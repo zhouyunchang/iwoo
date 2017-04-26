@@ -2,11 +2,8 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 
-const token_type = 'Bearer'
-const token = {
-    access_token: '',
-    refresh_token: ''
-}
+var options = options || {};
+
 const oauthServerOption = {
     authorize_endpoint: 'http://localhost:54443/authorize',
     token_endpoint: 'http://localhost:54443/token',

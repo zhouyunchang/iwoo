@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cben.Erp.Web", "Cben.Erp.Web\Cben.Erp.Web.csproj", "{C2D027CB-38DA-44A2-8CE0-96E15136C35D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cben.Erp.Web.Tests", "Cben.Erp.Web.Tests\Cben.Erp.Web.Tests.csproj", "{87D4DE25-6187-4A72-A157-35A5875F3310}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cben.Erp.Api", "Cben.Erp.Api\Cben.Erp.Api.csproj", "{430E4B91-8CE1-4C20-985C-77233BE091D4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C2D027CB-38DA-44A2-8CE0-96E15136C35D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2D027CB-38DA-44A2-8CE0-96E15136C35D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2D027CB-38DA-44A2-8CE0-96E15136C35D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2D027CB-38DA-44A2-8CE0-96E15136C35D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87D4DE25-6187-4A72-A157-35A5875F3310}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87D4DE25-6187-4A72-A157-35A5875F3310}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87D4DE25-6187-4A72-A157-35A5875F3310}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87D4DE25-6187-4A72-A157-35A5875F3310}.Release|Any CPU.Build.0 = Release|Any CPU
+		{430E4B91-8CE1-4C20-985C-77233BE091D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{430E4B91-8CE1-4C20-985C-77233BE091D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{430E4B91-8CE1-4C20-985C-77233BE091D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{430E4B91-8CE1-4C20-985C-77233BE091D4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -13,7 +13,7 @@ namespace Cben.Core.Migrations.SeedData
 
         public const string DefaultClientIdentifier = "CbenWeb";
 
-        public const string DefaultClientSecret = "CbenWebSecret";
+        public const string DefaultClientSecret = "CbenWeb";
 
         public DefaultClientCreator(CbenCoreDbContext context)
         {

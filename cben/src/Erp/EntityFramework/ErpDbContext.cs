@@ -1,7 +1,9 @@
 ﻿using Cben.Core.EntityFramework;
+using Erp.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +30,12 @@ namespace Erp.EntityFramework
         {
 
         }
+
+        /// <summary>
+        /// 员工 
+        /// </summary>
+        public DbSet<Employee> Employee { get; set; }
+
 
     }
 }

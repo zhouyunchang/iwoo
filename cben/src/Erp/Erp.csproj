@@ -63,6 +63,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntityFramework\ErpDbContext.cs" />
+    <Compile Include="EntityFramework\Repositories\EmployeeRepository.cs" />
+    <Compile Include="EntityFramework\Repositories\ErpRepositoryBase.cs" />
+    <Compile Include="Migrations\201704261513177_Erp_Initial.cs" />
+    <Compile Include="Migrations\201704261513177_Erp_Initial.Designer.cs">
+      <DependentUpon>201704261513177_Erp_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Repositories\IEmployeeRepository.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\GuidePrice.cs" />
     <Compile Include="Models\Product.cs" />
@@ -105,7 +113,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Repositories\" />
+    <EmbeddedResource Include="Migrations\201704261513177_Erp_Initial.resx">
+      <DependentUpon>201704261513177_Erp_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

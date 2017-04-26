@@ -16,7 +16,7 @@ namespace Cben.Core
 
         public override void PreInitialize()
         {
-            Database.SetInitializer(new CreateDatabaseIfNotExists<CbenCoreDbContext>());
+            //Database.SetInitializer(new CreateDatabaseIfNotExists<CbenCoreDbContext>());
 
 #if !SQLExpress
             Configuration.DefaultNameOrConnectionString = "Default";

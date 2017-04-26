@@ -10,11 +10,11 @@ namespace Cben.Core.EntityFramework.Repositories
 {
     public class ClientRepository : CbenCoreRepositoryBase<Client, int>, IClientRepository
     {
-        public ClientRepository(IDbContextProvider<CbenCoreDbContext> dbContextProvider) :
-            base(dbContextProvider)
+        public ClientRepository(IDbContextProvider<CbenCoreDbContext> dbContextProvider)
+            : base(dbContextProvider)
         {
         }
-        
+
 
     }
 }

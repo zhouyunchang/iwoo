@@ -15,6 +15,7 @@ namespace Erp.Models
     /// <summary>
     /// 员工
     /// </summary>
+    [Table("Erp_Employee")]
     public class Employee : Entity<int>
     {
 

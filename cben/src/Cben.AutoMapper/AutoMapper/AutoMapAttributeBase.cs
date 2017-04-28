@@ -3,6 +3,8 @@ using AutoMapper;
 
 namespace Cben.AutoMapper
 {
+
+
     public abstract class AutoMapAttributeBase : Attribute
     {
         public Type[] TargetTypes { get; private set; }

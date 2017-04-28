@@ -1,4 +1,5 @@
 ﻿using Cben.Core.EntityFramework;
+using Cben.EntityFramework;
 using Erp.Models;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Erp.EntityFramework
 {
+
     public class ErpDbContext : CbenCoreDbContext
     {
 

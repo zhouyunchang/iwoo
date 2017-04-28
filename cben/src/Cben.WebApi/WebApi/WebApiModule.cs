@@ -33,18 +33,24 @@ using Microsoft.Owin.Security.OAuth;
 using Castle.MicroKernel.Registration;
 using Cben.Localization.Dictionaries;
 using Cben.Localization.Dictionaries.Xml;
+using Erp.Application;
+using Erp;
 
 namespace Cben.WebApi
 {
 
     [DependsOn(
         typeof(CbenCoreDbModule),
-        typeof(CbenApplicationModule))]
+        typeof(CbenApplicationModule),
+        typeof(ErpModule),
+        typeof(ErpApplicationModule))]
     public class WebApiModule : CbenModule
     {
 
         public override void PreInitialize()
         {
+            Configuration.BackgroundJobs.IsJobExecutionEnabled = false;
+
             IocManager.AddConventionalRegistrar(new ApiControllerConventionalRegistrar());
 
             IocManager.Register<ICbenWebApiConfiguration, CbenWebApiConfiguration>(DependencyLifeStyle.Transient);

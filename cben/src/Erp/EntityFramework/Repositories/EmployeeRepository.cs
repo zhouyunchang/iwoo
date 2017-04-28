@@ -9,7 +9,7 @@ using Cben.EntityFramework;
 
 namespace Erp.EntityFramework.Repositories
 {
-    public class EmployeeRepository : ErpRepositoryBase<Employee, int>, IEmployeeRepository
+    public class EmployeeRepository : ErpRepositoryBase<Employee, long>, IEmployeeRepository
     {
         public EmployeeRepository(IDbContextProvider<ErpDbContext> dbContextProvider) : base(dbContextProvider)
         {

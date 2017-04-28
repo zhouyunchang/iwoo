@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Cben.WebApi.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -231,6 +232,7 @@
     <Compile Include="Models\Account\RegisterResultViewModel.cs" />
     <Compile Include="Models\Account\RegisterViewModel.cs" />
     <Compile Include="Models\Account\TenantSelectionViewModel.cs" />
+    <Compile Include="Models\Employee\EmployeeModel.cs" />
     <Compile Include="WebApi\Auditing\CbenApiAuditFilter.cs" />
     <Compile Include="WebApi\Authorization\CbenApiAuthorizeFilter.cs" />
     <Compile Include="WebApi\CbenApiControllerActivator.cs" />
@@ -435,6 +437,14 @@
     <ProjectReference Include="..\Cben\Cben.csproj">
       <Project>{D73FA2E0-0305-46E0-A59C-1B7A7CBD69DC}</Project>
       <Name>Cben</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Erp.Application\Erp.Application.csproj">
+      <Project>{18450421-74E6-4A9C-9014-64771459EFA2}</Project>
+      <Name>Erp.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Erp\Erp.csproj">
+      <Project>{749DD777-B981-400F-AB82-E391074CDF96}</Project>
+      <Name>Erp</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

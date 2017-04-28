@@ -37,7 +37,14 @@ namespace Cben.Application
 
         protected virtual Task<Tenant> GetCurrentTenantAsync()
         {
-            return TenantManager.GetByIdAsync(CbenSession.GetTenantId());
+            if (CbenSession.TenantId.HasValue)
+            {
+                return TenantManager.GetByIdAsync(CbenSession.GetTenantId());
+            }
+            else
+            {
+                return Task.FromResult<Tenant>(null);
+            }
         }
 
         protected virtual void CheckErrors(IdentityResult identityResult)

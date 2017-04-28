@@ -30,8 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Cben.Core\bin\Debug\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,8 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Employee\Dto\AddEmployeeInput.cs" />
+    <Compile Include="Employee\Dto\EmployeeListDto.cs" />
+    <Compile Include="Employee\Dto\UpdateEmployeeInput.cs" />
     <Compile Include="Employee\EmployeeAppService.cs" />
     <Compile Include="Employee\IEmployeeAppService.cs" />
+    <Compile Include="ErpApplicationModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -49,13 +59,27 @@
       <Project>{4B8862D1-0569-4CCE-A6B9-4C4EE722A522}</Project>
       <Name>Cben.Application</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cben.AutoMapper\Cben.AutoMapper.csproj">
+      <Project>{E68F0628-3D40-4CCB-BEA6-233AC5FCE0F9}</Project>
+      <Name>Cben.AutoMapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cben.Core\Cben.Core.csproj">
+      <Project>{B0BEBC6E-CDC1-4757-842E-E1E8D6C34A04}</Project>
+      <Name>Cben.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cben.Zero\Cben.Zero.csproj">
+      <Project>{2C568897-2A57-4BD6-8ECE-EDB39CEAED70}</Project>
+      <Name>Cben.Zero</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cben\Cben.csproj">
       <Project>{D73FA2E0-0305-46E0-A59C-1B7A7CBD69DC}</Project>
       <Name>Cben</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Erp\Erp.csproj">
+      <Project>{749dd777-b981-400f-ab82-e391074cdf96}</Project>
+      <Name>Erp</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Employee\Dto\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Erp.Repositories
 {
-    public interface IEmployeeRepository : IRepository<Employee>
+    public interface IEmployeeRepository : IRepository<Employee, long>
     {
     }
 }

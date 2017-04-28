@@ -21,6 +21,10 @@ namespace Cben.EntityFramework
 
         public void Populate(Type[] dbContextTypes)
         {
+            // 只使用子类, 过滤继承链中的父类
+            dbContextTypes = dbContextTypes.Where(
+                t1 => dbContextTypes.Where(t2 => t1 != t2 && t1.IsAssignableFrom(t2)).Count() == 0).ToArray();
+
             foreach (var dbContextType in dbContextTypes)
             {
                 var types = new List<Type>();
@@ -44,7 +48,7 @@ namespace Cben.EntityFramework
             {
                 return sourceDbContextType;
             }
-            
+
             //Get possible concrete types for given DbContext type
             var allTargetTypes = _dbContextTypes.GetOrDefault(sourceDbContextType);
 

@@ -1,6 +1,7 @@
 ﻿using Cben.Core.Authorization.Roles;
 using Cben.Core.MultiTenancy;
 using Cben.Core.Users;
+using Cben.EntityFramework;
 using Cben.Zero.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Cben.Core.EntityFramework
 {
+    
     public class CbenCoreDbContext : CbenZeroDbContext<Tenant, Role, User>
     {
 

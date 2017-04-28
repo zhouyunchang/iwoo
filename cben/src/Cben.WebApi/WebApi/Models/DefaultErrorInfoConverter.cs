@@ -30,7 +30,7 @@ namespace Cben.WebApi.Models
         }
 
         public DefaultErrorInfoConverter(
-            ICbenWebApiConfiguration configuration, 
+            ICbenWebApiConfiguration configuration,
             ILocalizationManager localizationManager)
         {
             _configuration = configuration;
@@ -100,7 +100,10 @@ namespace Cben.WebApi.Models
                 return new ErrorInfo(authorizationException.Message);
             }
 
-            return new ErrorInfo(L("InternalServerError"));
+            return new ErrorInfo(L("InternalServerError"))
+            {
+                Details = exception.Message
+            };
         }
 
         private ErrorInfo CreateDetailedErrorInfoFromException(Exception exception)
@@ -195,7 +198,7 @@ namespace Cben.WebApi.Models
         {
             var detailBuilder = new StringBuilder();
             detailBuilder.AppendLine(L("ValidationNarrativeTitle"));
-            
+
             foreach (var validationResult in validationException.ValidationErrors)
             {
                 detailBuilder.AppendFormat(" - {0}", validationResult.ErrorMessage);

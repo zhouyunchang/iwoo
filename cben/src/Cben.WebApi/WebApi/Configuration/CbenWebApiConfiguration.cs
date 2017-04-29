@@ -38,7 +38,7 @@ namespace Cben.WebApi.Configuration
             IsValidationEnabledForControllers = true;
             IsAutomaticAntiForgeryValidationEnabled = true;
             IsAuditingEnabled = true;
-            HttpConfiguration = GlobalConfiguration.Configuration;
+            HttpConfiguration = HttpConfigurationEnvironment.ApiHttpConfiguration;
             ResultWrappingIgnoreUrls = new List<string>();
             SetNoCacheForAllResponses = true;
 

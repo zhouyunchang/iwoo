@@ -13,12 +13,12 @@ namespace Cben.WebApi
     {
         public void Configuration(IAppBuilder app)
         {
-            HttpConfiguration config = GlobalConfiguration.Configuration;
+            HttpConfiguration config = HttpConfigurationEnvironment.ApiHttpConfiguration;
             WebApiConfig.Register(config);
 
             ConfigureAuth(app);
 
-            AreaRegistration.RegisterAllAreas();
+            //AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

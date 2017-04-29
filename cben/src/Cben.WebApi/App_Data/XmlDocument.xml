@@ -1,0 +1,1128 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cben.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:Cben.WebApi.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
+            </summary>
+            <param name="description">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The ID as a string.</returns>
+        </member>
+        <member name="T:Cben.WebApi.Areas.HelpPage.HelpPageConfig">
+            <summary>
+            Use this class to customize the Help Page.
+            For example you can set a custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
+            or you can provide the samples for the requests/responses.
+            </summary>
+        </member>
+        <member name="T:Cben.WebApi.Areas.HelpPage.Controllers.HelpController">
+            <summary>
+            The controller that will handle requests for the help page.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetDocumentationProvider(System.Web.Http.HttpConfiguration,System.Web.Http.Description.IDocumentationProvider)">
+            <summary>
+            Sets the documentation provider for help page.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="documentationProvider">The documentation provider.</param>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleObjects(System.Web.Http.HttpConfiguration,System.Collections.Generic.IDictionary{System.Type,System.Object})">
+            <summary>
+            Sets the objects that will be used by the formatters to produce sample requests/responses.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleObjects">The sample objects.</param>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type and action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample request directly for the specified media type and action with parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type of the action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample response directly for the specified media type of the action with specific parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForMediaType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Sets the sample directly for all actions with the specified media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Sets the sample directly for all actions with the specified type and media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The parameter type or return type of an action.</param>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <returns>The help page sample generator.</returns>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration,Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator)">
+            <summary>
+            Sets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleGenerator">The help page sample generator.</param>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.GetModelDescriptionGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the model description generator.
+            </summary>
+            <param name="config">The configuration.</param>
+            <returns>The <see cref="T:Cben.WebApi.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator"/></returns>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageApiModel(System.Web.Http.HttpConfiguration,System.String)">
+            <summary>
+            Gets the model that represents an API displayed on the help page. The model is initialized on the first call and cached for subsequent calls.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="apiDescriptionId">The <see cref="T:System.Web.Http.Description.ApiDescription"/> ID.</param>
+            <returns>
+            An <see cref="T:Cben.WebApi.Areas.HelpPage.Models.HelpPageApiModel"/>
+            </returns>
+        </member>
+        <member name="T:Cben.WebApi.Areas.HelpPage.ModelDescriptions.ModelDescription">
+            <summary>
+            Describes a type model.
+            </summary>
+        </member>
+        <member name="T:Cben.WebApi.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator">
+            <summary>
+            Generates model descriptions for given types.
+            </summary>
+        </member>
+        <member name="T:Cben.WebApi.Areas.HelpPage.ModelDescriptions.ModelNameAttribute">
+            <summary>
+            Use this attribute to change the name of the <see cref="T:Cben.WebApi.Areas.HelpPage.ModelDescriptions.ModelDescription"/> generated for a type.
+            </summary>
+        </member>
+        <member name="T:Cben.WebApi.Areas.HelpPage.Models.HelpPageApiModel">
+            <summary>
+            The model that represents an API displayed on the help page.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.Models.HelpPageApiModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cben.WebApi.Areas.HelpPage.Models.HelpPageApiModel"/> class.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription">
+            <summary>
+            Gets or sets the <see cref="P:Cben.WebApi.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription"/> that describes the API.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.Models.HelpPageApiModel.UriParameters">
+            <summary>
+            Gets or sets the <see cref="T:Cben.WebApi.Areas.HelpPage.ModelDescriptions.ParameterDescription"/> collection that describes the URI parameters for the API.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.Models.HelpPageApiModel.RequestDocumentation">
+            <summary>
+            Gets or sets the documentation for the request.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.Models.HelpPageApiModel.RequestModelDescription">
+            <summary>
+            Gets or sets the <see cref="T:Cben.WebApi.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the request body.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.Models.HelpPageApiModel.RequestBodyParameters">
+            <summary>
+            Gets the request body parameter descriptions.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.Models.HelpPageApiModel.ResourceDescription">
+            <summary>
+            Gets or sets the <see cref="T:Cben.WebApi.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the resource.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.Models.HelpPageApiModel.ResourceProperties">
+            <summary>
+            Gets the resource property descriptions.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.Models.HelpPageApiModel.SampleRequests">
+            <summary>
+            Gets the sample requests associated with the API.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.Models.HelpPageApiModel.SampleResponses">
+            <summary>
+            Gets the sample responses associated with the API.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.Models.HelpPageApiModel.ErrorMessages">
+            <summary>
+            Gets the error messages associated with this model.
+            </summary>
+        </member>
+        <member name="T:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator">
+            <summary>
+            This class will generate the samples for the help page.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator"/> class.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator.ActualHttpMessageTypes">
+            <summary>
+            Gets CLR types that are used as the content of <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/>.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples">
+            <summary>
+            Gets the objects that are used directly as samples for certain actions.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects">
+            <summary>
+            Gets the objects that are serialized as samples by the supported formatters.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories">
+            <summary>
+            Gets factories for the objects that the supported formatters will serialize as samples. Processed in order,
+            stopping when the factory successfully returns a non-<see langref="null"/> object.
+            </summary>
+            <remarks>
+            Collection includes just <see cref="M:Cben.WebApi.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)"/> initially. Use
+            <code>SampleObjectFactories.Insert(0, func)</code> to provide an override and
+            <code>SampleObjectFactories.Add(func)</code> to provide a fallback.</remarks>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleRequests(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the request body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleResponses(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the response body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator.GetSample(System.Web.Http.Description.ApiDescription,Cben.WebApi.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Gets the request or response body samples.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator.GetActionSample(System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Type,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue,Cben.WebApi.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Search for samples that are provided directly through <see cref="P:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples"/>.
+            </summary>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="type">The CLR type.</param>
+            <param name="formatter">The formatter.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The sample that matches the parameters.</returns>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleObject(System.Type)">
+            <summary>
+            Gets the sample object that will be serialized by the formatters. 
+            First, it will look at the <see cref="P:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects"/>. If no sample object is found, it will try to create
+            one using <see cref="M:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator.DefaultSampleObjectFactory(Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator,System.Type)"/> (which wraps an <see cref="T:Cben.WebApi.Areas.HelpPage.ObjectGenerator"/>) and other
+            factories in <see cref="P:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>The sample object.</returns>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator.ResolveHttpRequestMessageType(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Resolves the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The type.</returns>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator.ResolveType(System.Web.Http.Description.ApiDescription,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},Cben.WebApi.Areas.HelpPage.SampleDirection,System.Collections.ObjectModel.Collection{System.Net.Http.Formatting.MediaTypeFormatter}@)">
+            <summary>
+            Resolves the type of the action parameter or return value when <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/> is used.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or a response.</param>
+            <param name="formatters">The formatters.</param>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageSampleGenerator.WriteSampleObjectUsingFormatter(System.Net.Http.Formatting.MediaTypeFormatter,System.Object,System.Type,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Writes the sample object using formatter.
+            </summary>
+            <param name="formatter">The formatter.</param>
+            <param name="value">The value.</param>
+            <param name="type">The type.</param>
+            <param name="mediaType">Type of the media.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey">
+            <summary>
+            This is used to identify the place where the sample should be applied.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Creates a new <see cref="T:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey"/> based on media type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Creates a new <see cref="T:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey"/> based on media type and CLR type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The CLR type.</param>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey.#ctor(Cben.WebApi.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey"/> based on <see cref="P:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="sampleDirection">The <see cref="P:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,Cben.WebApi.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey"/> based on media type, <see cref="P:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The <see cref="P:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey.ControllerName">
+            <summary>
+            Gets the name of the controller.
+            </summary>
+            <value>
+            The name of the controller.
+            </value>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey.ActionName">
+            <summary>
+            Gets the name of the action.
+            </summary>
+            <value>
+            The name of the action.
+            </value>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey.MediaType">
+            <summary>
+            Gets the media type.
+            </summary>
+            <value>
+            The media type.
+            </value>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey.ParameterNames">
+            <summary>
+            Gets the parameter names.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection">
+            <summary>
+            Gets the <see cref="P:Cben.WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.
+            </summary>
+        </member>
+        <member name="T:Cben.WebApi.Areas.HelpPage.ImageSample">
+            <summary>
+            This represents an image sample on the help page. There's a display template named ImageSample associated with this class.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.ImageSample.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cben.WebApi.Areas.HelpPage.ImageSample"/> class.
+            </summary>
+            <param name="src">The URL of an image.</param>
+        </member>
+        <member name="T:Cben.WebApi.Areas.HelpPage.InvalidSample">
+            <summary>
+            This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:Cben.WebApi.Areas.HelpPage.ObjectGenerator">
+            <summary>
+            This class will create an object of a given type and populate it with sample data.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)">
+            <summary>
+            Generates an object for a given type. The type needs to be public, have a public default constructor and settable public properties/fields. Currently it supports the following types:
+            Simple types: <see cref="T:System.Int32"/>, <see cref="T:System.String"/>, <see cref="T:System.Enum"/>, <see cref="T:System.DateTime"/>, <see cref="T:System.Uri"/>, etc.
+            Complex types: POCO types.
+            Nullables: <see cref="T:System.Nullable`1"/>.
+            Arrays: arrays of simple types or complex types.
+            Key value pairs: <see cref="T:System.Collections.Generic.KeyValuePair`2"/>
+            Tuples: <see cref="T:System.Tuple`1"/>, <see cref="T:System.Tuple`2"/>, etc
+            Dictionaries: <see cref="T:System.Collections.Generic.IDictionary`2"/> or anything deriving from <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            Collections: <see cref="T:System.Collections.Generic.IList`1"/>, <see cref="T:System.Collections.Generic.IEnumerable`1"/>, <see cref="T:System.Collections.Generic.ICollection`1"/>, <see cref="T:System.Collections.IList"/>, <see cref="T:System.Collections.IEnumerable"/>, <see cref="T:System.Collections.ICollection"/> or anything deriving from <see cref="T:System.Collections.Generic.ICollection`1"/> or <see cref="T:System.Collections.IList"/>.
+            Queryables: <see cref="T:System.Linq.IQueryable"/>, <see cref="T:System.Linq.IQueryable`1"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>An object of the given type.</returns>
+        </member>
+        <member name="T:Cben.WebApi.Areas.HelpPage.SampleDirection">
+            <summary>
+            Indicates whether the sample is used for request or response
+            </summary>
+        </member>
+        <member name="T:Cben.WebApi.Areas.HelpPage.TextSample">
+            <summary>
+            This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:Cben.WebApi.Areas.HelpPage.XmlDocumentationProvider">
+            <summary>
+            A custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Areas.HelpPage.XmlDocumentationProvider.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cben.WebApi.Areas.HelpPage.XmlDocumentationProvider"/> class.
+            </summary>
+            <param name="documentPath">The physical path to XML document.</param>
+        </member>
+        <member name="P:Cben.WebApi.Controllers.ApiControllerBase.CbenSession">
+            <summary>
+            Gets current session information.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Controllers.ApiControllerBase.EventBus">
+            <summary>
+            Gets the event bus.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Controllers.ApiControllerBase.PermissionManager">
+            <summary>
+            Reference to the permission manager.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Controllers.ApiControllerBase.SettingManager">
+            <summary>
+            Reference to the setting manager.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Controllers.ApiControllerBase.PermissionChecker">
+            <summary>
+            Reference to the permission checker.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Controllers.ApiControllerBase.FeatureManager">
+            <summary>
+            Reference to the feature manager.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Controllers.ApiControllerBase.FeatureChecker">
+            <summary>
+            Reference to the permission checker.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Controllers.ApiControllerBase.LocalizationManager">
+            <summary>
+            Reference to the localization manager.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Controllers.ApiControllerBase.ErrorInfoBuilder">
+            <summary>
+            Reference to the error info builder.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Controllers.ApiControllerBase.LocalizationSourceName">
+            <summary>
+            Gets/sets name of the localization source that is used in this application service.
+            It must be set in order to use <see cref="M:Cben.WebApi.Controllers.ApiControllerBase.L(System.String)"/> and <see cref="M:Cben.WebApi.Controllers.ApiControllerBase.L(System.String,System.Globalization.CultureInfo)"/> methods.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Controllers.ApiControllerBase.LocalizationSource">
+            <summary>
+            Gets localization source.
+            It's valid if <see cref="P:Cben.WebApi.Controllers.ApiControllerBase.LocalizationSourceName"/> is set.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Controllers.ApiControllerBase.Logger">
+            <summary>
+            Reference to the logger to write logs.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Controllers.ApiControllerBase.UnitOfWorkManager">
+            <summary>
+            Reference to <see cref="T:Cben.Domain.Uow.IUnitOfWorkManager"/>.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Controllers.ApiControllerBase.CurrentUnitOfWork">
+            <summary>
+            Gets current unit of work.
+            </summary>
+        </member>
+        <member name="F:Cben.WebApi.Controllers.ApiControllerBase._currentMethodInfo">
+            <summary>
+            MethodInfo for currently executing action.
+            </summary>
+        </member>
+        <member name="F:Cben.WebApi.Controllers.ApiControllerBase._wrapResultAttribute">
+            <summary>
+            WrapResultAttribute for currently executing action.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ApiControllerBase.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ApiControllerBase.L(System.String)">
+            <summary>
+            Gets localized string for given key name and current language.
+            </summary>
+            <param name="name">Key name</param>
+            <returns>Localized string</returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ApiControllerBase.L(System.String,System.Object[])">
+            <summary>
+            Gets localized string for given key name and current language with formatting strings.
+            </summary>
+            <param name="name">Key name</param>
+            <param name="args">Format arguments</param>
+            <returns>Localized string</returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ApiControllerBase.L(System.String,System.Globalization.CultureInfo)">
+            <summary>
+            Gets localized string for given key name and specified culture information.
+            </summary>
+            <param name="name">Key name</param>
+            <param name="culture">culture information</param>
+            <returns>Localized string</returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ApiControllerBase.L(System.String,System.Globalization.CultureInfo,System.Object[])">
+            <summary>
+            Gets localized string for given key name and current language with formatting strings.
+            </summary>
+            <param name="name">Key name</param>
+            <param name="culture">culture information</param>
+            <param name="args">Format arguments</param>
+            <returns>Localized string</returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ApiControllerBase.IsGrantedAsync(System.String)">
+            <summary>
+            Checks if current user is granted for a permission.
+            </summary>
+            <param name="permissionName">Name of the permission</param>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ApiControllerBase.IsGranted(System.String)">
+            <summary>
+            Checks if current user is granted for a permission.
+            </summary>
+            <param name="permissionName">Name of the permission</param>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ApiControllerBase.IsEnabledAsync(System.String)">
+            <summary>
+            Checks if given feature is enabled for current tenant.
+            </summary>
+            <param name="featureName">Name of the feature</param>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ApiControllerBase.IsEnabled(System.String)">
+            <summary>
+            Checks if given feature is enabled for current tenant.
+            </summary>
+            <param name="featureName">Name of the feature</param>
+            <returns></returns>
+        </member>
+        <member name="T:Cben.WebApi.Controllers.EmployeeController">
+            <summary>
+            员工接口
+            </summary>
+        </member>
+        <member name="T:Cben.WebApi.Controllers.ProcessController">
+            <summary>
+            工序接口
+            </summary>
+        </member>
+        <member name="T:Cben.WebApi.Controllers.Results.CbenJsonResult">
+            <summary>
+            This class is used to override returning Json results from MVC controllers.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Controllers.Results.CbenJsonResult.CamelCase">
+            <summary>
+            Gets or sets a value indicating whether this JSON result is camel cased on serialization.
+            Default: true.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Controllers.Results.CbenJsonResult.Indented">
+            <summary>
+            Gets or sets a value indicating whether this JSON result uses <see cref="F:Newtonsoft.Json.Formatting.Indented"/> on serialization.
+            Default: false.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.Results.CbenJsonResult.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.Results.CbenJsonResult.#ctor(System.Object)">
+            <summary>
+            Constructor with JSON data.
+            </summary>
+            <param name="data">JSON data</param>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.Results.CbenJsonResult.ExecuteResult(System.Web.Mvc.ControllerContext)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Cben.WebApi.Controllers.ResultWrapperHandler">
+            <summary>
+            Wraps Web API return values by <see cref="T:Cben.WebApi.Models.AjaxResponse"/>.
+            </summary>
+        </member>
+        <member name="T:Cben.WebApi.HttpConfigurationEnvironment">
+            <summary>
+            HttpConfiguration 环境
+            </summary>
+        </member>
+        <member name="F:Cben.WebApi.HttpConfigurationEnvironment.GlobalConfiguration">
+            <summary>
+            MVC HelpPage
+            </summary>
+        </member>
+        <member name="F:Cben.WebApi.HttpConfigurationEnvironment.ApiHttpConfiguration">
+            <summary>
+            Web Api
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Models.Account.RegisterViewModel.TenancyName">
+            <summary>
+            Not required for single-tenant applications.
+            </summary>
+        </member>
+        <member name="T:Cben.WebApi.Models.Employee.EmployeeModel">
+            <summary>
+            员工
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Models.Employee.EmployeeModel.UserId">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Models.Employee.EmployeeModel.UserName">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Models.Employee.EmployeeModel.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Models.Employee.EmployeeModel.SerialNumber">
+            <summary>
+            员工序号
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Models.Employee.EmployeeModel.Phone">
+            <summary>
+            手机号码
+            </summary>
+        </member>
+        <member name="T:Cben.WebApi.Models.AjaxResponse">
+            <summary>
+            This class is used to create standard responses for AJAX/remote requests.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Models.AjaxResponse.#ctor">
+            <summary>
+            Creates an <see cref="T:Cben.WebApi.Models.AjaxResponse"/> object.
+            <see cref="P:Cben.WebApi.Models.AjaxResponseBase.Success"/> is set as true.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Models.AjaxResponse.#ctor(System.Boolean)">
+            <summary>
+            Creates an <see cref="T:Cben.WebApi.Models.AjaxResponse"/> object with <see cref="P:Cben.WebApi.Models.AjaxResponseBase.Success"/> specified.
+            </summary>
+            <param name="success">Indicates success status of the result</param>
+        </member>
+        <member name="M:Cben.WebApi.Models.AjaxResponse.#ctor(System.Object)">
+            <summary>
+            Creates an <see cref="T:Cben.WebApi.Models.AjaxResponse"/> object with <see cref="P:Cben.WebApi.Models.AjaxResponse`1.Result"/> specified.
+            <see cref="P:Cben.WebApi.Models.AjaxResponseBase.Success"/> is set as true.
+            </summary>
+            <param name="result">The actual result object</param>
+        </member>
+        <member name="M:Cben.WebApi.Models.AjaxResponse.#ctor(Cben.WebApi.Models.ErrorInfo,System.Boolean)">
+            <summary>
+            Creates an <see cref="T:Cben.WebApi.Models.AjaxResponse"/> object with <see cref="P:Cben.WebApi.Models.AjaxResponseBase.Error"/> specified.
+            <see cref="P:Cben.WebApi.Models.AjaxResponseBase.Success"/> is set as false.
+            </summary>
+            <param name="error">Error details</param>
+            <param name="unAuthorizedRequest">Used to indicate that the current user has no privilege to perform this request</param>
+        </member>
+        <member name="P:Cben.WebApi.Models.AjaxResponseBase.TargetUrl">
+            <summary>
+            This property can be used to redirect user to a specified URL.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Models.AjaxResponseBase.Success">
+            <summary>
+            Indicates success status of the result.
+            Set <see cref="P:Cben.WebApi.Models.AjaxResponseBase.Error"/> if this value is false.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Models.AjaxResponseBase.Error">
+            <summary>
+            Error details (Must and only set if <see cref="P:Cben.WebApi.Models.AjaxResponseBase.Success"/> is false).
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Models.AjaxResponseBase.UnAuthorizedRequest">
+            <summary>
+            This property can be used to indicate that the current user has no privilege to perform this request.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Models.AjaxResponseBase.__Cben">
+            <summary>
+            A special signature for AJAX responses. It's used in the client to detect if this is a response wrapped by Cben.
+            </summary>
+        </member>
+        <member name="T:Cben.WebApi.Models.AjaxResponse`1">
+            <summary>
+            This class is used to create standard responses for AJAX requests.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Models.AjaxResponse`1.Result">
+            <summary>
+            The actual result object of AJAX request.
+            It is set if <see cref="P:Cben.WebApi.Models.AjaxResponseBase.Success"/> is true.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Models.AjaxResponse`1.#ctor(`0)">
+            <summary>
+            Creates an <see cref="T:Cben.WebApi.Models.AjaxResponse"/> object with <see cref="P:Cben.WebApi.Models.AjaxResponse`1.Result"/> specified.
+            <see cref="P:Cben.WebApi.Models.AjaxResponseBase.Success"/> is set as true.
+            </summary>
+            <param name="result">The actual result object of AJAX request</param>
+        </member>
+        <member name="M:Cben.WebApi.Models.AjaxResponse`1.#ctor">
+            <summary>
+            Creates an <see cref="T:Cben.WebApi.Models.AjaxResponse"/> object.
+            <see cref="P:Cben.WebApi.Models.AjaxResponseBase.Success"/> is set as true.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Models.AjaxResponse`1.#ctor(System.Boolean)">
+            <summary>
+            Creates an <see cref="T:Cben.WebApi.Models.AjaxResponse"/> object with <see cref="P:Cben.WebApi.Models.AjaxResponseBase.Success"/> specified.
+            </summary>
+            <param name="success">Indicates success status of the result</param>
+        </member>
+        <member name="M:Cben.WebApi.Models.AjaxResponse`1.#ctor(Cben.WebApi.Models.ErrorInfo,System.Boolean)">
+            <summary>
+            Creates an <see cref="T:Cben.WebApi.Models.AjaxResponse"/> object with <see cref="P:Cben.WebApi.Models.AjaxResponseBase.Error"/> specified.
+            <see cref="P:Cben.WebApi.Models.AjaxResponseBase.Success"/> is set as false.
+            </summary>
+            <param name="error">Error details</param>
+            <param name="unAuthorizedRequest">Used to indicate that the current user has no privilege to perform this request</param>
+        </member>
+        <member name="T:Cben.WebApi.Models.ErrorInfo">
+            <summary>
+            Used to store information about an error.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Models.ErrorInfo.Code">
+            <summary>
+            Error code.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Models.ErrorInfo.Message">
+            <summary>
+            Error message.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Models.ErrorInfo.Details">
+            <summary>
+            Error details.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Models.ErrorInfo.ValidationErrors">
+            <summary>
+            Validation errors if exists.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Models.ErrorInfo.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:Cben.WebApi.Models.ErrorInfo"/>.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Models.ErrorInfo.#ctor(System.String)">
+            <summary>
+            Creates a new instance of <see cref="T:Cben.WebApi.Models.ErrorInfo"/>.
+            </summary>
+            <param name="message">Error message</param>
+        </member>
+        <member name="M:Cben.WebApi.Models.ErrorInfo.#ctor(System.Int32)">
+            <summary>
+            Creates a new instance of <see cref="T:Cben.WebApi.Models.ErrorInfo"/>.
+            </summary>
+            <param name="code">Error code</param>
+        </member>
+        <member name="M:Cben.WebApi.Models.ErrorInfo.#ctor(System.Int32,System.String)">
+            <summary>
+            Creates a new instance of <see cref="T:Cben.WebApi.Models.ErrorInfo"/>.
+            </summary>
+            <param name="code">Error code</param>
+            <param name="message">Error message</param>
+        </member>
+        <member name="M:Cben.WebApi.Models.ErrorInfo.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new instance of <see cref="T:Cben.WebApi.Models.ErrorInfo"/>.
+            </summary>
+            <param name="message">Error message</param>
+            <param name="details">Error details</param>
+        </member>
+        <member name="M:Cben.WebApi.Models.ErrorInfo.#ctor(System.Int32,System.String,System.String)">
+            <summary>
+            Creates a new instance of <see cref="T:Cben.WebApi.Models.ErrorInfo"/>.
+            </summary>
+            <param name="code">Error code</param>
+            <param name="message">Error message</param>
+            <param name="details">Error details</param>
+        </member>
+        <member name="T:Cben.WebApi.Models.ErrorInfoBuilder">
+            <inheritdoc/>
+        </member>
+        <member name="M:Cben.WebApi.Models.ErrorInfoBuilder.#ctor(Cben.WebApi.Configuration.ICbenWebApiConfiguration,Cben.Localization.ILocalizationManager)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Cben.WebApi.Models.ErrorInfoBuilder.BuildForException(System.Exception)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Cben.WebApi.Models.ErrorInfoBuilder.AddExceptionConverter(Cben.WebApi.Models.IExceptionToErrorInfoConverter)">
+            <summary>
+            Adds an exception converter that is used by <see cref="M:Cben.WebApi.Models.ErrorInfoBuilder.BuildForException(System.Exception)"/> method.
+            </summary>
+            <param name="converter">Converter object</param>
+        </member>
+        <member name="T:Cben.WebApi.Models.IErrorInfoBuilder">
+            <summary>
+            This interface is used to build <see cref="T:Cben.WebApi.Models.ErrorInfo"/> objects.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Models.IErrorInfoBuilder.BuildForException(System.Exception)">
+            <summary>
+            Creates a new instance of <see cref="T:Cben.WebApi.Models.ErrorInfo"/> using the given <paramref name="exception"/> object.
+            </summary>
+            <param name="exception">The exception object</param>
+            <returns>Created <see cref="T:Cben.WebApi.Models.ErrorInfo"/> object</returns>
+        </member>
+        <member name="M:Cben.WebApi.Models.IErrorInfoBuilder.AddExceptionConverter(Cben.WebApi.Models.IExceptionToErrorInfoConverter)">
+            <summary>
+            Adds an <see cref="T:Cben.WebApi.Models.IExceptionToErrorInfoConverter"/> object.
+            </summary>
+            <param name="converter">Converter</param>
+        </member>
+        <member name="T:Cben.WebApi.Models.IExceptionToErrorInfoConverter">
+            <summary>
+            This interface can be implemented to convert an <see cref="T:System.Exception"/> object to an <see cref="T:Cben.WebApi.Models.ErrorInfo"/> object. 
+            Implements Chain Of Responsibility pattern.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Models.IExceptionToErrorInfoConverter.Next">
+            <summary>
+            Next converter. If this converter decide this exception is not known, it can call Next.Convert(...).
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Models.IExceptionToErrorInfoConverter.Convert(System.Exception)">
+            <summary>
+            Converter method.
+            </summary>
+            <param name="exception">The exception</param>
+            <returns>Error info or null</returns>
+        </member>
+        <member name="T:Cben.WebApi.Models.ValidationErrorInfo">
+            <summary>
+            Used to store information about a validation error.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Models.ValidationErrorInfo.Message">
+            <summary>
+            Validation error message.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Models.ValidationErrorInfo.Members">
+            <summary>
+            Relate invalid members (fields/properties).
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Models.ValidationErrorInfo.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:Cben.WebApi.Models.ValidationErrorInfo"/>.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Models.ValidationErrorInfo.#ctor(System.String)">
+            <summary>
+            Creates a new instance of <see cref="T:Cben.WebApi.Models.ValidationErrorInfo"/>.
+            </summary>
+            <param name="message">Validation error message</param>
+        </member>
+        <member name="M:Cben.WebApi.Models.ValidationErrorInfo.#ctor(System.String,System.String[])">
+            <summary>
+            Creates a new instance of <see cref="T:Cben.WebApi.Models.ValidationErrorInfo"/>.
+            </summary>
+            <param name="message">Validation error message</param>
+            <param name="members">Related invalid members</param>
+        </member>
+        <member name="M:Cben.WebApi.Models.ValidationErrorInfo.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new instance of <see cref="T:Cben.WebApi.Models.ValidationErrorInfo"/>.
+            </summary>
+            <param name="message">Validation error message</param>
+            <param name="member">Related invalid member</param>
+        </member>
+        <member name="T:Cben.WebApi.Authorization.ApiAuthorizeAttribute">
+            <summary>
+            This attribute is used on a method of an <see cref="T:System.Web.Http.ApiController"/>
+            to make that method usable only by authorized users.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Authorization.ApiAuthorizeAttribute.Permissions">
+            <inheritdoc/>
+        </member>
+        <member name="P:Cben.WebApi.Authorization.ApiAuthorizeAttribute.RequireAllPermissions">
+            <inheritdoc/>
+        </member>
+        <member name="M:Cben.WebApi.Authorization.ApiAuthorizeAttribute.#ctor(System.String[])">
+            <summary>
+            Creates a new instance of <see cref="T:Cben.WebApi.Authorization.ApiAuthorizeAttribute"/> class.
+            </summary>
+            <param name="permissions">A list of permissions to authorize</param>
+        </member>
+        <member name="M:Cben.WebApi.CbenApiControllerActivator.Create(System.Net.Http.HttpRequestMessage,System.Web.Http.Controllers.HttpControllerDescriptor,System.Type)">
+            <summary>
+            WebApi Controller
+            </summary>
+            <param name="request"></param>
+            <param name="controllerDescriptor"></param>
+            <param name="controllerType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cben.WebApi.Configuration.CbenWebApiConfigurationExtensions">
+            <summary>
+            Defines extension methods to <see cref="T:Cben.Configuration.Startup.IModuleConfigurations"/> to allow to configure Cben.Web.Api module.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Configuration.CbenWebApiConfigurationExtensions.WebApi(Cben.Configuration.Startup.IModuleConfigurations)">
+            <summary>
+            Used to configure Cben.Web.Api module.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Configuration.ICbenWebApiConfiguration.DefaultUnitOfWorkAttribute">
+            <summary>
+            Default UnitOfWorkAttribute for all actions.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Configuration.ICbenWebApiConfiguration.DefaultWrapResultAttribute">
+            <summary>
+            Default WrapResultAttribute for all actions.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Configuration.ICbenWebApiConfiguration.ResultWrappingIgnoreUrls">
+            <summary>
+            List of URLs to ignore on result wrapping.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Configuration.ICbenWebApiConfiguration.IsValidationEnabledForControllers">
+            <summary>
+            Default: true.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Configuration.ICbenWebApiConfiguration.IsAutomaticAntiForgeryValidationEnabled">
+            <summary>
+            Default: true.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Configuration.ICbenWebApiConfiguration.IsAuditingEnabled">
+            <summary>
+            Used to enable/disable auditing for MVC controllers.
+            Default: true.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Configuration.ICbenWebApiConfiguration.IsAuditingEnabledForChildActions">
+            <summary>
+            Used to enable/disable auditing for child MVC actions.
+            Default: false.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Configuration.ICbenWebApiConfiguration.SendAllExceptionsToClients">
+            <summary>
+            If this is set to true, all exception and details are sent directly to clients on an error.
+            Default: false (Cben hides exception details from clients except special exceptions.)
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.Configuration.ICbenWebApiConfiguration.SetNoCacheForAllResponses">
+            <summary>
+            Default: true.
+            </summary>
+        </member>
+        <member name="T:Cben.WebApi.DependencyResolvers.WindsorControllerFactory">
+            <summary>
+            This class is used to allow MVC to use dependency injection system while creating MVC controllers.
+            </summary>
+        </member>
+        <member name="F:Cben.WebApi.DependencyResolvers.WindsorControllerFactory._iocManager">
+            <summary>
+            Reference to DI kernel.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.DependencyResolvers.WindsorControllerFactory.#ctor(Cben.Dependency.IIocResolver)">
+            <summary>
+            Creates a new instance of WindsorControllerFactory.
+            </summary>
+            <param name="iocManager">Reference to DI kernel</param>
+        </member>
+        <member name="M:Cben.WebApi.DependencyResolvers.WindsorControllerFactory.ReleaseController(System.Web.Mvc.IController)">
+            <summary>
+            Called by MVC system and releases/disposes given controller instance.
+            </summary>
+            <param name="controller">Controller instance</param>
+        </member>
+        <member name="M:Cben.WebApi.DependencyResolvers.WindsorControllerFactory.GetControllerInstance(System.Web.Routing.RequestContext,System.Type)">
+            <summary>
+            Called by MVC system and creates controller instance for given controller type.
+            </summary>
+            <param name="requestContext">Request context</param>
+            <param name="controllerType">Controller type</param>
+            <returns></returns>
+        </member>
+        <member name="T:Cben.WebApi.ExceptionHandling.CbenApiExceptionFilterAttribute">
+            <summary>
+            Used to handle exceptions on web api controllers.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.ExceptionHandling.CbenApiExceptionFilterAttribute.Logger">
+            <summary>
+            Reference to the <see cref="T:Castle.Core.Logging.ILogger"/>.
+            </summary>
+        </member>
+        <member name="P:Cben.WebApi.ExceptionHandling.CbenApiExceptionFilterAttribute.EventBus">
+            <summary>
+            Reference to the <see cref="T:Cben.Events.Bus.IEventBus"/>.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.ExceptionHandling.CbenApiExceptionFilterAttribute.#ctor(Cben.WebApi.Configuration.ICbenWebApiConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cben.WebApi.ExceptionHandling.CbenApiExceptionFilterAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.ExceptionHandling.CbenApiExceptionFilterAttribute.OnException(System.Web.Http.Filters.HttpActionExecutedContext)">
+            <summary>
+            Raises the exception event.
+            </summary>
+            <param name="context">The context for the action.</param>
+        </member>
+        <member name="M:Cben.WebApi.WebApiApplication.Application_BeginRequest(System.Object,System.EventArgs)">
+            <summary>
+            This method is called by ASP.NET system when a request starts.
+            </summary>
+        </member>
+        <member name="T:Cben.WebApi.CbenApiDateTimeBinder">
+            <summary>
+            Binds datetime values from api requests to model
+            </summary>
+        </member>
+    </members>
+</doc>

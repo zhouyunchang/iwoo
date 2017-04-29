@@ -16,6 +16,9 @@ using System.Web.Http;
 namespace Cben.WebApi.Controllers
 {
 
+    /// <summary>
+    /// 员工接口
+    /// </summary>
     [ApiAuthorize]
     public class EmployeeController : ApiControllerBase
     {

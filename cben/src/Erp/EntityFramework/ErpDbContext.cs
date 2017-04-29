@@ -15,6 +15,22 @@ namespace Erp.EntityFramework
     public class ErpDbContext : CbenCoreDbContext
     {
 
+        /// <summary>
+        /// 员工 
+        /// </summary>
+        public DbSet<Employee> Employee { get; set; }
+
+        /// <summary>
+        /// 工序
+        /// </summary>
+        public DbSet<Process> Processes { get; set; }
+
+        /// <summary>
+        /// 工序分类
+        /// </summary>
+        public DbSet<ProcessCategory> ProcessCategory { get; set; }
+
+
         public ErpDbContext()
             : base("Default")
         {
@@ -32,11 +48,6 @@ namespace Erp.EntityFramework
         {
 
         }
-
-        /// <summary>
-        /// 员工 
-        /// </summary>
-        public DbSet<Employee> Employee { get; set; }
 
 
     }

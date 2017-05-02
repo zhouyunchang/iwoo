@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Cben.Erp.Api
 {
-    public class ApiResult<T>
+    public class ApiResult
     {
-
-        public T Result { get; set; }
-
         public string TargetUrl { get; set; }
 
         public bool Success { get; set; }
@@ -18,6 +15,11 @@ namespace Cben.Erp.Api
         public string Error { get; set; }
 
         public bool UnAuthorizedRequest { get; set; }
+    }
+
+    public class ApiResult<T> : ApiResult
+    {
+        public T Result { get; set; }
 
     }
 }

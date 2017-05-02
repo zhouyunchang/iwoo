@@ -100,6 +100,7 @@
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http">
@@ -121,6 +122,8 @@
     <Compile Include="Api\ApiBase.cs" />
     <Compile Include="Api\ApiResult.cs" />
     <Compile Include="Api\Auth.cs" />
+    <Compile Include="Api\ProcessApi.cs" />
+    <Compile Include="Api\EmployeeApi.cs" />
     <Compile Include="Api\IAuth.cs" />
     <Compile Include="Api\ValuesApi.cs" />
     <Compile Include="Exceptions\NeedAuthorizationException.cs" />
@@ -128,6 +131,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\src\Erp.Application\Erp.Application.csproj">
+      <Project>{18450421-74e6-4a9c-9014-64771459efa2}</Project>
+      <Name>Erp.Application</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

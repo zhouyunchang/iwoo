@@ -19,6 +19,8 @@ namespace Erp
         public override void PreInitialize()
         {
             IocManager.Register<IEmployeeRepository, EmployeeRepository>(DependencyLifeStyle.Transient);
+            IocManager.Register<IProcessRepository, ProcessRepository>(DependencyLifeStyle.Transient);
+            IocManager.Register<IProcessCategoryRepository, ProcessCategoryRepository>(DependencyLifeStyle.Transient);
         }
 
         public override void Initialize()

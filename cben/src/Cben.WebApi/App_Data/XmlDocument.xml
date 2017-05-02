@@ -631,10 +631,123 @@
             员工接口
             </summary>
         </member>
+        <member name="M:Cben.WebApi.Controllers.EmployeeController.#ctor(Cben.Domain.Uow.IUnitOfWorkManager,Erp.Application.Employee.IEmployeeAppService)">
+            <summary>
+            ctor
+            </summary>
+            <param name="unitOfWorkManager"></param>
+            <param name="employeeAppService"></param>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.EmployeeController.Post(Erp.Application.Employee.AddEmployeeInput)">
+            <summary>
+            添加员工 
+            </summary>
+            <param name="employee"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.EmployeeController.Put(Erp.Application.Employee.Dto.UpdateEmployeeInput)">
+            <summary>
+            更新员工
+            </summary>
+            <param name="employee"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.EmployeeController.Delete(System.Int64)">
+            <summary>
+            删除员工 
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.EmployeeController.Get">
+            <summary>
+            获取所有员工
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.EmployeeController.Get(System.Int64)">
+            <summary>
+            获取指定员工
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:Cben.WebApi.Controllers.ProcessController">
             <summary>
             工序接口
             </summary>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProcessController.#ctor(Erp.Application.Process.IProcessAppService)">
+            <summary>
+            ctor
+            </summary>
+            <param name="processAppService"></param>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProcessController.Get">
+            <summary>
+            获取所有工序
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProcessController.Get(System.Int32)">
+            <summary>
+            根据id获取指定的工序
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProcessController.Post(Erp.Application.Process.AddProcessInput)">
+            <summary>
+            添加工序
+            </summary>
+            <param name="process"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProcessController.Put(Erp.Application.Process.UpdateProcessInput)">
+            <summary>
+            更新工序
+            </summary>
+            <param name="process"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProcessController.Delete(System.Int32)">
+            <summary>
+            删除工序
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProcessController.GetCategory">
+            <summary>
+            获取所有工序分组
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProcessController.GetCategory(System.Int32)">
+            <summary>
+            获取指定工序分组
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProcessController.PostCategory(Erp.Application.Process.AddProcessCategoryInput)">
+            <summary>
+            添加工序分组
+            </summary>
+            <param name="processCategory"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProcessController.PutCategory(Erp.Application.Process.UpdateProcessCategoryInput)">
+            <summary>
+            更新工序分组
+            </summary>
+            <param name="processCategory"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProcessController.DeleteCategory(System.Int32)">
+            <summary>
+            删除工序分组
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
         </member>
         <member name="T:Cben.WebApi.Controllers.Results.CbenJsonResult">
             <summary>

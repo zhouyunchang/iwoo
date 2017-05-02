@@ -52,6 +52,15 @@
     <Compile Include="Employee\EmployeeAppService.cs" />
     <Compile Include="Employee\IEmployeeAppService.cs" />
     <Compile Include="ErpApplicationModule.cs" />
+    <Compile Include="ProcessService.cs" />
+    <Compile Include="Process\Dto\AddProcessCategoryInput.cs" />
+    <Compile Include="Process\Dto\AddProcessInput.cs" />
+    <Compile Include="Process\IProcessAppService.cs" />
+    <Compile Include="Process\ProcessAppService.cs" />
+    <Compile Include="Process\Dto\ProcessCategoryListDto.cs" />
+    <Compile Include="Process\Dto\ProcessListDto.cs" />
+    <Compile Include="Process\Dto\UpdateProcessCategoryInput.cs" />
+    <Compile Include="Process\Dto\UpdateProcessInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

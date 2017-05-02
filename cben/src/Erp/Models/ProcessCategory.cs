@@ -4,6 +4,7 @@ using Cben.Domain.Entities.Auditing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,13 @@ namespace Erp.Models
         /// </summary>
         [StringLength(MaxProcessCategoryNameLength)]
         public virtual string Name { get; set; }
-        
+
+
+        /// <summary>
+        /// 工序集合
+        /// </summary>
+        [ForeignKey("CategoryId")]
+        public virtual List<Process> Processes { get; set; }
 
     }
 }

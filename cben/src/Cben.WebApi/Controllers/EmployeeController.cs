@@ -26,6 +26,11 @@ namespace Cben.WebApi.Controllers
         private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly IEmployeeAppService _employeeAppService;
 
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="unitOfWorkManager"></param>
+        /// <param name="employeeAppService"></param>
         public EmployeeController(
             IUnitOfWorkManager unitOfWorkManager,
             IEmployeeAppService employeeAppService)
@@ -34,7 +39,11 @@ namespace Cben.WebApi.Controllers
             _employeeAppService = employeeAppService;
         }
 
-
+        /// <summary>
+        /// 添加员工 
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         public async Task<IHttpActionResult> Post([FromBody]AddEmployeeInput employee)
         {
             if (!ModelState.IsValid)
@@ -47,6 +56,11 @@ namespace Cben.WebApi.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// 更新员工
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         public async Task<IHttpActionResult> Put([FromBody]UpdateEmployeeInput employee)
         {
             if (!ModelState.IsValid)
@@ -59,6 +73,11 @@ namespace Cben.WebApi.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// 删除员工 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IHttpActionResult> Delete(long id)
         {
             await _employeeAppService.RemoveEmployee(id);
@@ -66,6 +85,10 @@ namespace Cben.WebApi.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// 获取所有员工
+        /// </summary>
+        /// <returns></returns>
         public async Task<ListResultDto<EmployeeListDto>> Get()
         {
             var lst = await _employeeAppService.GetAllEmployee();
@@ -73,6 +96,11 @@ namespace Cben.WebApi.Controllers
             return lst;
         }
 
+        /// <summary>
+        /// 获取指定员工
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<EmployeeListDto> Get(long id)
         {
             var employee = await _employeeAppService.GetById(id);

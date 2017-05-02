@@ -32,6 +32,17 @@ namespace Erp.Models
         public virtual int CategoryId { get; set; }
 
         /// <summary>
+        /// 排序
+        /// </summary>
+        public virtual int OrderNum { get; set; }
+
+        /// <summary>
+        /// 指导价格
+        /// </summary>
+        [Required]
+        public virtual decimal GuidePrice { get; set; }
+
+        /// <summary>
         /// 工序分类
         /// </summary>
         public virtual ProcessCategory Category { get; set; }

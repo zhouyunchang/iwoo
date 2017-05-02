@@ -749,6 +749,51 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:Cben.WebApi.Controllers.ProductBatchController">
+            <summary>
+            产品批次
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProductBatchController.#ctor(Erp.Application.Product.IProductBatchAppService)">
+            <summary>
+            ctor
+            </summary>
+            <param name="prodBatchAppService"></param>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProductBatchController.Post(Erp.Application.Product.Dto.AddProductBatchInput)">
+            <summary>
+            添加产品批次
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProductBatchController.Put(Erp.Application.Product.Dto.UpdateProductBatchInput)">
+            <summary>
+            更新产品批次
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProductBatchController.Delete(System.Int32)">
+            <summary>
+            删除产品批次
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProductBatchController.Get">
+            <summary>
+            获取所有产品批次
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProductBatchController.Get(System.Int32)">
+            <summary>
+            获取指定产品批准
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:Cben.WebApi.Controllers.Results.CbenJsonResult">
             <summary>
             This class is used to override returning Json results from MVC controllers.

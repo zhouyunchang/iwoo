@@ -1,9 +1,10 @@
-﻿using Cben.Application.Services.Dto;
+﻿using Cben.Application.Services;
+using Cben.Application.Services.Dto;
 using System.Threading.Tasks;
 
 namespace Erp.Application.Process
 {
-    public interface IProcessAppService
+    public interface IProcessAppService : IApplicationService
     {
 
         Task AddProcess(AddProcessInput input);

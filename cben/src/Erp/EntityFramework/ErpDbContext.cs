@@ -30,6 +30,12 @@ namespace Erp.EntityFramework
         /// </summary>
         public DbSet<ProcessCategory> ProcessCategory { get; set; }
 
+        /// <summary>
+        /// 产品批次
+        /// </summary>
+        public DbSet<ProductBatch> ProductBatch { get; set; }
+        
+
 
         public ErpDbContext()
             : base("Default")

@@ -21,6 +21,9 @@ namespace Erp
             IocManager.Register<IEmployeeRepository, EmployeeRepository>(DependencyLifeStyle.Transient);
             IocManager.Register<IProcessRepository, ProcessRepository>(DependencyLifeStyle.Transient);
             IocManager.Register<IProcessCategoryRepository, ProcessCategoryRepository>(DependencyLifeStyle.Transient);
+            IocManager.Register<IProductBatchRepository, ProductBatchRepository>(DependencyLifeStyle.Transient);
+            IocManager.Register<IProductRepository, ProductRepository>(DependencyLifeStyle.Transient);
+
         }
 
         public override void Initialize()

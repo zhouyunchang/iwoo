@@ -20,6 +20,9 @@ namespace Erp.Application.Process
         [Display(Name = "工序分组名称")]
         public string Name { get; set; }
 
-
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public int OrderNum { get; set; }
     }
 }

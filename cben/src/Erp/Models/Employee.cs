@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Cben.Domain.Entities.Auditing;
+using System.Collections.Generic;
 
 namespace Erp.Models
 {
@@ -9,7 +10,7 @@ namespace Erp.Models
     /// 员工
     /// </summary>
     [Table("Erp_Employee")]
-    public class Employee : FullAuditedEntity<long>, IFullAudited<Cben.Core.Users.User>
+    public class Employee : FullAuditedEntity<long, User>
     {
 
         /// <summary>
@@ -41,19 +42,9 @@ namespace Erp.Models
         public virtual User User { get; set; }
 
         /// <summary>
-        /// 创建用户
+        /// 产品批准工序负责人
         /// </summary>
-        public User CreatorUser { get; set; }
-
-        /// <summary>
-        /// 最近修改用户
-        /// </summary>
-        public User LastModifierUser { get; set; }
-
-        /// <summary>
-        /// 删除用户
-        /// </summary>
-        public User DeleterUser { get; set; }
+        public virtual List<ProcessRecord> ProcessRecords { get; set; }
 
     }
 }

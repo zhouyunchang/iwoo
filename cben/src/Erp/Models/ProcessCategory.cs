@@ -25,6 +25,11 @@ namespace Erp.Models
         [StringLength(MaxProcessCategoryNameLength)]
         public virtual string Name { get; set; }
 
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public virtual int OrderNum { get; set; }
+
 
         /// <summary>
         /// 工序集合

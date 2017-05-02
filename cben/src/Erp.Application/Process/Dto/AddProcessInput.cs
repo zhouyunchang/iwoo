@@ -25,5 +25,17 @@ namespace Erp.Application.Process
         [Display(Name = "工序分组名称")]
         public int CategoryId { get; set; }
 
+        /// <summary>
+        /// 指导价格
+        /// </summary>
+        [Required(ErrorMessage = "{0}不能为空")]
+        [Display(Name = "指导价格")]
+        public virtual decimal GuidePrice { get; set; }
+
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public int OrderNum { get; set; }
+
     }
 }

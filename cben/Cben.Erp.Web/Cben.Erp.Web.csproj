@@ -380,7 +380,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\StaffManagerment\AddUserInfo.js" />
+    <Content Include="Scripts\StaffManagerment\UserInfo.js" />
     <Content Include="Vendor\animate.css\animate.min.css" />
     <Content Include="Vendor\animo.js\animo.js" />
     <Content Include="Vendor\blueimp-canvas-to-blob\js\canvas-to-blob.js" />
@@ -692,6 +692,10 @@
     <ProjectReference Include="..\Cben.Erp.Api\Cben.Erp.Api.csproj">
       <Project>{430e4b91-8ce1-4c20-985c-77233be091d4}</Project>
       <Name>Cben.Erp.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Erp.Application\Erp.Application.csproj">
+      <Project>{18450421-74e6-4a9c-9014-64771459efa2}</Project>
+      <Name>Erp.Application</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

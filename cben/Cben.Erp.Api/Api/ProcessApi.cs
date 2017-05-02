@@ -33,8 +33,8 @@ namespace Cben.Erp.Api
 
         public IEnumerable<ProcessListDto> GetAllProcess()
         {
-            var result = Request<ApiResult<List<ProcessListDto>>>("/api/Process", HttpMethod.GET);
-            return result.Result;
+            var result = Request<ApiResult<ListResultDto<ProcessListDto>>>("/api/Process", HttpMethod.GET);
+            return result.Result.Items;
         }
 
         public ProcessListDto GetProcess(int id)
@@ -66,10 +66,10 @@ namespace Cben.Erp.Api
 
         public IEnumerable<ProcessCategoryListDto> GetAllCategory()
         {
-            var result = Request<ApiResult<List<ProcessCategoryListDto>>>(
+            var result = Request<ApiResult<ListResultDto<ProcessCategoryListDto>>>(
                 "/api/Process/GetCategory", HttpMethod.GET);
 
-            return result.Result;
+            return result.Result.Items;
         }
 
         public ProcessCategoryListDto GetCategory(int id)

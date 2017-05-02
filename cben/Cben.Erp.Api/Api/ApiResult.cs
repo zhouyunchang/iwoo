@@ -22,4 +22,10 @@ namespace Cben.Erp.Api
         public T Result { get; set; }
 
     }
+
+    public class ListResultDto<T>
+    {
+        public List<T> Items { get; set; }
+    }
+
 }

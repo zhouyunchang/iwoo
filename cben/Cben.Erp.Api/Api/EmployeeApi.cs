@@ -33,8 +33,8 @@ namespace Cben.Erp.Api
 
         public IEnumerable<EmployeeListDto> GetAllEmployee()
         {
-            var result = Request<ApiResult<List<EmployeeListDto>>>("/api/Employee", HttpMethod.GET);
-            return result.Result;
+            var result = Request<ApiResult<ListResultDto<EmployeeListDto>>>("/api/Employee", HttpMethod.GET);
+            return result.Result.Items;
         }
 
         public EmployeeListDto GetEmployee(long id)

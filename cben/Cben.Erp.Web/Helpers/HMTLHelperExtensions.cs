@@ -21,7 +21,8 @@ namespace Cben.Erp.Web
             if (String.IsNullOrEmpty(action))
                 action = actualAction;
 
-            return (controller == actualController && action == actualAction) ? activeClass : String.Empty;
+            return (controller.Equals(actualController, StringComparison.OrdinalIgnoreCase) && 
+                action.Equals(actualAction, StringComparison.OrdinalIgnoreCase)) ? activeClass : String.Empty;
         }
     }
 }

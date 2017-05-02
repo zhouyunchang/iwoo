@@ -466,6 +466,13 @@ namespace Cben.Erp.Web
               "~/Vendor/select2-bootstrap-theme/dist/select2-bootstrap.css"
             ));
 
+
+
+            // Bootstrap Styles
+            //bundles.Add(new ScriptBundle("~/bundles/UserInfo").Include(
+            //     "~/Scripts/StaffManagerment/AddUserInfo.js"
+            //));
+
         }
     }
 }

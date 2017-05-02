@@ -25,6 +25,24 @@
             <!-- END user info-->
             <!-- Iterates over all sidebar items-->
             <li class="nav-heading">
+                <span>人员管理</span>
+            </li>
+            <li  class="@Html.isActive(controller: "StaffManagement")">
+                <a href="#staffmanagement" title="StaffManagement" data-toggle="collapse">
+                    <div class="label label-info pull-right">1</div>
+                    <em class="icon-speedometer"></em>
+                    <span data-localize="sidebar.nav.StaffManagement">StaffManagement</span>
+                </a>
+                <ul id="staffmanagement" class="nav sidebar-subnav collapse">
+                    <li class="sidebar-subnav-header">StaffManagement1</li>
+                    <li class="@Html.isActive("StaffManagement", "index")">
+                        <a href="@Url.Action("index", "StaffManagement")" title="StaffManagement1">
+                            <span>StaffManagement1</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-heading">
                 <span>Main Navigation</span>
             </li>
             <li class="@Html.isActive(controller: "Dashboard")">
@@ -55,7 +73,7 @@
             <li class="@Html.isActive(controller: "Widgets")">
                 <a href="@Url.Action("Index", "Widgets")" title="Widgets">
                     <div class="label label-success pull-right">30</div>
-                    <em class="icon-grid"></em>                    
+                    <em class="icon-grid"></em>
                     <span data-localize="sidebar.nav.WIDGETS">Widgets</span>
                 </a>
             </li>

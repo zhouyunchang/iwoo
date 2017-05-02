@@ -113,9 +113,10 @@
             'paging': true,  // Table pagination
             'ordering': true,  // Column ordering 
             'info': true,  // Bottom left status text
-            sAjaxSource: '/Content/Json/datatable.json',
+            //sAjaxSource: '/Content/Json/datatable.json',
+            sAjaxSource: '/StaffManagement/GetUserInfo',
             aoColumns: [
-                { mData: 'engine' },
+                { mData: 'SerialNumber' },
                 { mData: 'browser' },
                 { mData: 'platform' },
                 { mData: 'version' }
@@ -125,7 +126,7 @@
                     "targets":4,
                     "data": "grade",
                     "render": function (data, type, row) {
-                        return '<a href="#" data-toggle="modal" data-target="#UpdateModal">修改 </a> | <a href="' + data +'"> 删除</a> ';
+                        return '<a href="#" data-toggle="modal" data-target="#UpdateModal">修改 </a> | <a  href="#" class="delete"> 删除</a>';
                     },
 
                 }

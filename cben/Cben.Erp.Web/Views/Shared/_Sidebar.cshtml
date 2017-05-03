@@ -1,5 +1,5 @@
 @{
-    var user = Session[Cben.Erp.Web.Controllers.ControllerBase.CurrentUserSessionKey] as Cben.Application.Users.Dto.UserListDto;
+    var user = Session[Cben.Erp.Web.Controllers.BaseController.CurrentUserSessionKey] as Cben.Application.Users.Dto.UserListDto;
 }
 
 
@@ -33,6 +33,12 @@
                 <a href="@Url.Action("Index", "StaffManagement")" title="人员管理">
                     <em class="icon-speedometer"></em>
                     <span data-localize="sidebar.nav.StaffManagement">人员管理</span>
+                </a>
+            </li>
+            <li class="@Html.isActive("Product", "ProcessManage")">
+                <a href="@Url.Action("ProcessManage", "Product")" title="工序管理">
+                    <em class="icon-speedometer"></em>
+                    <span data-localize="sidebar.nav.ProcessManager">工序管理</span>
                 </a>
             </li>
             <li class="nav-heading">

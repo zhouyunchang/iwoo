@@ -32,7 +32,8 @@ namespace Erp.Application.Process
             await _processRepository.InsertAsync(new Models.Process
             {
                 CategoryId = input.CategoryId,
-                Name = input.Name
+                Name = input.Name,
+                GuidePrice = input.GuidePrice
             });
         }
 
@@ -100,6 +101,7 @@ namespace Erp.Application.Process
             }
             process.Name = input.Name;
             process.CategoryId = input.CategoryId;
+            process.GuidePrice = input.GuidePrice;
 
             await UnitOfWorkManager.Current.SaveChangesAsync();
         }

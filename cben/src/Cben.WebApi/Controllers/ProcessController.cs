@@ -106,7 +106,8 @@ namespace Cben.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ListResultDto<ProcessCategoryListDto>> GetCategory()
+        [Route("api/process/category")]
+        public async Task<ListResultDto<ProcessCategoryListDto>> AllCategory()
         {
             var category = await _processAppService.GetAllProcessCategory();
             return category;
@@ -118,7 +119,9 @@ namespace Cben.WebApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ProcessCategoryListDto> GetCategory(int id)
+        [HttpGet]
+        [Route("api/process/category/{id}")]
+        public async Task<ProcessCategoryListDto> Category(int id)
         {
             var category = await _processAppService.GetProcessCategoryById(id);
             return category;
@@ -131,9 +134,10 @@ namespace Cben.WebApi.Controllers
         /// <param name="processCategory"></param>
         /// <returns></returns>
         [HttpPost]
+        [Route("api/process/category")]
         public async Task<IHttpActionResult> PostCategory(AddProcessCategoryInput processCategory)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -149,9 +153,10 @@ namespace Cben.WebApi.Controllers
         /// <param name="processCategory"></param>
         /// <returns></returns>
         [HttpPut]
+        [Route("api/process/category")]
         public async Task<IHttpActionResult> PutCategory(UpdateProcessCategoryInput processCategory)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -166,6 +171,7 @@ namespace Cben.WebApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
+        [Route("api/process/category/{id}")]
         public async Task<IHttpActionResult> DeleteCategory(int id)
         {
             await _processAppService.RemoveProcessCategory(id);

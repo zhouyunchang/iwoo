@@ -715,13 +715,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Cben.WebApi.Controllers.ProcessController.GetCategory">
+        <member name="M:Cben.WebApi.Controllers.ProcessController.AllCategory">
             <summary>
             获取所有工序分组
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Cben.WebApi.Controllers.ProcessController.GetCategory(System.Int32)">
+        <member name="M:Cben.WebApi.Controllers.ProcessController.Category(System.Int32)">
             <summary>
             获取指定工序分组
             </summary>

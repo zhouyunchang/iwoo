@@ -687,7 +687,7 @@
     <Content Include="Views\Tables\TableStandard.cshtml" />
     <Content Include="Views\Widgets\Index.cshtml" />
     <Content Include="Views\StaffManagement\Index.cshtml" />
-    <Content Include="Views\Product\ProcessManager.cshtml" />
+    <Content Include="Views\Product\ProcessManage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

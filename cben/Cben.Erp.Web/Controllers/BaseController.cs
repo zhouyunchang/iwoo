@@ -14,9 +14,9 @@ using System.Web.Mvc.Filters;
 
 namespace Cben.Erp.Web.Controllers
 {
-    public class ControllerBase : Controller
+    public abstract class BaseController : Controller
     {
-        static ControllerBase()
+        static BaseController()
         {
         }
 

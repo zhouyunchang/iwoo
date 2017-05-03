@@ -1,48 +1,55 @@
 ﻿@model IEnumerable<Erp.Application.Employee.Dto.EmployeeListDto>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "员工管理";
 }
 
-<h3>人员管理</h3>
+<h3>员工管理</h3>
 
 <p>
-    <button type="button" data-toggle="modal" data-target="#AddModal" class="btn btn-primary">添加</button>
+    <button type="button" data-toggle="modal" data-target="#addModal" class="btn btn-primary">添加</button>
 </p>
 
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">人员列表</h3>
+                <h3 class="panel-title">员工列表</h3>
             </div>
-            <div class="table-responsive">
-                <table id="tbEmployee" class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>用户名</th>
-                            <th>姓名</th>
-                            <th>联系号码</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table id="tbEmployee" class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>员工序号</th>
+                                <th>登录名</th>
+                                <th>姓名</th>
+                                <th>联系号码</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                        @if (Model != null)
-                        {
-                            foreach (var item in Model)
+                            @if (Model != null)
                             {
-                                <tr>
-                                    <td>@item.User.UserName</td>
-                                    <td>@item.User.Name</td>
-                                    <td>@item.User.PhoneNumber</td>
-                                    <td></td>
-                                </tr>
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.SerialNumber</td>
+                                        <td>@item.User.UserName</td>
+                                        <td>@item.User.Name</td>
+                                        <td>@item.User.PhoneNumber</td>
+                                        <td>
+                                            <button type="button" data-toggle="modal" data-target="#updateModal" class="btn-modify btn btn-primary" data-id="@item.Id">编辑</button>
+                                            <button type="button" class="btn-delete btn btn-danger" data-id="@item.Id">删除</button>
+                                        </td>
+                                    </tr>
+                                }
                             }
-                        }
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -51,7 +58,7 @@
 
 @section BodyArea {
     <!-- Modal-->
-    <div id="AddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
+    <div id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -61,10 +68,10 @@
                     <h4 id="myModalLabel" class="modal-title">添加员工</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="addform">
+                    <form id="addForm">
                         <fieldset>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">编号</label>
+                                <label class="col-sm-2 control-label">员工序号</label>
                                 <div class="col-sm-6">
                                     <input type="text" name="UserCode" required="required" class="form-control" />
                                 </div>
@@ -72,7 +79,7 @@
                         </fieldset>
                         <fieldset>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">用户名</label>
+                                <label class="col-sm-2 control-label">登录名</label>
                                 <div class="col-sm-6">
                                     <input type="text" name="UserName" required="required" class="form-control" />
                                 </div>
@@ -105,10 +112,10 @@
     </div>
 
     <!-- Modal-->
-    <div id="UpdateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
+    <div id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form id="udpateform">
+                <form id="updateForm">
                     <div class="modal-header">
                         <button type="button" data-dismiss="modal" aria-label="Close" class="close">
                             <span aria-hidden="true">&times;</span>
@@ -118,17 +125,18 @@
                     <div class="modal-body">
                         <fieldset>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">编号</label>
+                                <label class="col-sm-2 control-label">员工序号</label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="UserCode" required="required" class="form-control" />
+                                    <input type="text" id="updateModal_userCode" name="UserCode" required="required" class="form-control" />
+                                    <input type="hidden" id="updateModal_txtUserId" name="UserId" />
                                 </div>
                             </div>
                         </fieldset>
                         <fieldset>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">用户名</label>
+                                <label class="col-sm-2 control-label">登录名</label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="UserName" required="required" class="form-control" />
+                                    <input type="text" id="updateModal_userName" name="UserName" required="required" class="form-control" />
                                 </div>
                             </div>
                         </fieldset>
@@ -136,7 +144,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">姓名</label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="RealName" required="required" class="form-control" />
+                                    <input type="text" id="updateModal_realName" name="RealName" required="required" class="form-control" />
                                 </div>
                             </div>
                         </fieldset>
@@ -144,7 +152,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">联系号码</label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="PhoneNum" data-parsley-type="number" class="form-control" />
+                                    <input type="text" id="updateModal_phoneNum" name="PhoneNum" data-parsley-type="number" class="form-control" />
                                 </div>
                             </div>
                         </fieldset>

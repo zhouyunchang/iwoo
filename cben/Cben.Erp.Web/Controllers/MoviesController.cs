@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cben.Erp.Web.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Angle.Models
 {
-    public class MoviesController : Controller
+    public class MoviesController : BaseController
     {
 
         // GET: Movies

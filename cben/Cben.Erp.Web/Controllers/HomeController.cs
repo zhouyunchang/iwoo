@@ -8,7 +8,7 @@ using System.Web.Mvc;
 namespace Cben.Erp.Web.Controllers
 {
 
-    public class HomeController : ControllerBase
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {

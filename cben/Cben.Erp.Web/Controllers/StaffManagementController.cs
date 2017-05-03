@@ -1,5 +1,6 @@
 ﻿using Cben.Erp.Api;
 using Erp.Application.Employee;
+using Erp.Application.Employee.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Cben.Erp.Web.Controllers
 {
-    public class StaffManagementController : ControllerBase
+    public class StaffManagementController : BaseController
     {
         EmployeeApi eApi = new EmployeeApi();
 
@@ -19,6 +20,14 @@ namespace Cben.Erp.Web.Controllers
 
             return View(userInfoList);
         }
+
+        [HttpPost]
+        public ActionResult GetUserInfo(long id)
+        {
+            var userInfo = eApi.GetEmployee(id);
+            return Json(userInfo);
+        }
+
 
 
         [HttpPost]
@@ -45,6 +54,7 @@ namespace Cben.Erp.Web.Controllers
             }
         }
 
+
         [HttpPost]
         public ActionResult UpdateUserInfo()
         {
@@ -53,25 +63,33 @@ namespace Cben.Erp.Web.Controllers
             string UserName = Request["UserName"] ?? "";
             string RealName = Request["RealName"] ?? "";
             string PhoneNum = Request["PhoneNum"] ?? "";
+            long UserId = long.Parse(Request["UserId"]);
 
+            UpdateEmployeeInput input = new UpdateEmployeeInput();
+            input.Id = UserId;
+            input.UserName = UserName;
+            input.SerialNumber = UserCode;
+            input.Name = RealName;
+            input.Phone = PhoneNum;
+            var result = eApi.UpdateEmployee(input);
+            if (result.Success)
+                return Json(new { flag = true, msg = "成功" });
+            else
+                return Json(new { flag = false, msg = "失败" });
 
-            return Json(new { flag = true, msg = "成功" }, JsonRequestBehavior.AllowGet);
         }
 
 
         [HttpPost]
-        public ActionResult DelUserInfo()
+        public ActionResult DelUserInfo(long id)
         {
-            string id = Request["id"] ?? "0";
-            if (id != "0")
+            var result = eApi.RemoveEmployee(id);
+            return Json(new
             {
-                int intid = Convert.ToInt32(id);
-                return Json(true, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json(false, JsonRequestBehavior.AllowGet);
-            }
+                flag = result.Success,
+                msg = result.Success ? "成功" : "失败"
+            });
+
         }
 
     }

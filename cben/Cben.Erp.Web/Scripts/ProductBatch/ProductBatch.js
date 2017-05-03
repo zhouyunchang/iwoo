@@ -2,7 +2,7 @@
 (function (window, document, $, undefined) {
 
     $(function () {
-        $('#tbEmployee').dataTable({
+        $('#tbProductBatch').dataTable({
             'paging': true,
             'ordering': true,
             'info': true,
@@ -24,7 +24,7 @@
 
             $.ajax({
                 type: 'post',
-                url: '/StaffManagement/DelUserInfo',
+                url: '/ProductBatch/DelProductBatch',
                 data: { id: id },
                 dataType: 'json',
                 success: function (data) {
@@ -46,16 +46,16 @@
 
             $.ajax({
                 type: 'post',
-                url: '/StaffManagement/GetUserInfo',
+                url: '/ProductBatch/GetProductBatchInfo',
                 data: { id: id },
                 dataType: 'json',
                 success: function (data) {
-                    modal.find('#updateModal_txtUserId').val(data.Id);
-                    modal.find('#updateModal_userCode').val(data.SerialNumber);
-                    modal.find('#updateModal_userName').val(data.User.UserName);
-                    modal.find('#updateModal_realName').val(data.User.Name);
-                    modal.find('#updateModal_phoneNum').val(data.User.PhoneNumber);
-
+                    modal.find('#updateModal_txtBatchId').val(data.Id);
+                    modal.find('#updateModal_batchNo').val(data.BatchNo);
+                    modal.find('#updateModal_spec').val(data.Spec);
+                    modal.find('#updateModal_techNo').val(data.TechNo);
+                    modal.find('#updateModal_diameter').val(data.Diameter);
+                    modal.find('#updateModal_pressure').val(data.Pressure);
                 }
             });
 
@@ -72,7 +72,7 @@ $(document).ready(function () {
     $('#addsubmit').click(function () {
         $.ajax({
             type: 'post',
-            url: '/StaffManagement/AddUserInfo',
+            url: '/ProductBatch/AddProductBatchInfo',
             data: $("#addForm").serialize(),
             dataType: 'json',
             success: function (data) {
@@ -93,7 +93,7 @@ $(document).ready(function () {
     $('#updatesubmit').click(function () {
         $.ajax({
             type: 'post',
-            url: '/StaffManagement/UpdateUserInfo',
+            url: '/ProductBatch/UpdateProductBatch',
             data: $("#updateForm").serialize(),
             dataType: 'json',
             success: function (data) {

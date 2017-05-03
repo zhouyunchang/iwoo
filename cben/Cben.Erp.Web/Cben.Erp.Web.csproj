@@ -243,6 +243,7 @@
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\MultilevelsController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
+    <Compile Include="Controllers\ProductBatchController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\StaffManagementController.cs" />
     <Compile Include="Controllers\TablesController.cs" />
@@ -391,6 +392,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\ProductBatch\ProductBatch.js" />
     <Content Include="Scripts\StaffManagerment\UserInfo.js" />
     <Content Include="Vendor\animate.css\animate.min.css" />
     <Content Include="Vendor\animo.js\animo.js" />
@@ -688,6 +690,7 @@
     <Content Include="Views\Widgets\Index.cshtml" />
     <Content Include="Views\StaffManagement\Index.cshtml" />
     <Content Include="Views\Product\ProcessManager.cshtml" />
+    <Content Include="Views\ProductBatch\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

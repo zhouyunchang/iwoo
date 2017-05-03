@@ -15,25 +15,15 @@ namespace Cben.Erp.Web.Controllers
         // GET: StaffManagement
         public ActionResult Index()
         {
-            return View();
-        }
-
-
-
-        public ActionResult GetUserInfo()
-        {
             var userInfoList = eApi.GetAllEmployee();
-           
-            var jsonData = new { aaData = userInfoList };
-            return Json(jsonData, JsonRequestBehavior.AllowGet);
+
+            return View(userInfoList);
         }
 
 
         [HttpPost]
         public ActionResult AddUserInfo()
         {
-
-
             string UserCode = Request["UserCode"] ?? "";
             string UserName = Request["UserName"] ?? "";
             string RealName = Request["RealName"] ?? "";
@@ -59,12 +49,10 @@ namespace Cben.Erp.Web.Controllers
         public ActionResult UpdateUserInfo()
         {
 
-
             string UserCode = Request["UserCode"] ?? "";
             string UserName = Request["UserName"] ?? "";
             string RealName = Request["RealName"] ?? "";
             string PhoneNum = Request["PhoneNum"] ?? "";
-
 
 
             return Json(new { flag = true, msg = "成功" }, JsonRequestBehavior.AllowGet);
@@ -74,8 +62,6 @@ namespace Cben.Erp.Web.Controllers
         [HttpPost]
         public ActionResult DelUserInfo()
         {
-
-
             string id = Request["id"] ?? "0";
             if (id != "0")
             {

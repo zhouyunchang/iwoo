@@ -693,6 +693,14 @@
       <Project>{430e4b91-8ce1-4c20-985c-77233be091d4}</Project>
       <Name>Cben.Erp.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\src\Cben.Application\Cben.Application.csproj">
+      <Project>{4B8862D1-0569-4CCE-A6B9-4C4EE722A522}</Project>
+      <Name>Cben.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Cben\Cben.csproj">
+      <Project>{d73fa2e0-0305-46e0-a59c-1b7a7cbd69dc}</Project>
+      <Name>Cben</Name>
+    </ProjectReference>
     <ProjectReference Include="..\src\Erp.Application\Erp.Application.csproj">
       <Project>{18450421-74e6-4a9c-9014-64771459efa2}</Project>
       <Name>Erp.Application</Name>

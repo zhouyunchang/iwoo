@@ -794,6 +794,12 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Cben.WebApi.Controllers.IdentityController.GetUserInfo">
+            <summary>
+            获取当前用户
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Cben.WebApi.Controllers.Results.CbenJsonResult">
             <summary>
             This class is used to override returning Json results from MVC controllers.

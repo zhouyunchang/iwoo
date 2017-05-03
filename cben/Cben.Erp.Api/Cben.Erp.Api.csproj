@@ -125,6 +125,7 @@
     <Compile Include="Api\ProcessApi.cs" />
     <Compile Include="Api\EmployeeApi.cs" />
     <Compile Include="Api\IAuth.cs" />
+    <Compile Include="Api\UserApi.cs" />
     <Compile Include="Api\ValuesApi.cs" />
     <Compile Include="Exceptions\NeedAuthorizationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -133,6 +134,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\src\Cben.Application\Cben.Application.csproj">
+      <Project>{4b8862d1-0569-4cce-a6b9-4c4ee722a522}</Project>
+      <Name>Cben.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\src\Erp.Application\Erp.Application.csproj">
       <Project>{18450421-74e6-4a9c-9014-64771459efa2}</Project>
       <Name>Erp.Application</Name>

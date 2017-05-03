@@ -1,4 +1,6 @@
-﻿using Cben.Configuration.Startup;
+﻿using Cben.Application.Users.Dto;
+using Cben.AutoMapper;
+using Cben.Configuration.Startup;
 using Cben.Core.Authorization;
 using Cben.Core.MultiTenancy;
 using Cben.Core.Users;
@@ -77,6 +79,25 @@ namespace Cben.WebApi.Controllers
             }
 
             return Ok();
+        }
+
+
+        /// <summary>
+        /// 获取当前用户
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<UserListDto> GetUserInfo()
+        {
+            if (CbenSession.UserId.HasValue)
+            {
+                var user = await _userManager.GetUserByIdAsync(CbenSession.UserId.Value);
+                return user.MapTo<UserListDto>();
+            }
+            else
+            {
+                return null;
+            }
         }
 
 

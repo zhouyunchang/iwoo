@@ -12,13 +12,16 @@ namespace Cben.Erp.Web.Controllers
     {
         public ActionResult Index()
         {
-            ValuesApi api = new ValuesApi();
-            var lst = api.Get();
+            UserApi api = new UserApi();
+            var userInfo = api.GetUserInfo();
+
+            CurrentUser = userInfo;
 
             return View();
         }
 
-        public ActionResult Login()
+
+        public ActionResult Callback()
         {
             Auth.ProcessUserAuthorization(Request);
 

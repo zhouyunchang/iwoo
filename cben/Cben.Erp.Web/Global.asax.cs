@@ -18,7 +18,7 @@ namespace Cben.Erp.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            Auth.Callback = "/Home/Login";
+            Auth.Callback = "/Home/Callback";
         }
     }
 }

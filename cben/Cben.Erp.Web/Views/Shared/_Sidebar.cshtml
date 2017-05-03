@@ -1,3 +1,8 @@
+@{
+    var user = Session[Cben.Erp.Web.Controllers.ControllerBase.CurrentUserSessionKey] as Cben.Application.Users.Dto.UserListDto;
+}
+
+
 <!-- START Sidebar (left)-->
 <div class="aside-inner">
     <nav class="sidebar" data-sidebar-anyclick-close="">
@@ -16,31 +21,19 @@
                         </div>
                         <!-- Name and Job-->
                         <div class="user-block-info">
-                            <span class="user-block-name">Hello, Mike</span>
-                            <span class="user-block-role">Designer</span>
+                            <span class="user-block-name">@user.Name</span>
+                            @*<span class="user-block-role">Designer</span>*@
                         </div>
                     </div>
                 </div>
             </li>
             <!-- END user info-->
             <!-- Iterates over all sidebar items-->
-            <li class="nav-heading">
-                <span>人员管理</span>
-            </li>
-            <li  class="@Html.isActive(controller: "StaffManagement")">
-                <a href="#staffmanagement" title="StaffManagement" data-toggle="collapse">
-                    <div class="label label-info pull-right">1</div>
+            <li class="@Html.isActive("StaffManagement")">
+                <a href="@Url.Action("Index", "StaffManagement")" title="人员管理">
                     <em class="icon-speedometer"></em>
-                    <span data-localize="sidebar.nav.StaffManagement">StaffManagement</span>
+                    <span data-localize="sidebar.nav.StaffManagement">人员管理</span>
                 </a>
-                <ul id="staffmanagement" class="nav sidebar-subnav collapse">
-                    <li class="sidebar-subnav-header">StaffManagement1</li>
-                    <li class="@Html.isActive("StaffManagement", "index")">
-                        <a href="@Url.Action("index", "StaffManagement")" title="StaffManagement1">
-                            <span>StaffManagement1</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
             <li class="nav-heading">
                 <span>Main Navigation</span>

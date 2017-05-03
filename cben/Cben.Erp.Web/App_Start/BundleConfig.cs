@@ -130,7 +130,8 @@ namespace Cben.Erp.Web
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"
+                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/jquery.unobtrusive-ajax.js"
             ));
 
             // Vendor Plugins
@@ -465,13 +466,6 @@ namespace Cben.Erp.Web
               "~/Vendor/select2/dist/css/select2.css",
               "~/Vendor/select2-bootstrap-theme/dist/select2-bootstrap.css"
             ));
-
-
-
-            // Bootstrap Styles
-            //bundles.Add(new ScriptBundle("~/bundles/UserInfo").Include(
-            //     "~/Scripts/StaffManagerment/AddUserInfo.js"
-            //));
 
         }
     }

@@ -47,27 +47,27 @@ namespace Cben.Erp.Api
 
         public ApiResult AddCategory(AddProcessCategoryInput input)
         {
-            var result = Request<ApiResult>("/api/Process/PostCategory", HttpMethod.POST, input);
+            var result = Request<ApiResult>("/api/Process/Category", HttpMethod.POST, input);
             return result;
         }
 
         public ApiResult UpdateCategory(UpdateProcessCategoryInput input)
         {
-            var result = Request<ApiResult>("/api/Process/PutCategory", HttpMethod.PUT, input);
+            var result = Request<ApiResult>("/api/Process/Category", HttpMethod.PUT, input);
             return result;
         }
 
         public ApiResult RemoveCategory(int id)
         {
             var result = Request<ApiResult>(
-                string.Format("/api/Process/DeleteCategory?id={0}", id), HttpMethod.DELETE);
+                string.Format("/api/Process/Category/{0}", id), HttpMethod.DELETE);
             return result;
         }
 
         public IEnumerable<ProcessCategoryListDto> GetAllCategory()
         {
             var result = Request<ApiResult<ListResultDto<ProcessCategoryListDto>>>(
-                "/api/Process/GetCategory", HttpMethod.GET);
+                "/api/Process/Category", HttpMethod.GET);
 
             return result.Result.Items;
         }
@@ -75,7 +75,7 @@ namespace Cben.Erp.Api
         public ProcessCategoryListDto GetCategory(int id)
         {
             var result = Request<ApiResult<ProcessCategoryListDto>>(
-                string.Format("/api/Process/GetCategory?id={0}", id), HttpMethod.GET);
+                string.Format("/api/Process/Category/{0}", id), HttpMethod.GET);
 
             return result.Result;
         }

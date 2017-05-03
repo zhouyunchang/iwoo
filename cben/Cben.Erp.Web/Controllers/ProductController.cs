@@ -24,7 +24,7 @@ namespace Cben.Erp.Web.Controllers
         /// 工序管理
         /// </summary>
         /// <returns></returns>
-        public ActionResult ProcessManager()
+        public ActionResult ProcessManage()
         {
             var category = _processApi.GetAllCategory();
             var processes = _processApi.GetAllProcess();

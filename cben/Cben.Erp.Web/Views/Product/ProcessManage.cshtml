@@ -9,7 +9,7 @@
 <h3>工序管理</h3>
 
 <p>
-    <button type="button" data-toggle="modal" data-target="#addModal" class="btn btn-primary">添加工序</button>
+    <button type="button" data-toggle="modal" data-target="#addProcessModal" class="btn btn-primary">添加工序</button>
     <button type="button" data-toggle="modal" data-target="#addCategoryModal" class="btn btn-primary">添加分班</button>
 </p>
 
@@ -151,7 +151,7 @@
                     <button type="button" data-dismiss="modal" aria-label="Close" class="close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 id="addProcessModalLabel" class="modal-title">添加分班</h4>
+                    <h4 id="addProcessModalLabel" class="modal-title">添加工序</h4>
                 </div>
                 <div class="modal-body">
                     <form id="addProcessForm">
@@ -163,6 +163,7 @@
                                 </div>
                             </div>
                         </fieldset>
+
                         <fieldset>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">分班</label>
@@ -176,6 +177,16 @@
                                 </div>
                             </div>
                         </fieldset>
+
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">指导工价</label>
+                                <div class="col-sm-6">
+                                    <input type="number" name="Price" required="required" class="form-control" />
+                                </div>
+                            </div>
+                        </fieldset>
+
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -194,7 +205,7 @@
                         <button type="button" data-dismiss="modal" aria-label="Close" class="close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 id="updateProcessModalLabel" class="modal-title">修改分班</h4>
+                        <h4 id="updateProcessModalLabel" class="modal-title">修改工序</h4>
                     </div>
                     <div class="modal-body">
                         <fieldset>
@@ -251,22 +262,6 @@
         (function (window, document, $, undefined) {
             $(function () {
 
-                $('#tbProductProcess').dataTable({
-                    'paging': false,
-                    'ordering': false,
-                    'info': false,
-                    oLanguage: {
-                        sSearch: 'Search all columns:',
-                        sLengthMenu: '_MENU_ records per page',
-                        info: 'Showing page _PAGE_ of _PAGES_',
-                        zeroRecords: 'Nothing found - sorry',
-                        infoEmpty: 'No records available',
-                        infoFiltered: '(filtered from _MAX_ total records)'
-                    }
-                });
-
-
-
                 $('.btn-delete-process').click(function () {
                     var id = $(this).attr('data-id');
                     if (!confirm('是否删除？')) return;
@@ -312,18 +307,19 @@
                     $.ajax({
                         type: 'post',
                         url: '/Product/AddProcess',
-                        data: $("#addForm").serialize(),
+                        data: $("#addProcessForm").serialize(),
                         dataType: 'json',
                         success: function (data) {
 
-                            if (data.flag) $('#addModal').modal('hide');
-
-                            $.notify({
-                                message: data.msg,
-                                status: data.flag ? 'success' : 'danger'
-                            })
-
-                            window.location.reload();
+                            if (data.success) {
+                                $('#addProcessModal').modal('hide');
+                                window.location.reload();
+                            } else {
+                                $.notify({
+                                    message: data.error,
+                                    status: data.success ? 'success' : 'danger'
+                                })
+                            }
 
                         }
                     });
@@ -334,25 +330,68 @@
                     $.ajax({
                         type: 'post',
                         url: '/Product/UpdateProcess',
-                        data: $("#updateForm").serialize(),
+                        data: $("#updateProcessForm").serialize(),
                         dataType: 'json',
                         success: function (data) {
-
-                            if (data.flag) $('#updateModal').modal('hide');
-
-                            $.notify({
-                                message: data.msg,
-                                status: data.flag ? 'success' : 'danger'
-                            })
-
-                            window.location.reload();
+                            if (data.success) {
+                                $('#updateProcessModal').modal('hide');
+                                window.location.reload();
+                            }
+                            else {
+                                $.notify({
+                                    message: data.error,
+                                    status: data.success ? 'success' : 'danger'
+                                });
+                            }
                         }
                     });
                 });
 
 
+                // 添加工序分班
+                $('#addCategoryForm_submit').click(function () {
+                    $.ajax({
+                        type: 'post',
+                        url: '/Product/AddProcessCategory',
+                        data: $("#addCategoryForm").serialize(),
+                        dataType: 'json',
+                        success: function (data) {
 
-            })(window, document, jQuery);
+                            if (data.success) {
+                                $('#addCategoryModal').modal('hide');
+                                window.location.reload();
+                            } else {
+                                $.notify({
+                                    message: data.error,
+                                    status: data.success ? 'success' : 'danger'
+                                })
+                            }
+
+                        }
+                    });
+                });
+
+                // 更新工序分班
+                $('#updateCategoryForm_submit').click(function () {
+                    $.ajax({
+                        type: 'post',
+                        url: '/Product/UpdateProcessCategory',
+                        data: $('#updateCategoryForm').serialize(),
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.success) {
+                                $('#updateCategoryModal').modal('hide');
+                                window.location.reload();
+                            } else {
+                                $.notify({ message: data.error, status: 'danger' });
+                            }
+
+                        }
+                    })
+                });
+            });
+
+        })(window, document, jQuery);
     </script>
 
 }

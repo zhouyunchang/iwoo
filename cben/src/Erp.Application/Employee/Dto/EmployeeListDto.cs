@@ -21,5 +21,10 @@ namespace Erp.Application.Employee.Dto
 
         public DateTime CreationTime { get; set; }
 
+        public override string ToString()
+        {
+            return string.Format("{0}({1})", SerialNumber, User?.Name);
+        }
+
     }
 }

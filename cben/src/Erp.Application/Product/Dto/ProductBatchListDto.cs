@@ -1,5 +1,7 @@
 ﻿using Cben.Application.Services.Dto;
 using Cben.Application.Users.Dto;
+using Cben.AutoMapper;
+using Erp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,7 @@ namespace Erp.Application.Product.Dto
     /// <summary>
     /// 产品批次Dto
     /// </summary>
+    [AutoMapFrom(typeof(ProductBatch))]
     public class ProductBatchListDto : EntityDto<int>
     {
         /// <summary>

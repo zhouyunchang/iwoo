@@ -794,6 +794,52 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:Cben.WebApi.Controllers.ProductController">
+            <summary>
+            产品接口
+            </summary>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProductController.#ctor(Erp.Application.Product.IProductAppService)">
+            <summary>
+            ctor
+            </summary>
+            <param name="productAppService"></param>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProductController.Post(Erp.Application.Product.Dto.AddProductInput)">
+            <summary>
+            添加产品
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProductController.Put(Erp.Application.Product.Dto.UpdateProductInput)">
+            <summary>
+            更新产品
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProductController.Delete(System.Int64)">
+            <summary>
+            删除产品
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProductController.Get(System.Int64)">
+            <summary>
+            获取指定产品
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.ProductController.GetByBatch(System.Int32)">
+            <summary>
+            获取批次下所有产品
+            </summary>
+            <param name="batchId"></param>
+            <returns></returns>
+        </member>
         <member name="M:Cben.WebApi.Controllers.IdentityController.GetUserInfo">
             <summary>
             获取当前用户

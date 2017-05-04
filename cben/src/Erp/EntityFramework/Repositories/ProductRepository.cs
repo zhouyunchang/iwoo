@@ -14,5 +14,17 @@ namespace Erp.EntityFramework.Repositories
         public ProductRepository(IDbContextProvider<ErpDbContext> dbContextProvider) : base(dbContextProvider)
         {
         }
+
+
+        /// <summary>
+        /// 删除工序责任人
+        /// </summary>
+        /// <param name="record"></param>
+        /// <returns></returns>
+        public async Task DeleteProcessRecordAsync(ProcessRecord record)
+        {
+            Context.Entry(record).State = System.Data.Entity.EntityState.Deleted;
+            await Task.FromResult<object>(null);
+        }
     }
 }

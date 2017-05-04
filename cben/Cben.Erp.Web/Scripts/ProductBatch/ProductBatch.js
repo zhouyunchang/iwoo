@@ -50,7 +50,7 @@
                 data: { id: id },
                 dataType: 'json',
                 success: function (data) {
-                    modal.find('#updateModal_txtBatchId').val(data.Id);
+                    modal.find('#updateModal_Id').val(data.Id);
                     modal.find('#updateModal_batchNo').val(data.BatchNo);
                     modal.find('#updateModal_spec').val(data.Spec);
                     modal.find('#updateModal_techNo').val(data.TechNo);
@@ -61,54 +61,51 @@
 
         });
 
+
+        $('#addModal_submit').click(function () {
+            $.ajax({
+                type: 'post',
+                url: '/ProductBatch/AddProductBatchInfo',
+                data: $("#addForm").serialize(),
+                dataType: 'json',
+                success: function (data) {
+
+                    if (data.flag) $('#addModal').modal('hide');
+
+                    $.notify({
+                        message: data.msg,
+                        status: data.flag ? 'success' : 'danger'
+                    })
+
+                    window.location.reload();
+
+                }
+            });
+        });
+
+
+        $('#updateModal_submit').click(function () {
+            $.ajax({
+                type: 'post',
+                url: '/ProductBatch/UpdateProductBatch',
+                data: $("#updateForm").serialize(),
+                dataType: 'json',
+                success: function (data) {
+
+                    if (data.flag) $('#updateModal').modal('hide');
+
+                    $.notify({
+                        message: data.msg,
+                        status: data.flag ? 'success' : 'danger'
+                    })
+
+                    window.location.reload();
+                }
+            });
+        });
+
+
     });
 
 })(window, document, window.jQuery);
 
-
-$(document).ready(function () {
-
-
-    $('#addsubmit').click(function () {
-        $.ajax({
-            type: 'post',
-            url: '/ProductBatch/AddProductBatchInfo',
-            data: $("#addForm").serialize(),
-            dataType: 'json',
-            success: function (data) {
-
-                if (data.flag) $('#addModal').modal('hide');
-
-                $.notify({
-                    message: data.msg,
-                    status: data.flag ? 'success' : 'danger'
-                })
-
-                window.location.reload();
-
-            }
-        });
-    });
-
-    $('#updatesubmit').click(function () {
-        $.ajax({
-            type: 'post',
-            url: '/ProductBatch/UpdateProductBatch',
-            data: $("#updateForm").serialize(),
-            dataType: 'json',
-            success: function (data) {
-
-                if (data.flag) $('#updateModal').modal('hide');
-
-                $.notify({
-                    message: data.msg,
-                    status: data.flag ? 'success' : 'danger'
-                })
-
-                window.location.reload();
-            }
-        });
-    });
-
-
-});

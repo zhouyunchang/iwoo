@@ -125,6 +125,7 @@
     <Compile Include="Api\ProcessApi.cs" />
     <Compile Include="Api\EmployeeApi.cs" />
     <Compile Include="Api\IAuth.cs" />
+    <Compile Include="Api\ProductApi.cs" />
     <Compile Include="Api\ProductBatchApi.cs" />
     <Compile Include="Api\UserApi.cs" />
     <Compile Include="Api\ValuesApi.cs" />

@@ -3,7 +3,7 @@
     ViewBag.Title = "钢瓶登记";
 }
 
-<h2>钢瓶登记</h2>
+<h3>钢瓶登记台账</h3>
 
 <p>
     <button type="button" data-toggle="modal" data-target="#addModal" class="btn btn-primary">添加</button>
@@ -14,7 +14,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">钢瓶列表</h3>
+                <h3 class="panel-title">钢瓶登记列表</h3>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -24,8 +24,8 @@
                                 <th>批号</th>
                                 <th>规格/容积</th>
                                 <th>工艺号</th>
-                                <th>直径</th> 
-                                <th>压力</th> 
+                                <th>直径</th>
+                                <th>压力</th>
                                 <th>操作</th>
                             </tr>
                         </thead>
@@ -44,6 +44,7 @@
                                         <td>
                                             <button type="button" data-toggle="modal" data-target="#updateModal" class="btn-modify btn btn-primary" data-id="@item.Id">编辑</button>
                                             <button type="button" class="btn-delete btn btn-danger" data-id="@item.Id">删除</button>
+                                            <a href="@Url.Action("ProductProcess", "Product", new { batchId = item.Id })" class="btn btn-info">工序责任人录入</a>
                                         </td>
                                     </tr>
                                 }
@@ -60,14 +61,14 @@
 
 @section BodyArea {
     <!-- Modal-->
-    <div id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
+    <div id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" data-dismiss="modal" aria-label="Close" class="close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 id="myModalLabel" class="modal-title">添加钢瓶</h4>
+                    <h4 id="addModalLabel" class="modal-title">钢瓶登记</h4>
                 </div>
                 <div class="modal-body">
                     <form id="addForm">
@@ -99,7 +100,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">直径</label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="Diameter"   class="form-control" />
+                                    <input type="text" name="Diameter" class="form-control" />
                                 </div>
                             </div>
                         </fieldset>
@@ -115,14 +116,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
-                    <button type="button" class="btn btn-primary" id="addsubmit">添加 </button>
+                    <button type="button" class="btn btn-primary" id="addModal_submit">添加 </button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal-->
-    <div id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
+    <div id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form id="updateForm">
@@ -130,7 +131,7 @@
                         <button type="button" data-dismiss="modal" aria-label="Close" class="close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 id="myModalLabel" class="modal-title">修改钢瓶</h4>
+                        <h4 id="updateModalLabel" class="modal-title">修改</h4>
                     </div>
                     <div class="modal-body">
                         <fieldset>
@@ -138,7 +139,7 @@
                                 <label class="col-sm-2 control-label">批号</label>
                                 <div class="col-sm-6">
                                     <input type="text" id="updateModal_batchNo" name="BatchNo" required="required" class="form-control" />
-                                    <input type="hidden" id="updateModal_txtBatchId" name="BatchId" />
+                                    <input type="hidden" id="updateModal_Id" name="BatchId" />
                                 </div>
                             </div>
                         </fieldset>
@@ -162,7 +163,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">直径</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="updateModal_diameter" name="Diameter" required="required"   class="form-control" />
+                                    <input type="text" id="updateModal_diameter" name="Diameter" required="required" class="form-control" />
                                 </div>
                             </div>
                         </fieldset>
@@ -170,14 +171,14 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">压力</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="updateModal_pressure" name="Pressure" required="required"  class="form-control" />
+                                    <input type="text" id="updateModal_pressure" name="Pressure" required="required" class="form-control" />
                                 </div>
                             </div>
                         </fieldset>
                     </div>
                     <div class="modal-footer">
                         <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
-                        <button type="button" class="btn btn-primary" id="updatesubmit">保存</button>
+                        <button type="button" class="btn btn-primary" id="updateModal_submit">保存</button>
                     </div>
                 </form>
             </div>

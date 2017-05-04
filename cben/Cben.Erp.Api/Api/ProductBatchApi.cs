@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cben.Erp.Api
 {
-    public class ProductBatchApi :ApiBase
+    public class ProductBatchApi : ApiBase
     {
         public ApiResult AddProductBatch(AddProductBatchInput input)
         {
@@ -33,7 +33,7 @@ namespace Cben.Erp.Api
         }
 
 
-        public ProductBatchListDto GetProductBatch(long id)
+        public ProductBatchListDto GetProductBatch(int id)
         {
             var result = Request<ApiResult<ProductBatchListDto>>(
                 string.Format("/api/ProductBatch/{0}", id), HttpMethod.GET);

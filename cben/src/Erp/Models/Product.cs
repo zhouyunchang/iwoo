@@ -9,8 +9,16 @@ using System.Threading.Tasks;
 
 namespace Erp.Models
 {
+    /// <summary>
+    /// 产品
+    /// </summary>
     public class Product : FullAuditedEntity<long, User>
     {
+
+        public Product()
+        {
+            ProcessRecords = new List<ProcessRecord>();
+        }
 
         /// <summary>
         /// 产品批次Id

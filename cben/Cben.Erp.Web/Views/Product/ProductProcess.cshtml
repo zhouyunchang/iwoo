@@ -1,0 +1,373 @@
+﻿
+@{
+    ViewBag.Title = "工序责任人";
+
+    var productBatch = ViewBag.ProductBatch as Erp.Application.Product.Dto.ProductBatchListDto;
+    var products = ViewBag.Products as IEnumerable<Erp.Application.Product.Dto.ProductListDto>;
+    var returnUrl = ViewBag.ReturnUrl as string;
+    var processDict = ViewBag.Processes as
+        Dictionary<Erp.Application.Process.ProcessCategoryListDto, IList<Erp.Application.Process.ProcessListDto>>;
+    var employee = ViewBag.Employee as IEnumerable<Erp.Application.Employee.Dto.EmployeeListDto>;
+    int index = 1;
+
+}
+
+<h3>
+    工序责任人
+    <small style="font-size:14px;">工艺号: @productBatch.TechNo</small>
+    <small style="font-size:14px;">产品规格: @productBatch.Spec</small>
+    <small style="font-size:14px;">直径: ∮ @productBatch.Diameter</small>
+</h3>
+
+
+<p>
+    <a href="@returnUrl" class="btn btn-warning">返回</a>
+    <button type="button" data-toggle="modal" data-target="#addProductModal" class="btn btn-primary">添加</button>
+</p>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">工序责任人列表</h3>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive" style="overflow-x: auto;">
+                    <table id="tbProductProcess" style="width: 2000px;" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">#</th>
+                                @foreach (var item in processDict)
+                                {
+                                    <th class="text-center" colspan="@Math.Max(item.Value.Count, 1)">@item.Key.Name</th>
+                                }
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">操作</th>
+                            </tr>
+                            <tr>
+                                @foreach (var item in processDict)
+                                {
+                                    if (item.Value.Count == 0)
+                                    {
+                                        <th style="width:100px;"></th>
+                                    }
+                                    else
+                                    {
+                                        foreach (var p in item.Value)
+                                        {
+                                            <th class="text-center" style="width: 100px; vertical-align: middle;">@p.Name</th>
+                                        }
+                                    }
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var product in products)
+                            {
+                                <tr>
+                                    <td class="text-center" style="width: 100px; vertical-align: middle;">@(index++)</td>
+                                    @foreach (var item in processDict)
+                                    {
+                                        if (item.Value.Count == 0)
+                                        {
+                                            <td class="text-center" style="width: 100px; vertical-align: middle;"></td>
+                                        }
+                                        else
+                                        {
+                                            foreach (var p in item.Value)
+                                            {
+                                                var record = product.ProcessRecords?.Where(i => i.Process.Id == p.Id).FirstOrDefault();
+
+                                                <td class="text-center" style="width: 100px; vertical-align: middle;">@(record?.PersonInChargeString)</td>
+                                            }
+                                        }
+                                    }
+                                    <td class="text-center" style="width: 100px; vertical-align: middle;">
+                                        <button type="button" data-toggle="modal" data-target="#updateProductModal" class="btn-modify btn btn-primary btn-xs" data-id="@product.Id">编辑</button>
+                                        <button type="button" class="btn-delete btn btn-danger btn-xs" data-id="@product.Id">删除</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section BodyArea {
+    <div id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 id="addProductModalLabel" class="modal-title">工序责任人录入</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="addProductForm">
+                        <input type="hidden" name="BatchId" id="hidProductBatchId" value="@productBatch.Id" />
+                        <table class="table table-bordered">
+                            <tbody>
+
+                                @if (processDict != null)
+                                {
+                                    foreach (var item in processDict)
+                                    {
+                                        <tr>
+                                            <td rowspan="@item.Value.Count">@item.Key.Name</td>
+
+                                            @if (item.Value.Count > 0)
+                                            {
+                                                <td>@item.Value[0].Name</td>
+                                                <td>
+                                                    <select name="p_@item.Value[0].Id" multiple="multiple" class="chosen-select form-control">
+                                                        @foreach (var emp in employee)
+                                                        {
+                                                            <option value="@emp.Id">@emp</option>
+                                                        }
+                                                    </select>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                                <td></td>
+                                            }
+                                        </tr>
+
+                                        if (item.Value.Count > 1)
+                                        {
+                                            for (int i = 1; i < item.Value.Count; i++)
+                                            {
+                                                <tr>
+                                                    <td>@item.Value[i].Name</td>
+                                                    <td>
+                                                        <select name="p_@item.Value[i].Id" multiple="multiple" class="chosen-select form-control">
+                                                            @foreach (var emp in employee)
+                                                            {
+                                                                <option value="@emp.Id">@emp</option>
+                                                            }
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                    <button type="button" class="btn btn-primary" id="addProductForm_submit">添加 </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="updateProductModal" tabindex="-1" role="dialog" aria-labelledby="updateProductModalLabel" aria-hidden="true" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="updateProductForm">
+                    <div class="modal-header">
+                        <button type="button" data-dismiss="modal" aria-label="Close" class="close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 id="updateProductModalLabel" class="modal-title">工序责任人录入</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" value="" id="updateProductModal_Id" name="Id" />
+                        <input type="hidden" name="BatchId" id="hidProductBatchId" value="@productBatch.Id" />
+                        <table class="table table-bordered">
+                            <tbody>
+                                @if (processDict != null)
+                                {
+                                    foreach (var item in processDict)
+                                    {
+                                        <tr>
+                                            <td rowspan="@item.Value.Count">@item.Key.Name</td>
+
+                                            @if (item.Value.Count > 0)
+                                            {
+                                                <td>@item.Value[0].Name</td>
+                                                <td>
+                                                    <select name="p_@item.Value[0].Id" multiple="multiple" class="chosen-select form-control">
+                                                        @foreach (var emp in employee)
+                                                        {
+                                                            <option value="@emp.Id">@emp</option>
+                                                        }
+                                                    </select>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                                <td></td>
+                                            }
+                                        </tr>
+
+                                        if (item.Value.Count > 1)
+                                        {
+                                            for (int i = 1; i < item.Value.Count; i++)
+                                            {
+                                                <tr>
+                                                    <td>@item.Value[i].Name</td>
+                                                    <td>
+                                                        <select name="p_@item.Value[i].Id" multiple="multiple" class="chosen-select form-control">
+                                                            @foreach (var emp in employee)
+                                                            {
+                                                                <option value="@emp.Id">@emp</option>
+                                                            }
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                        <button type="button" class="btn btn-primary" id="updateProductForm_submit">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section Styles {
+    @Styles.Render("~/bundles/datatablesCss")
+    @Styles.Render("~/bundles/chosenCss")
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables")
+    @Scripts.Render("~/bundles/parsley")
+    @Scripts.Render("~/bundles/chosen")
+    <script>
+
+        (function (window, document, $, undefined) {
+
+            $(function () {
+
+                $('#tbProductProcess').dataTable({
+                    'scrollX': 500,
+                    'paging': true,
+                    'ordering': false,
+                    'info': true,
+                    'autoWidth': false,
+                    oLanguage: {
+                        sSearch: 'Search all columns:',
+                        sLengthMenu: '_MENU_ records per page',
+                        info: 'Showing page _PAGE_ of _PAGES_',
+                        zeroRecords: 'Nothing found - sorry',
+                        infoEmpty: 'No records available',
+                        infoFiltered: '(filtered from _MAX_ total records)'
+                    }
+                });
+
+                if ($.fn.chosen)
+                    $('.chosen-select').chosen();
+
+                $('#updateProductModal').on('show.bs.modal', function (event) {
+
+                    var button = $(event.relatedTarget);
+                    var id = button.attr('data-id');
+                    var modal = $(this);
+
+                    $.ajax({
+                        url: '/Product/GetProductProcess',
+                        type: 'post',
+                        data: { id: id },
+                        dataType: 'json',
+                        success: function (data) {
+
+                            $('#updateProductModal_Id').val(id);
+
+                            if (data && data.ProcessRecords) {
+                                for (var i = 0; i < data.ProcessRecords.length; i++) {
+                                    var record = data.ProcessRecords[i];
+                                    if (record.PersonInCharge && record.PersonInCharge.length) {
+                                        var vals = [];
+                                        record.PersonInCharge.forEach(function (item) { vals.push(item.Id) });
+                                        $('#updateProductModal').find('[name=p_' + record.Process.Id + ']').val(vals.join(',')).trigger("chosen:updated");
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+                });
+
+
+                $('#addProductForm_submit').click(function () {
+                    $.ajax({
+                        url: '/Product/AddProduct',
+                        type: 'post',
+                        data: $('#addProductForm').serialize(),
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.success) {
+                                $('#addProductModal').modal('hide');
+                                window.location.reload();
+                            } else {
+                                $.notify({ message: data.error, status: 'danger' });
+                            }
+                        }
+                    })
+                });
+
+
+                $('#updateProductForm_submit').click(function () {
+                    $.ajax({
+                        url: '/Product/UpdateProduct',
+                        type: 'post',
+                        data: $('#updateProductForm').serialize(),
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.success) {
+                                $('#updateProductModal').modal('hide');
+                                window.location.reload();
+                            } else {
+                                $.notify({ message: data.error, status: 'danger' });
+                            }
+                        }
+                    })
+                });
+
+                $('.btn-delete').click(function () {
+                    if (!confirm('确认删除')) return;
+
+                    var id = $(this).attr('data-id');
+
+                    $.ajax({
+                        url: '/Product/RemoveProduct',
+                        type: 'post',
+                        data: { id: id },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.success) {
+                                window.location.reload();
+                            } else {
+                                $.notify({ message: data.error, status: 'danger' })
+                            }
+                        }
+                    });
+                });
+
+            });
+
+        })(window, document, jQuery);
+
+    </script>
+
+}

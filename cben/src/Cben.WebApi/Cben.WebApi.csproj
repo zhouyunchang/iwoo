@@ -230,6 +230,7 @@
     <Compile Include="Controllers\ProcessController.cs" />
     <Compile Include="Controllers\ProductBatchController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\WorkStatController.cs" />
     <Compile Include="HttpConfigurationEnv.cs" />
     <Compile Include="Models\Account\LoginFormViewModel.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />

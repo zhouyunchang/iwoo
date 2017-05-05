@@ -63,14 +63,17 @@
     <Compile Include="Process\Dto\UpdateProcessInput.cs" />
     <Compile Include="Product\Dto\AddProductBatchInput.cs" />
     <Compile Include="Product\Dto\AddProductInput.cs" />
+    <Compile Include="Product\Dto\EmployeeWorkStatDto.cs" />
     <Compile Include="Product\Dto\ProductBatchListDto.cs" />
     <Compile Include="Product\Dto\ProductListDto.cs" />
     <Compile Include="Product\Dto\UpdateProductBatchInput.cs" />
     <Compile Include="Product\Dto\UpdateProductInput.cs" />
     <Compile Include="Product\IProductAppService.cs" />
     <Compile Include="Product\IProductBatchAppService.cs" />
+    <Compile Include="Product\IWorkStatAppService.cs" />
     <Compile Include="Product\ProductAppService.cs" />
     <Compile Include="Product\ProductBatchAppService.cs" />
+    <Compile Include="Product\WorkStatAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

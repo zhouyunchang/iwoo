@@ -38,7 +38,41 @@ namespace Erp.Models
         /// <summary>
         /// 工序负责人
         /// </summary>
-        public virtual List<Employee> PersonInCharge { get; set; }
+        public virtual List<ProcessRecordEmployee> PersonInCharge { get; set; }
+
+    }
+
+    public class ProcessRecordEmployee
+    {
+        /// <summary>
+        /// 工序记录Id
+        /// </summary>
+        [Key, Column(Order = 0)]
+        [Required]
+        public virtual Guid ProcessRecordId { get; set; }
+
+        /// <summary>
+        /// 工序记录
+        /// </summary>
+        public virtual ProcessRecord ProcessRecord { get; set; }
+
+
+        /// <summary>
+        /// 人员Id
+        /// </summary>
+        [Key, Column(Order = 1)]
+        [Required]
+        public virtual long EmployeeId { get; set; }
+
+        /// <summary>
+        /// 人员
+        /// </summary>
+        public virtual Employee Employee { get; set; }
+
+        /// <summary>
+        /// 次数
+        /// </summary>
+        public virtual double Times { get; set; }
 
     }
 }

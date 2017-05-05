@@ -3,6 +3,7 @@ namespace Erp.Migrations
     using Cben.Core.Migrations.SeedData;
     using Cben.MultiTenancy;
     using Cben.Zero.EntityFramework;
+    using Erp.Migrations.SeedData;
     using global::EntityFramework.DynamicFilters;
     using System;
     using System.Data.Entity;
@@ -32,6 +33,8 @@ namespace Erp.Migrations
                 //Default tenant seed (in host database).
                 new DefaultTenantCreator(context).Create();
                 new TenantRoleAndUserBuilder(context, 1).Create();
+
+                new DefaultProcessCreator(context).Create();
             }
             else
             {

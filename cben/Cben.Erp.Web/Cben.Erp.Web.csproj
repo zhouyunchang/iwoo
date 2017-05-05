@@ -248,6 +248,7 @@
     <Compile Include="Controllers\StaffManagementController.cs" />
     <Compile Include="Controllers\TablesController.cs" />
     <Compile Include="Controllers\WidgetsController.cs" />
+    <Compile Include="Controllers\WorkController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -692,6 +693,7 @@
     <Content Include="Views\ProductBatch\Index.cshtml" />
     <Content Include="Views\Product\ProcessManage.cshtml" />
     <Content Include="Views\Product\ProductProcess.cshtml" />
+    <Content Include="Views\Work\MonthStat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

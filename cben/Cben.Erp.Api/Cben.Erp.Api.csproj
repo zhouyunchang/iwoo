@@ -129,6 +129,7 @@
     <Compile Include="Api\ProductBatchApi.cs" />
     <Compile Include="Api\UserApi.cs" />
     <Compile Include="Api\ValuesApi.cs" />
+    <Compile Include="Api\WorkStatApi.cs" />
     <Compile Include="Exceptions\NeedAuthorizationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

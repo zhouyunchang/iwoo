@@ -9,6 +9,7 @@ using Erp.Application.Product.Dto;
 using Erp.Repositories;
 using Cben.AutoMapper;
 using Cben.Domain.Uow;
+using Erp.Models;
 
 namespace Erp.Application.Product
 {
@@ -54,11 +55,15 @@ namespace Erp.Application.Product
                     {
                         employee = new List<Models.Employee>();
                     }
-
+                    var recordEmp = employee.Select(i => new ProcessRecordEmployee
+                    {
+                        EmployeeId = i.Id,
+                        Times = 1.0 / employee.Count
+                    }).ToList();
                     prod.ProcessRecords.Add(new Models.ProcessRecord()
                     {
                         ProcessId = record.ProcessId,
-                        PersonInCharge = employee
+                        PersonInCharge = recordEmp
                     });
                 }
             }
@@ -139,10 +144,15 @@ namespace Erp.Application.Product
                     employee = new List<Models.Employee>();
                 }
 
+                var recordEmp = employee.Select(i => new ProcessRecordEmployee
+                {
+                    EmployeeId = i.Id,
+                    Times = 1.0 / employee.Count
+                }).ToList();
                 prod.ProcessRecords.Add(new Models.ProcessRecord()
                 {
                     ProcessId = item.ProcessId,
-                    PersonInCharge = employee
+                    PersonInCharge = recordEmp
                 });
             }
 
@@ -155,7 +165,12 @@ namespace Erp.Application.Product
                 if (item.PersonInCharge != null && item.PersonInCharge.Count > 0)
                 {
                     employee = await _employeeRepository.GetAllListAsync(e => item.PersonInCharge.Contains(e.Id));
-                    record.PersonInCharge.AddRange(employee);
+                    var recordEmp = employee.Select(i => new ProcessRecordEmployee
+                    {
+                        EmployeeId = i.Id,
+                        Times = 1.0 / employee.Count
+                    }).ToList();
+                    record.PersonInCharge.AddRange(recordEmp);
                 }
             }
 

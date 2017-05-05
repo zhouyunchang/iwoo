@@ -840,6 +840,19 @@
             <param name="batchId"></param>
             <returns></returns>
         </member>
+        <member name="M:Cben.WebApi.Controllers.WorkStatController.#ctor(Erp.Application.Product.IWorkStatAppService)">
+            <summary>
+            ctor
+            </summary>
+            <param name="workStatService"></param>
+        </member>
+        <member name="M:Cben.WebApi.Controllers.WorkStatController.MonthStat(System.DateTime)">
+            <summary>
+            月工作量数据
+            </summary>
+            <param name="month"></param>
+            <returns></returns>
+        </member>
         <member name="M:Cben.WebApi.Controllers.IdentityController.GetUserInfo">
             <summary>
             获取当前用户

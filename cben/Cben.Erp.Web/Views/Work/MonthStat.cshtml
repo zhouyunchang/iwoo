@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewBag.Title = "工作统计";
+
+    var processDict = ViewBag.Processes as
+        Dictionary<Erp.Application.Process.ProcessCategoryListDto, IList<Erp.Application.Process.ProcessListDto>>;
+    var employee = ViewBag.Employee as IEnumerable<Erp.Application.Employee.Dto.EmployeeListDto>;
+
+    var workStat = ViewBag.WorkStat as IEnumerable<Erp.Application.Product.Dto.EmployeeWorkStatDto>;
+}
+
+<h3>
+    工作统计
+</h3>
+
+<form role="form" class="form-inline" method="get" action="@Url.Action("MonthStat", "Work")">
+    <p>
+        <div class="form-group">
+            <label class="control-label">月份</label>
+            <div id="datetimepicker_month" class="input-group month">
+                <input type="text" class="form-control" name="month" value="@ViewBag.Month">
+                <span class="input-group-addon">
+                    <span class="fa fa-calendar"></span>
+                </span>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="btn_search">查询</button>
+    </p>
+</form>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">月工作量统计</h3>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive" style="overflow-x: auto;">
+                    <table id="tbWorkStat" style="width: 2000px;" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">员工序号</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">姓名</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">工艺编号</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">产品规格</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">直径</th>
+                                @foreach (var item in processDict)
+                                {
+                                    <th class="text-center" colspan="@Math.Max(item.Value.Count, 1)">@item.Key.Name</th>
+                                }
+                            </tr>
+                            <tr>
+                                @foreach (var item in processDict)
+                                {
+                                    if (item.Value.Count == 0)
+                                    {
+                                        <th style="width:100px;"></th>
+                                    }
+                                    else
+                                    {
+                                        foreach (var p in item.Value)
+                                        {
+                                            <th class="text-center" style="width: 100px; vertical-align: middle;">@p.Name</th>
+                                        }
+                                    }
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var stat in workStat)
+                            {
+                                <tr>
+                                    <td class="text-center" style="vertical-align: middle;">@stat.Employee.SerialNumber</td>
+                                    <td class="text-center" style="vertical-align: middle;">@stat.Employee.User.Name</td>
+                                    <td class="text-center" style="vertical-align: middle;">@stat.ProductBatch.TechNo</td>
+                                    <td class="text-center" style="vertical-align: middle;">@stat.ProductBatch.Spec</td>
+                                    <td class="text-center" style="vertical-align: middle;">@stat.ProductBatch.Diameter</td>
+                                    @foreach (var item in processDict)
+                                    {
+                                        if (item.Value.Count == 0)
+                                        {
+                                            <td class="text-center" style="width: 100px; vertical-align: middle;"></td>
+                                        }
+                                        else
+                                        {
+                                            foreach (var p in item.Value)
+                                            {
+                                                var record = stat.Process?.Where(i => i.ProcessId == p.Id).FirstOrDefault();
+
+                                                <td class="text-center" style="width: 100px; vertical-align: middle;">@(record?.Count)</td>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/bundles/datatablesCss")
+    @Styles.Render("~/bundles/datetimePickerCss")
+}
+@section Scripts {
+
+    @Scripts.Render("~/bundles/datatables")
+    @Scripts.Render("~/bundles/moment")
+    @Scripts.Render("~/bundles/datetimePicker")
+
+    <script>
+
+        (function (window, document, $, undefined) {
+
+            $(function () {
+
+                $('#tbWorkStat').dataTable({
+                    'scrollX': 500,
+                    'paging': true,
+                    'ordering': false,
+                    'info': true,
+                    'autoWidth': false,
+                    oLanguage: {
+                        sSearch: 'Search all columns:',
+                        sLengthMenu: '_MENU_ records per page',
+                        info: 'Showing page _PAGE_ of _PAGES_',
+                        zeroRecords: 'Nothing found - sorry',
+                        infoEmpty: 'No records available',
+                        infoFiltered: '(filtered from _MAX_ total records)'
+                    }
+                });
+
+                // DATETIMEPICKER
+                // -----------------------------------
+                if ($.fn.datetimepicker) {
+                    if (moment)
+                        moment.locale('zh-cn');
+                    // View mode
+                    $('#datetimepicker_month').datetimepicker({
+                        locale: 'zh-cn',
+                        viewMode: 'years',
+                        format: 'YYYY-MM'
+                    });
+                }
+
+            });
+
+        })(window, document, jQuery);
+
+    </script>
+
+}

@@ -5,7 +5,7 @@ namespace Erp.Migrations
     using System.Data.Entity.Infrastructure.Annotations;
     using System.Data.Entity.Migrations;
     
-    public partial class Erp_Initial : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -127,13 +127,30 @@ namespace Erp.Migrations
                 "dbo.Erp_Employee",
                 c => new
                     {
-                        UserId = c.Int(nullable: false, identity: true),
-                        SerialNumber = c.String(nullable: false),
-                        User_Id = c.Long(),
-                    })
-                .PrimaryKey(t => t.UserId)
-                .ForeignKey("dbo.CbenUsers", t => t.User_Id)
-                .Index(t => t.User_Id);
+                        Id = c.Long(nullable: false, identity: true),
+                        SerialNumber = c.String(nullable: false, maxLength: 20),
+                        UserId = c.Long(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                        DeleterUserId = c.Long(),
+                        DeletionTime = c.DateTime(),
+                        LastModificationTime = c.DateTime(),
+                        LastModifierUserId = c.Long(),
+                        CreationTime = c.DateTime(nullable: false),
+                        CreatorUserId = c.Long(),
+                    },
+                annotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_Employee_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.CbenUsers", t => t.CreatorUserId)
+                .ForeignKey("dbo.CbenUsers", t => t.DeleterUserId)
+                .ForeignKey("dbo.CbenUsers", t => t.LastModifierUserId)
+                .ForeignKey("dbo.CbenUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.DeleterUserId)
+                .Index(t => t.LastModifierUserId)
+                .Index(t => t.CreatorUserId);
             
             CreateTable(
                 "dbo.CbenUsers",
@@ -284,6 +301,170 @@ namespace Erp.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.CbenUsers", t => t.UserId)
                 .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.ProcessRecords",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        ProductId = c.Long(nullable: false),
+                        ProcessId = c.Int(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                        DeleterUserId = c.Long(),
+                        DeletionTime = c.DateTime(),
+                        LastModificationTime = c.DateTime(),
+                        LastModifierUserId = c.Long(),
+                        CreationTime = c.DateTime(nullable: false),
+                        CreatorUserId = c.Long(),
+                        Employee_Id = c.Long(),
+                    },
+                annotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_ProcessRecord_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.CbenUsers", t => t.CreatorUserId)
+                .ForeignKey("dbo.CbenUsers", t => t.DeleterUserId)
+                .ForeignKey("dbo.CbenUsers", t => t.LastModifierUserId)
+                .ForeignKey("dbo.Processes", t => t.ProcessId, cascadeDelete: true)
+                .ForeignKey("dbo.Products", t => t.ProductId, cascadeDelete: true)
+                .ForeignKey("dbo.Erp_Employee", t => t.Employee_Id)
+                .Index(t => t.ProductId)
+                .Index(t => t.ProcessId)
+                .Index(t => t.DeleterUserId)
+                .Index(t => t.LastModifierUserId)
+                .Index(t => t.CreatorUserId)
+                .Index(t => t.Employee_Id);
+            
+            CreateTable(
+                "dbo.ProcessRecordEmployees",
+                c => new
+                    {
+                        ProcessRecordId = c.Guid(nullable: false),
+                        EmployeeId = c.Long(nullable: false),
+                        Times = c.Double(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.ProcessRecordId, t.EmployeeId })
+                .ForeignKey("dbo.Erp_Employee", t => t.EmployeeId, cascadeDelete: true)
+                .ForeignKey("dbo.ProcessRecords", t => t.ProcessRecordId, cascadeDelete: true)
+                .Index(t => t.ProcessRecordId)
+                .Index(t => t.EmployeeId);
+            
+            CreateTable(
+                "dbo.Processes",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 20),
+                        CategoryId = c.Int(nullable: false),
+                        OrderNum = c.Int(nullable: false),
+                        GuidePrice = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        IsDeleted = c.Boolean(nullable: false),
+                        DeleterUserId = c.Long(),
+                        DeletionTime = c.DateTime(),
+                        LastModificationTime = c.DateTime(),
+                        LastModifierUserId = c.Long(),
+                        CreationTime = c.DateTime(nullable: false),
+                        CreatorUserId = c.Long(),
+                    },
+                annotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_Process_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.ProcessCategories", t => t.CategoryId, cascadeDelete: true)
+                .ForeignKey("dbo.CbenUsers", t => t.CreatorUserId)
+                .ForeignKey("dbo.CbenUsers", t => t.DeleterUserId)
+                .ForeignKey("dbo.CbenUsers", t => t.LastModifierUserId)
+                .Index(t => t.CategoryId)
+                .Index(t => t.DeleterUserId)
+                .Index(t => t.LastModifierUserId)
+                .Index(t => t.CreatorUserId);
+            
+            CreateTable(
+                "dbo.ProcessCategories",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(maxLength: 20),
+                        OrderNum = c.Int(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                        DeleterUserId = c.Long(),
+                        DeletionTime = c.DateTime(),
+                        LastModificationTime = c.DateTime(),
+                        LastModifierUserId = c.Long(),
+                        CreationTime = c.DateTime(nullable: false),
+                        CreatorUserId = c.Long(),
+                    },
+                annotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_ProcessCategory_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.CbenUsers", t => t.CreatorUserId)
+                .ForeignKey("dbo.CbenUsers", t => t.DeleterUserId)
+                .ForeignKey("dbo.CbenUsers", t => t.LastModifierUserId)
+                .Index(t => t.DeleterUserId)
+                .Index(t => t.LastModifierUserId)
+                .Index(t => t.CreatorUserId);
+            
+            CreateTable(
+                "dbo.Products",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        ProductBatchId = c.Int(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                        DeleterUserId = c.Long(),
+                        DeletionTime = c.DateTime(),
+                        LastModificationTime = c.DateTime(),
+                        LastModifierUserId = c.Long(),
+                        CreationTime = c.DateTime(nullable: false),
+                        CreatorUserId = c.Long(),
+                    },
+                annotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_Product_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.CbenUsers", t => t.CreatorUserId)
+                .ForeignKey("dbo.CbenUsers", t => t.DeleterUserId)
+                .ForeignKey("dbo.CbenUsers", t => t.LastModifierUserId)
+                .ForeignKey("dbo.ProductBatches", t => t.ProductBatchId, cascadeDelete: true)
+                .Index(t => t.ProductBatchId)
+                .Index(t => t.DeleterUserId)
+                .Index(t => t.LastModifierUserId)
+                .Index(t => t.CreatorUserId);
+            
+            CreateTable(
+                "dbo.ProductBatches",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        BatchNo = c.String(nullable: false, maxLength: 20),
+                        Spec = c.String(nullable: false),
+                        TechNo = c.String(nullable: false, maxLength: 20),
+                        Diameter = c.Double(nullable: false),
+                        Pressure = c.Double(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                        DeleterUserId = c.Long(),
+                        DeletionTime = c.DateTime(),
+                        LastModificationTime = c.DateTime(),
+                        LastModifierUserId = c.Long(),
+                        CreationTime = c.DateTime(nullable: false),
+                        CreatorUserId = c.Long(),
+                    },
+                annotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_ProductBatch_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.CbenUsers", t => t.CreatorUserId)
+                .ForeignKey("dbo.CbenUsers", t => t.DeleterUserId)
+                .ForeignKey("dbo.CbenUsers", t => t.LastModifierUserId)
+                .Index(t => t.DeleterUserId)
+                .Index(t => t.LastModifierUserId)
+                .Index(t => t.CreatorUserId);
             
             CreateTable(
                 "dbo.CbenLanguages",
@@ -578,7 +759,32 @@ namespace Erp.Migrations
             DropForeignKey("dbo.CbenRoles", "DeleterUserId", "dbo.CbenUsers");
             DropForeignKey("dbo.CbenRoles", "CreatorUserId", "dbo.CbenUsers");
             DropForeignKey("dbo.CbenOrganizationUnits", "ParentId", "dbo.CbenOrganizationUnits");
-            DropForeignKey("dbo.Erp_Employee", "User_Id", "dbo.CbenUsers");
+            DropForeignKey("dbo.Erp_Employee", "UserId", "dbo.CbenUsers");
+            DropForeignKey("dbo.ProcessRecords", "Employee_Id", "dbo.Erp_Employee");
+            DropForeignKey("dbo.Products", "ProductBatchId", "dbo.ProductBatches");
+            DropForeignKey("dbo.ProductBatches", "LastModifierUserId", "dbo.CbenUsers");
+            DropForeignKey("dbo.ProductBatches", "DeleterUserId", "dbo.CbenUsers");
+            DropForeignKey("dbo.ProductBatches", "CreatorUserId", "dbo.CbenUsers");
+            DropForeignKey("dbo.ProcessRecords", "ProductId", "dbo.Products");
+            DropForeignKey("dbo.Products", "LastModifierUserId", "dbo.CbenUsers");
+            DropForeignKey("dbo.Products", "DeleterUserId", "dbo.CbenUsers");
+            DropForeignKey("dbo.Products", "CreatorUserId", "dbo.CbenUsers");
+            DropForeignKey("dbo.ProcessRecords", "ProcessId", "dbo.Processes");
+            DropForeignKey("dbo.Processes", "LastModifierUserId", "dbo.CbenUsers");
+            DropForeignKey("dbo.Processes", "DeleterUserId", "dbo.CbenUsers");
+            DropForeignKey("dbo.Processes", "CreatorUserId", "dbo.CbenUsers");
+            DropForeignKey("dbo.Processes", "CategoryId", "dbo.ProcessCategories");
+            DropForeignKey("dbo.ProcessCategories", "LastModifierUserId", "dbo.CbenUsers");
+            DropForeignKey("dbo.ProcessCategories", "DeleterUserId", "dbo.CbenUsers");
+            DropForeignKey("dbo.ProcessCategories", "CreatorUserId", "dbo.CbenUsers");
+            DropForeignKey("dbo.ProcessRecordEmployees", "ProcessRecordId", "dbo.ProcessRecords");
+            DropForeignKey("dbo.ProcessRecordEmployees", "EmployeeId", "dbo.Erp_Employee");
+            DropForeignKey("dbo.ProcessRecords", "LastModifierUserId", "dbo.CbenUsers");
+            DropForeignKey("dbo.ProcessRecords", "DeleterUserId", "dbo.CbenUsers");
+            DropForeignKey("dbo.ProcessRecords", "CreatorUserId", "dbo.CbenUsers");
+            DropForeignKey("dbo.Erp_Employee", "LastModifierUserId", "dbo.CbenUsers");
+            DropForeignKey("dbo.Erp_Employee", "DeleterUserId", "dbo.CbenUsers");
+            DropForeignKey("dbo.Erp_Employee", "CreatorUserId", "dbo.CbenUsers");
             DropForeignKey("dbo.CbenSettings", "UserId", "dbo.CbenUsers");
             DropForeignKey("dbo.CbenUserRoles", "UserId", "dbo.CbenUsers");
             DropForeignKey("dbo.CbenPermissions", "UserId", "dbo.CbenUsers");
@@ -601,6 +807,28 @@ namespace Erp.Migrations
             DropIndex("dbo.CbenRoles", new[] { "DeleterUserId" });
             DropIndex("dbo.CbenOrganizationUnits", new[] { "ParentId" });
             DropIndex("dbo.CbenNotificationSubscriptions", new[] { "NotificationName", "EntityTypeName", "EntityId", "UserId" });
+            DropIndex("dbo.ProductBatches", new[] { "CreatorUserId" });
+            DropIndex("dbo.ProductBatches", new[] { "LastModifierUserId" });
+            DropIndex("dbo.ProductBatches", new[] { "DeleterUserId" });
+            DropIndex("dbo.Products", new[] { "CreatorUserId" });
+            DropIndex("dbo.Products", new[] { "LastModifierUserId" });
+            DropIndex("dbo.Products", new[] { "DeleterUserId" });
+            DropIndex("dbo.Products", new[] { "ProductBatchId" });
+            DropIndex("dbo.ProcessCategories", new[] { "CreatorUserId" });
+            DropIndex("dbo.ProcessCategories", new[] { "LastModifierUserId" });
+            DropIndex("dbo.ProcessCategories", new[] { "DeleterUserId" });
+            DropIndex("dbo.Processes", new[] { "CreatorUserId" });
+            DropIndex("dbo.Processes", new[] { "LastModifierUserId" });
+            DropIndex("dbo.Processes", new[] { "DeleterUserId" });
+            DropIndex("dbo.Processes", new[] { "CategoryId" });
+            DropIndex("dbo.ProcessRecordEmployees", new[] { "EmployeeId" });
+            DropIndex("dbo.ProcessRecordEmployees", new[] { "ProcessRecordId" });
+            DropIndex("dbo.ProcessRecords", new[] { "Employee_Id" });
+            DropIndex("dbo.ProcessRecords", new[] { "CreatorUserId" });
+            DropIndex("dbo.ProcessRecords", new[] { "LastModifierUserId" });
+            DropIndex("dbo.ProcessRecords", new[] { "DeleterUserId" });
+            DropIndex("dbo.ProcessRecords", new[] { "ProcessId" });
+            DropIndex("dbo.ProcessRecords", new[] { "ProductId" });
             DropIndex("dbo.CbenSettings", new[] { "UserId" });
             DropIndex("dbo.CbenUserRoles", new[] { "UserId" });
             DropIndex("dbo.CbenPermissions", new[] { "RoleId" });
@@ -610,7 +838,10 @@ namespace Erp.Migrations
             DropIndex("dbo.CbenUsers", new[] { "CreatorUserId" });
             DropIndex("dbo.CbenUsers", new[] { "LastModifierUserId" });
             DropIndex("dbo.CbenUsers", new[] { "DeleterUserId" });
-            DropIndex("dbo.Erp_Employee", new[] { "User_Id" });
+            DropIndex("dbo.Erp_Employee", new[] { "CreatorUserId" });
+            DropIndex("dbo.Erp_Employee", new[] { "LastModifierUserId" });
+            DropIndex("dbo.Erp_Employee", new[] { "DeleterUserId" });
+            DropIndex("dbo.Erp_Employee", new[] { "UserId" });
             DropIndex("dbo.CbenFeatures", new[] { "EditionId" });
             DropIndex("dbo.ClientAuthorizations", new[] { "ClientId" });
             DropIndex("dbo.CbenBackgroundJobs", new[] { "IsAbandoned", "NextTryTime" });
@@ -673,6 +904,32 @@ namespace Erp.Migrations
                     { "DynamicFilter_ApplicationLanguage_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
                     { "DynamicFilter_ApplicationLanguage_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
                 });
+            DropTable("dbo.ProductBatches",
+                removedAnnotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_ProductBatch_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                });
+            DropTable("dbo.Products",
+                removedAnnotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_Product_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                });
+            DropTable("dbo.ProcessCategories",
+                removedAnnotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_ProcessCategory_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                });
+            DropTable("dbo.Processes",
+                removedAnnotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_Process_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                });
+            DropTable("dbo.ProcessRecordEmployees");
+            DropTable("dbo.ProcessRecords",
+                removedAnnotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_ProcessRecord_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                });
             DropTable("dbo.CbenSettings",
                 removedAnnotations: new Dictionary<string, object>
                 {
@@ -706,7 +963,11 @@ namespace Erp.Migrations
                     { "DynamicFilter_User_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
                     { "DynamicFilter_User_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
                 });
-            DropTable("dbo.Erp_Employee");
+            DropTable("dbo.Erp_Employee",
+                removedAnnotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_Employee_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                });
             DropTable("dbo.CbenEditions",
                 removedAnnotations: new Dictionary<string, object>
                 {

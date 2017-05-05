@@ -298,7 +298,7 @@
                                     var record = data.ProcessRecords[i];
                                     if (record.PersonInCharge && record.PersonInCharge.length) {
                                         var vals = [];
-                                        record.PersonInCharge.forEach(function (item) { vals.push(item.Id) });
+                                        record.PersonInCharge.forEach(function (item) { vals.push(item.Employee.Id) });
                                         $('#updateProductModal').find('[name=p_' + record.Process.Id + ']').val(vals.join(',')).trigger("chosen:updated");
                                     }
                                 }

@@ -65,6 +65,9 @@ namespace Cben.WebApi.Configuration
         /// </summary>
         bool SetNoCacheForAllResponses { get; set; }
 
+        /// <summary>
+        /// Http Configuration
+        /// </summary>
         HttpConfiguration HttpConfiguration { get; set; }
     }
 }

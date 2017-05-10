@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using Swashbuckle.Application;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;

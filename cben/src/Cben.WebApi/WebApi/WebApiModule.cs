@@ -35,6 +35,7 @@ using Cben.Localization.Dictionaries;
 using Cben.Localization.Dictionaries.Xml;
 using Erp.Application;
 using Erp;
+using Swashbuckle.Application;
 
 namespace Cben.WebApi
 {
@@ -53,7 +54,7 @@ namespace Cben.WebApi
 
             IocManager.AddConventionalRegistrar(new ApiControllerConventionalRegistrar());
 
-            IocManager.Register<ICbenWebApiConfiguration, CbenWebApiConfiguration>(DependencyLifeStyle.Transient);
+            IocManager.Register<ICbenWebApiConfiguration, CbenWebApiConfiguration>(DependencyLifeStyle.Singleton);
 
             // database based localization
             Configuration.Modules.Zero().LanguageManagement.EnableDbLocalization();
@@ -93,6 +94,14 @@ namespace Cben.WebApi
             InitializeFormatters(httpConfiguration);
             InitializeModelBinders(httpConfiguration);
             InitializeFilters(httpConfiguration);
+
+            // Swagger UI
+            httpConfiguration
+                .EnableSwagger("docs/{apiVersion}/swagger", c => c.SingleApiVersion("v1", "Cben v1 API"))
+                .EnableSwaggerUi("swagger/{*assetPath}");
+
+            Configuration.Modules.WebApi().ResultWrappingIgnoreUrls.Add("/docs");
+            Configuration.Modules.WebApi().ResultWrappingIgnoreUrls.Add("/swagger");
 
             //Configuration.Modules.WebApi().HttpConfiguration.EnsureInitialized();
         }

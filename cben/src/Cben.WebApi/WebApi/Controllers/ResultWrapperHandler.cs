@@ -93,7 +93,8 @@ namespace Cben.WebApi.Controllers
                 return false;
             }
 
-            return _configuration.ResultWrappingIgnoreUrls.Any(url => uri.AbsolutePath.StartsWith(url));
+            return _configuration.ResultWrappingIgnoreUrls
+                .Any(url => uri.AbsolutePath.StartsWith(url, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

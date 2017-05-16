@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <title>home</title>
+    <link href="css/index.css" rel="stylesheet" />
+</head>
+<body ng-app="demo">
+    <div class="demo-home-bg" ng-controller="HomeController as vm">
+        <div class="demo-home ng-cloak demo-home-vertical" ng-cloak>
+            <div class="demo-home-main" >
+                <div class="app-logo" ng-repeat="app in [1,2,3,4,5,6]">
+                    <div>
+                        <img src="images/appicon.png" />
+                    </div>
+                    <p>哈哈哈</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="plugins/angular/angular.min.js"></script>
+<script src="plugins/angular/angular-ui-router.min.js"></script>
+<script src="dest/js/app.min.js"></script>
+<script src="dest/js/template.min.js"></script>

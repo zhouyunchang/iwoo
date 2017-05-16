@@ -1,0 +1,113 @@
+.ng-cloak {
+    display: none;
+}
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.demo-home-bg {
+    background-image: url("../images/home-bg-b.png");
+    background-size: 100% 100%;
+    overflow: auto;
+    height: 100%
+}
+
+.demo-home {
+    margin: auto;
+    position: relative;
+}
+
+.demo-home-vertical {
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.demo-home-vertical-admin {
+    margin-top: 150px;
+}
+
+.demo-home-main {
+    margin: 0 auto;
+    width: 1056px;
+}
+
+    .demo-home-main .app-logo {
+        margin: 0 40px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+        .demo-home-main .app-logo div {
+            position: relative;
+            width: 96px;
+            height: 96px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            border-radius: 24px;
+        }
+
+            .demo-home-main .app-logo div img {
+                width: 100%;
+            }
+
+            .demo-home-main .app-logo div span {
+                position: absolute;
+                top: -10px;
+                right: -10px;
+                background-color: #ff0000;
+                color: #fff;
+                padding: 4px;
+                border-radius: 50%;
+                min-width: 30px;
+                text-align: center;
+                font-size: 16px;
+            }
+
+        .demo-home-main .app-logo p {
+            text-align: center;
+            color: #fff;
+            font-size: 18px;
+            margin: 20px 0 40px;
+            text-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+
+.demo-home-main {
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+}
+
+    .demo-home-main .app-logo {
+        -webkit-transition: all 1s ease-in-out;
+        -moz-transition: all 1s ease-in-out;
+        -o-transition: all 1s ease-in-out;
+        -ms-transition: all 1s ease-in-out;
+        transition: all 1s ease-in-out;
+    }
+
+
+@media (max-width: 1290px) {
+    .demo-home-main {
+        width: 792px;
+    }
+
+        .demo-home-main .app-logo {
+            -webkit-transform: scale(0.9);
+            -moz-transform: scale(0.9);
+            -o-transform: scale(0.9);
+            -ms-transform: scale(0.9);
+            transform: scale(0.9);
+            margin: 0 18px;
+        }
+
+    .demo-home-admin {
+        width: 740px;
+    }
+}
